@@ -229,6 +229,12 @@ public class FunctionFrame extends javax.swing.JFrame {
        dbManager.update(qty1, 1);
        dbManager.update(qty2, 2);
        dbManager.update(qty3, 3);
+       
+       quantityOneLabel.setText("0");
+       quantityTwoLabel.setText("0");
+       quantityThreeLabel.setText("0");
+       
+       
     }//GEN-LAST:event_addAllButtonActionPerformed
 
     /**
