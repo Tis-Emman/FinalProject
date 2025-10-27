@@ -161,7 +161,6 @@ public class DatabaseManager {
             
             ResultSet rs = stmt.executeQuery(query);
             
-            
             while(rs.next()){
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -175,5 +174,29 @@ public class DatabaseManager {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    
+    private String id;
+    
+    
+   public void displayQuantity(int id){
+       
+       String query = "SELECT quantity FROM items WHERE id = ?";
+       
+       try(Connection conn = DriverManager.getConnection(URL);
+           PreparedStatement pstmt = conn.prepareStatement(query)
+               ){
+           
+           pstmt.setInt(1, id);
+           ResultSet rs = pstmt.executeQuery();
+           while(rs.next()){
+               int qnty = rs.getInt(URL);
+               pstmt.executeUpdate();
+           }
+           
+       }catch(SQLException e){
+           
+       }
+   }
+
     
 }

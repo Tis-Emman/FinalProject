@@ -9,7 +9,7 @@ public class Main {
         DatabaseManager dbManager = new DatabaseManager();   
          new FunctionFrame().setVisible(true);
         
-       dbManager.display();
+     
     }
     
     public static void displayItemsId(){
