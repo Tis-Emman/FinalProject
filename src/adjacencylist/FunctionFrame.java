@@ -4,6 +4,13 @@
  */
 package adjacencylist;
 
+import static adjacencylist.DatabaseManager.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import javax.swing.JLabel;
 public class FunctionFrame extends javax.swing.JFrame {
 
@@ -12,6 +19,26 @@ public class FunctionFrame extends javax.swing.JFrame {
      */
     public FunctionFrame() {
         initComponents();
+        String query = "SELECT quantity FROM items WHERE id = ?";
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+                PreparedStatement pstmt = conn.prepareStatement(query)
+                ){
+           
+            pstmt.setInt(1, 1);
+             try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                int qnty = rs.getInt("quantity");
+                System.out.println("Quantity: " + qnty);
+
+                this.totalQuantityOne.setText(String.valueOf(qnty));
+            }
+        }
+            
+            
+        }catch(SQLException e){
+            
+        }
     }
     
     static DatabaseManager dbManager = new DatabaseManager();
@@ -38,6 +65,9 @@ public class FunctionFrame extends javax.swing.JFrame {
         quantityTwoLabel = new javax.swing.JLabel();
         quantityThreeLabel = new javax.swing.JLabel();
         addAllButton = new javax.swing.JButton();
+        totalQuantityOne = new javax.swing.JLabel();
+        totalQuantityTwo = new javax.swing.JLabel();
+        totalQuantityThree = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,10 +132,20 @@ public class FunctionFrame extends javax.swing.JFrame {
             }
         });
 
+        totalQuantityOne.setText("0");
+
+        totalQuantityTwo.setText("0");
+
+        totalQuantityThree.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addAllButton)
+                .addGap(84, 84, 84))
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,11 +172,12 @@ public class FunctionFrame extends javax.swing.JFrame {
                         .addComponent(quantityOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addButtonOne)))
-                .addContainerGap(93, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addAllButton)
-                .addGap(84, 84, 84))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalQuantityOne, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalQuantityTwo)
+                    .addComponent(totalQuantityThree))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,22 +187,25 @@ public class FunctionFrame extends javax.swing.JFrame {
                     .addComponent(minusButtonOne)
                     .addComponent(addButtonOne)
                     .addComponent(jLabel1)
-                    .addComponent(quantityOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(quantityOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalQuantityOne))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(minusButtonTwo)
                     .addComponent(addButtonTwo)
                     .addComponent(jLabel2)
-                    .addComponent(quantityTwoLabel))
+                    .addComponent(quantityTwoLabel)
+                    .addComponent(totalQuantityTwo))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(minusButtonThree)
                     .addComponent(addButtonThree)
                     .addComponent(jLabel3)
-                    .addComponent(quantityThreeLabel))
+                    .addComponent(quantityThreeLabel)
+                    .addComponent(totalQuantityThree))
                 .addGap(29, 29, 29)
                 .addComponent(addAllButton)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
@@ -235,6 +279,27 @@ public class FunctionFrame extends javax.swing.JFrame {
        quantityThreeLabel.setText("0");    
        
        dbManager.display();
+       
+       String query = "SELECT quantity FROM items WHERE id = ?";
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+                PreparedStatement pstmt = conn.prepareStatement(query)
+                ){
+           
+            pstmt.setInt(1, 1);
+             try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                int qnty = rs.getInt("quantity");
+                System.out.println("Quantity: " + qnty);
+
+                this.totalQuantityOne.setText(String.valueOf(qnty));
+            }
+        }
+            
+            
+        }catch(SQLException e){
+            
+        }
     }//GEN-LAST:event_addAllButtonActionPerformed
 
     /**
@@ -286,5 +351,8 @@ public class FunctionFrame extends javax.swing.JFrame {
     private javax.swing.JLabel quantityOneLabel;
     private javax.swing.JLabel quantityThreeLabel;
     private javax.swing.JLabel quantityTwoLabel;
+    public javax.swing.JLabel totalQuantityOne;
+    public javax.swing.JLabel totalQuantityThree;
+    public javax.swing.JLabel totalQuantityTwo;
     // End of variables declaration//GEN-END:variables
 }
