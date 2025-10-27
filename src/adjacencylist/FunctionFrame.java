@@ -232,9 +232,9 @@ public class FunctionFrame extends javax.swing.JFrame {
        
        quantityOneLabel.setText("0");
        quantityTwoLabel.setText("0");
-       quantityThreeLabel.setText("0");
+       quantityThreeLabel.setText("0");    
        
-       
+       dbManager.display();
     }//GEN-LAST:event_addAllButtonActionPerformed
 
     /**

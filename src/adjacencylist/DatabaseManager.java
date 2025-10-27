@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
+import java.sql.ResultSet;
 
 public class DatabaseManager {
     
@@ -147,6 +148,31 @@ public class DatabaseManager {
         
         catch(SQLException e){
             System.out.println("Error "  + e.getMessage());
+        }
+    }
+    
+    public void display(){
+        
+        String query = "SELECT * FROM items";
+        
+        try{
+            Connection conn = DriverManager.getConnection(URL);
+            Statement stmt = conn.createStatement();
+            
+            ResultSet rs = stmt.executeQuery(query);
+            
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int price = rs.getInt("price");
+                int qnty = rs.getInt("quantity");
+                
+                System.out.println("ID: " + id + " | Name: " + name + " | Price: " + price + " | Quantity: " + qnty);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
         }
     }
     
