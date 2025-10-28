@@ -19,28 +19,39 @@ public class FunctionFrame extends javax.swing.JFrame {
      */
     public FunctionFrame() {
         initComponents();
-        String query = "SELECT quantity FROM items WHERE id = ?";
+        display(1);
+        display(2);
+        display(3);
+    }
+    
+    
+    public void display(int id){
+          String query = "SELECT quantity FROM items WHERE id = ?";
         
         try(Connection conn = DriverManager.getConnection(URL);
                 PreparedStatement pstmt = conn.prepareStatement(query)
                 ){
            
-            pstmt.setInt(1, 1);
+            pstmt.setInt(1, id);
              try (ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {
                 int qnty = rs.getInt("quantity");
                 System.out.println("Quantity: " + qnty);
-
-                this.totalQuantityOne.setText(String.valueOf(qnty));
+                 
+                if(id == 1){
+                    this.totalQuantityOne.setText(String.valueOf(qnty));
+                }else if(id == 2){
+                    this.totalQuantityTwo.setText(String.valueOf(qnty));
+                }else if(id == 3){
+                    this.totalQuantityThree.setText(String.valueOf(qnty));
+                }
+                
             }
         }
-            
-            
         }catch(SQLException e){
-            
+            System.out.println("Error: " + e.getMessage()); 
         }
     }
-    
     static DatabaseManager dbManager = new DatabaseManager();
 
     /**
@@ -280,26 +291,9 @@ public class FunctionFrame extends javax.swing.JFrame {
        
        dbManager.display();
        
-       String query = "SELECT quantity FROM items WHERE id = ?";
-        
-        try(Connection conn = DriverManager.getConnection(URL);
-                PreparedStatement pstmt = conn.prepareStatement(query)
-                ){
-           
-            pstmt.setInt(1, 1);
-             try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                int qnty = rs.getInt("quantity");
-                System.out.println("Quantity: " + qnty);
-
-                this.totalQuantityOne.setText(String.valueOf(qnty));
-            }
-        }
-            
-            
-        }catch(SQLException e){
-            
-        }
+       display(1);
+       display(2);
+       display(3);
     }//GEN-LAST:event_addAllButtonActionPerformed
 
     /**
