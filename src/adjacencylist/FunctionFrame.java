@@ -19,19 +19,33 @@ public class FunctionFrame extends javax.swing.JFrame {
      */
     public FunctionFrame() {
         initComponents();
-        String query = "SELECT quantity FROM items WHERE id = ?";
+        this.setQuantity(1);
+        this.setQuantity(2);
+        this.setQuantity(3);
         
+    }
+    
+    public void setQuantity(int id){
+         String query = "SELECT quantity FROM items WHERE id = ?";
+         
         try(Connection conn = DriverManager.getConnection(URL);
                 PreparedStatement pstmt = conn.prepareStatement(query)
                 ){
            
-            pstmt.setInt(1, 1);
+            pstmt.setInt(1, id);
              try (ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {
                 int qnty = rs.getInt("quantity");
                 System.out.println("Quantity: " + qnty);
 
-                this.totalQuantityOne.setText(String.valueOf(qnty));
+                if(id == 1){
+                    this.totalQuantityOne.setText(String.valueOf(qnty));
+                } else if(id == 2){
+                    this.totalQuantityTwo.setText(String.valueOf(qnty));
+                } else if(id == 3){
+                    this.totalQuantityThree.setText(String.valueOf(qnty));
+                }
+                
             }
         }
             
@@ -68,6 +82,7 @@ public class FunctionFrame extends javax.swing.JFrame {
         totalQuantityOne = new javax.swing.JLabel();
         totalQuantityTwo = new javax.swing.JLabel();
         totalQuantityThree = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,51 +153,58 @@ public class FunctionFrame extends javax.swing.JFrame {
 
         totalQuantityThree.setText("0");
 
+        jLabel4.setText("Quantity");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addAllButton)
-                .addGap(84, 84, 84))
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(addAllButton)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(minusButtonThree)
-                        .addGap(18, 18, 18)
-                        .addComponent(quantityThreeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addButtonThree))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(minusButtonTwo)
-                        .addGap(18, 18, 18)
-                        .addComponent(quantityTwoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addButtonTwo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(minusButtonOne)
-                        .addGap(18, 18, 18)
-                        .addComponent(quantityOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButtonOne)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(minusButtonThree)
+                                .addGap(18, 18, 18)
+                                .addComponent(quantityThreeLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addButtonThree))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(minusButtonTwo)
+                                .addGap(18, 18, 18)
+                                .addComponent(quantityTwoLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addButtonTwo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(minusButtonOne)
+                                .addGap(18, 18, 18)
+                                .addComponent(quantityOneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addButtonOne)))))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(totalQuantityOne, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(totalQuantityTwo)
                     .addComponent(totalQuantityThree))
                 .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(minusButtonOne)
                     .addComponent(addButtonOne)
@@ -203,9 +225,9 @@ public class FunctionFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(quantityThreeLabel)
                     .addComponent(totalQuantityThree))
-                .addGap(29, 29, 29)
+                .addGap(28, 28, 28)
                 .addComponent(addAllButton)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,28 +300,9 @@ public class FunctionFrame extends javax.swing.JFrame {
        quantityTwoLabel.setText("0");
        quantityThreeLabel.setText("0");    
        
-       dbManager.display();
-       
-       String query = "SELECT quantity FROM items WHERE id = ?";
-        
-        try(Connection conn = DriverManager.getConnection(URL);
-                PreparedStatement pstmt = conn.prepareStatement(query)
-                ){
-           
-            pstmt.setInt(1, 1);
-             try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                int qnty = rs.getInt("quantity");
-                System.out.println("Quantity: " + qnty);
-
-                this.totalQuantityOne.setText(String.valueOf(qnty));
-            }
-        }
-            
-            
-        }catch(SQLException e){
-            
-        }
+       this.setQuantity(1);
+       this.setQuantity(2);
+       this.setQuantity(3);
     }//GEN-LAST:event_addAllButtonActionPerformed
 
     /**
@@ -345,6 +348,7 @@ public class FunctionFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton minusButtonOne;
     private javax.swing.JButton minusButtonThree;
     private javax.swing.JButton minusButtonTwo;
