@@ -8,8 +8,7 @@ public class Main {
         
         DatabaseManager dbManager = new DatabaseManager();   
          new FunctionFrame().setVisible(true);
-        
-     
+         new MainFrame().setVisible(true);
     }
     
     public static void displayItemsId(){
