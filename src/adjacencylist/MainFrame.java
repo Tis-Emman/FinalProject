@@ -10,10 +10,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-        scaleImage();
+        scaleImage("/src/aux_1.jpg");
     }
     
-    private void scaleImage() {
+    private void scaleImage(String src) {
     ImageIcon icon = new ImageIcon(getClass().getResource("/src/aux_1.jpg"));
     Image img = icon.getImage();
     Image imgScale = img.getScaledInstance(aux_1.getWidth(), aux_1.getHeight(), Image.SCALE_SMOOTH);
@@ -72,7 +72,6 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {

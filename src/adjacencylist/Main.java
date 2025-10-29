@@ -2,13 +2,13 @@ package adjacencylist;
 
 import java.util.Scanner;
 
+
 public class Main {
    
     public static void main(String[] args) {
         
         DatabaseManager dbManager = new DatabaseManager();   
-         new FunctionFrame().setVisible(true);
-         new MainFrame().setVisible(true);
+         new SignUpFrame().setVisible(true);
     }
     
     public static void displayItemsId(){
