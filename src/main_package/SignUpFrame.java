@@ -114,7 +114,6 @@ public class SignUpFrame extends javax.swing.JFrame {
         createAccountButton.setText("Log In");
 
         jLabel6.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel6.setText("WTFFF");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,11 +144,11 @@ public class SignUpFrame extends javax.swing.JFrame {
                                 .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(146, 146, 146))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(signUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(200, 200, 200))))))
+                                .addGap(200, 200, 200))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,9 +170,9 @@ public class SignUpFrame extends javax.swing.JFrame {
                 .addComponent(signUpPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(signUpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(createAccountButton))
@@ -197,19 +196,16 @@ public class SignUpFrame extends javax.swing.JFrame {
        String email =  emailTextField.getText().trim();
        String password = new String(signUpPasswordTextField.getPassword()); 
        
-       // dbManager.checkEmailExist(email);
+       dbManager.checkEmailExist(email, jLabel6);
         
-       if(password.length() <= 8){
-           System.out.println("Password must be greater than 8 characters!");
-       } else if(fullName.isEmpty() || email.isEmpty() || password.isEmpty()){
-            jLabel6.setText("Please fill out all the forms!");
-        } else{
-            jLabel6.setText("");
-            dbManager.insertUserInfo(fullName, email, password);
-        }
-       
-        
-        
+         if(fullName.isEmpty() || email.isEmpty() || password.isEmpty()){
+          jLabel6.setText("Please fill out all the forms!");
+       } else if(password.length() <= 8){
+          jLabel6.setText("Password must be greater than 8 characters!");
+        } else {
+          jLabel6.setText("");
+          dbManager.insertUserInfo(fullName, email, password);
+       }       
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     /**
