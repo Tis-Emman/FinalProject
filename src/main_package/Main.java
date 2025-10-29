@@ -1,4 +1,4 @@
-package adjacencylist;
+package main_package;
 
 import java.util.Scanner;
 

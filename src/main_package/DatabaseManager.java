@@ -1,4 +1,4 @@
-package adjacencylist;
+package main_package;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,11 +7,14 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 import java.sql.ResultSet;
+import javax.swing.JLabel;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 public class DatabaseManager {
     
     static String URL = "jdbc:sqlite:inventory.db";
-
+    
     public void insertAll(String name, String category, int price, int quantity){
         
         String sql = "INSERT INTO items (name, category, price, quantity) VALUES (?, ?, ?, ?) ";
@@ -30,6 +33,49 @@ public class DatabaseManager {
             System.out.println("ERROR: " + e.getMessage());
         }  
     }
+    
+    public void insertUserInfo(String fullName, String email, String password){
+        
+        String sql = "INSERT INTO users (full_name, email, password) VAlUES (?, ?, ?)";
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+                PreparedStatement pstmt = conn.prepareStatement(sql)
+                ){
+            pstmt.setString(1, fullName);
+            pstmt.setString(2, email);
+            String hashedPass = BCrypt.hashpw(password, BCrypt.gensalt());
+            pstmt.setString(3, hashedPass);
+            
+            pstmt.executeUpdate();
+            System.out.println("Info inserted succesfully!");
+            
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    public void checkEmailExist(String email, JLabel label){
+        
+        String sql = "SELECT * FROM users WHERE email = ?";
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+            PreparedStatement pstmt = conn.prepareStatement(sql)
+                ){
+                
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if(rs.next()){
+               label.setText("Email is already registered");
+            }else{
+               label.setText("");
+            }
+            }catch(SQLException e){
+                System.out.println("Error: " + e.getMessage());
+            }
+    }
+    
+    
     
     /*
     public void insertName(String name){
