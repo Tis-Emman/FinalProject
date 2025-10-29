@@ -8,6 +8,7 @@ package adjacencylist;
  *
  * @author user
  */
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class SignUpFrame extends javax.swing.JFrame {
@@ -15,6 +16,9 @@ public class SignUpFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginFrame
      */
+    
+    SignInFrame signIn = new SignInFrame();
+    
     public SignUpFrame() {
         initComponents();
        
@@ -22,23 +26,10 @@ public class SignUpFrame extends javax.swing.JFrame {
         setResizable(false);
         ImageManager manager = new ImageManager();
         manager.scaleImage("/src/blackCat.png", blackCat);
-        addLabelListener(createAccountButton);
-        signUpButton.setFocusable(false);
-        
-    }
-    
-    public void addLabelListener(JLabel label){
-        label.addMouseListener(new java.awt.event.MouseAdapter(){
-            
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e){
-                new MainFrame().setVisible(true);
-            }
-        });
+        Listener.addLabelListener(createAccountButton, this, signIn);
+        signUpButton.setFocusable(false);   
     }
 
-    
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,12 +118,12 @@ public class SignUpFrame extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel5.setText("Don't have an account?");
+        jLabel5.setText("Already have an account?");
 
         createAccountButton.setBackground(new java.awt.Color(102, 153, 255));
         createAccountButton.setFont(new java.awt.Font("Segoe UI Historic", 1, 12)); // NOI18N
         createAccountButton.setForeground(new java.awt.Color(102, 153, 255));
-        createAccountButton.setText("Create an account");
+        createAccountButton.setText("Log In");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,11 +137,6 @@ public class SignUpFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(createAccountButton))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -163,8 +149,15 @@ public class SignUpFrame extends javax.swing.JFrame {
                         .addContainerGap(104, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(171, 171, 171))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(171, 171, 171))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(146, 146, 146))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +203,13 @@ public class SignUpFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_emailTextFieldActionPerformed
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
-        // TODO add your handling code here:
+       String fullName = fullNameTextField.getText().toString().trim();
+       String email =  emailTextField.getText().toString().trim();
+       String password = passwordTextField.getText().toString().trim();
+       
+        System.out.println("Full Name: " + fullName);
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
     }//GEN-LAST:event_signUpButtonActionPerformed
 
     /**
