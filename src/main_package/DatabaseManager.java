@@ -47,14 +47,13 @@ public class DatabaseManager {
             pstmt.setString(3, hashedPass);
             
             pstmt.executeUpdate();
-            System.out.println("Info inserted succesfully!");
             
         }catch(SQLException e){
             System.out.println("Error: " + e.getMessage());
         }
     }
     
-    public void checkEmailExist(String email, JLabel label){
+    public boolean checkEmailExist(String email, JLabel label){
         
         String sql = "SELECT * FROM users WHERE email = ?";
         
@@ -65,18 +64,43 @@ public class DatabaseManager {
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
             
-            if(rs.next()){
-               label.setText("Email is already registered");
-            }else{
-               label.setText("");
-            }
+            return rs.next();
+            
             }catch(SQLException e){
                 System.out.println("Error: " + e.getMessage());
+                return false;
             }
     }
     
-    
-    
+    public boolean readEmailPass(String email, String password){
+        
+        String sql = "SELECT password FROM users WHERE email = ?";
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+            PreparedStatement pstmt = conn.prepareStatement(sql)
+                ){
+            
+            pstmt.setString(1, email);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            if(rs.next()){
+                String storedHash = rs.getString("password");
+                
+                
+                if(BCrypt.checkpw(password, storedHash)){
+                    return true;
+                }else{
+                    return false;
+                }
+            } else{
+                return false;
+            }
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
     /*
     public void insertName(String name){
 
