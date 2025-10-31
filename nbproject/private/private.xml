@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/Main.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/DatabaseManager.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/FunctionFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/MainFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/ShopFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/SignUpFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/SignInFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/adjacencylist/Listener.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/DashboardFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/DatabaseManager.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/FunctionFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/Main.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/ShopFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/LoginFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/SignUpFrame.java</file>
         </group>
     </open-files>
 </project-private>

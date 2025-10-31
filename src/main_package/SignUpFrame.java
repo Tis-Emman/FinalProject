@@ -45,7 +45,7 @@ public class SignUpFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 238, 130));
 
         blackCat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/blackCat.png"))); // NOI18N
         blackCat.setText("jLabel6");
@@ -68,7 +68,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setForeground(new java.awt.Color(145, 225, 161));
         jLabel1.setText("SIGN UP");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

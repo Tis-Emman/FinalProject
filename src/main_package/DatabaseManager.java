@@ -101,24 +101,6 @@ public class DatabaseManager {
             return false;
         }
     }
-    /*
-    public void insertName(String name){
-
-        String sql = "INSERT INTO items (name) VALUES (?) ";
-        
-        try(Connection conn = DriverManager.getConnection(URL);
-                PreparedStatement pstmt = conn.prepareStatement(sql)
-                ){
-            pstmt.setString(1, name);
-            pstmt.executeUpdate();
-            System.out.println(name + " inserted into items!");
-            
-        }catch(SQLException e){
-            System.out.println("Error! " + e.getMessage());
-        }
-    }
-
-*/
     
     public void subtractQnty(int quantityToSubtract, int id){
         String sql = "UPDATE items SET quantity = quantity - ? WHERE id = ?";
@@ -133,8 +115,7 @@ public class DatabaseManager {
             
             if(rows > 0){
                 System.out.println("Quantity updated!");
-            }
-            
+            }    
         }catch(SQLException e){
             e.printStackTrace();
             e.getMessage();
@@ -155,7 +136,6 @@ public class DatabaseManager {
             if(rows > 0){
                 System.out.println("Quantity updated!");
             }
-            
         }catch(SQLException e){
             System.out.println("Error!");
         }
@@ -175,7 +155,6 @@ public class DatabaseManager {
                 System.out.println("Items updated!");
             }
         }
-        
         catch(SQLException e){
             System.out.println("Error "  + e.getMessage());
         }  
@@ -215,7 +194,6 @@ public class DatabaseManager {
                 System.out.println("Items updated!");
             }
         }
-        
         catch(SQLException e){
             System.out.println("Error "  + e.getMessage());
         }
@@ -263,10 +241,7 @@ public class DatabaseManager {
                pstmt.executeUpdate();
            }
            
-       }catch(SQLException e){
-           
+       }catch(SQLException e){   
        }
    }
-
-    
 }

@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         
         DatabaseManager dbManager = new DatabaseManager();   
-         new SignUpFrame().setVisible(true);
+          // new SignUpFrame().setVisible(true);
+          new DashboardFrame().setVisible(true);
     }
     
     public static void displayItemsId(){
