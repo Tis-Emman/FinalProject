@@ -18,6 +18,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         JLayeredPane layeredPane = new JLayeredPane();
         JPanel newPanel = new JPanel();
         JPanel topFrame = new JPanel();
+        JPanel bottomFrame = new JPanel();
         
         newPanel.setBackground(new Color(255, 255, 254));
         newPanel.setBounds(0, 0, 1400, 120);
@@ -25,6 +26,9 @@ public class DashboardFrame extends javax.swing.JFrame {
         
         topFrame.setBackground(new Color(25, 145, 77));
         topFrame.setBounds(0, 0, 1250, 30);
+        
+        bottomFrame.setBackground(new Color(25, 145, 77));
+        bottomFrame.setBounds(0, 680, 1400, 105);
          
         initComponents();
         setLocationRelativeTo(null);
@@ -48,6 +52,8 @@ public class DashboardFrame extends javax.swing.JFrame {
        
        
        add(newPanel);
+       add(bottomFrame);
+       
        hideAllPanels();
        setPanelSizes();
        landingPanel.setVisible(true);
@@ -319,7 +325,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(22, 22, 22)
                 .addComponent(newProductsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bakeryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -341,7 +347,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addComponent(button9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(25, 145, 77));
@@ -366,6 +372,8 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLayeredPane1.setBackground(new java.awt.Color(102, 102, 255));
 
+        landingPanel.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setText("landing page");
 
         javax.swing.GroupLayout landingPanelLayout = new javax.swing.GroupLayout(landingPanel);
@@ -385,6 +393,8 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addContainerGap(527, Short.MAX_VALUE))
         );
 
+        newProductsPanel.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setText("new produts");
 
         javax.swing.GroupLayout newProductsPanelLayout = new javax.swing.GroupLayout(newProductsPanel);
@@ -401,9 +411,12 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(newProductsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(538, Short.MAX_VALUE))
+                .addContainerGap(529, Short.MAX_VALUE))
         );
 
+        bakeryPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("bakery");
 
         javax.swing.GroupLayout bakeryPanelLayout = new javax.swing.GroupLayout(bakeryPanel);
@@ -420,9 +433,12 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(bakeryPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(542, Short.MAX_VALUE))
+                .addContainerGap(527, Short.MAX_VALUE))
         );
 
+        butcheryPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("butchery");
 
         javax.swing.GroupLayout butcheryPanelLayout = new javax.swing.GroupLayout(butcheryPanel);
@@ -439,8 +455,10 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(butcheryPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addContainerGap(537, Short.MAX_VALUE))
+                .addContainerGap(528, Short.MAX_VALUE))
         );
+
+        seaFoodsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel5.setText("seafoods");
 
@@ -461,6 +479,9 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addContainerGap(537, Short.MAX_VALUE))
         );
 
+        readyMealsPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ready meals");
 
         javax.swing.GroupLayout readyMealsPanelLayout = new javax.swing.GroupLayout(readyMealsPanel);
@@ -477,9 +498,12 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(readyMealsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(540, Short.MAX_VALUE))
+                .addContainerGap(527, Short.MAX_VALUE))
         );
 
+        vegetablesPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("vegetables");
 
         javax.swing.GroupLayout vegetablesPanelLayout = new javax.swing.GroupLayout(vegetablesPanel);
@@ -499,6 +523,9 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addContainerGap(525, Short.MAX_VALUE))
         );
 
+        fruitsPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("fruits");
 
         javax.swing.GroupLayout fruitsPanelLayout = new javax.swing.GroupLayout(fruitsPanel);
@@ -515,9 +542,12 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(fruitsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addContainerGap(527, Short.MAX_VALUE))
+                .addContainerGap(522, Short.MAX_VALUE))
         );
 
+        groceryPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("grocery");
 
         javax.swing.GroupLayout groceryPanelLayout = new javax.swing.GroupLayout(groceryPanel);
@@ -537,6 +567,9 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addContainerGap(526, Short.MAX_VALUE))
         );
 
+        snacksPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("snacks");
 
         javax.swing.GroupLayout snacksPanelLayout = new javax.swing.GroupLayout(snacksPanel);
@@ -556,6 +589,9 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addContainerGap(527, Short.MAX_VALUE))
         );
 
+        dessertsPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("desserts");
 
         javax.swing.GroupLayout dessertsPanelLayout = new javax.swing.GroupLayout(dessertsPanel);
@@ -574,6 +610,8 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addContainerGap(525, Short.MAX_VALUE))
         );
+
+        winesPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel12.setText("wines");
 
@@ -680,17 +718,17 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(newProductsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(23, 23, 23)))
+                    .addGap(32, 32, 32)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(bakeryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(19, Short.MAX_VALUE)))
+                    .addContainerGap(34, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(9, 9, 9)
                     .addComponent(butcheryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+                    .addContainerGap(30, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addGap(15, 15, 15)
@@ -700,7 +738,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(readyMealsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(21, Short.MAX_VALUE)))
+                    .addContainerGap(34, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap(27, Short.MAX_VALUE)
@@ -708,7 +746,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                     .addContainerGap(15, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap(26, Short.MAX_VALUE)
+                    .addContainerGap(20, Short.MAX_VALUE)
                     .addComponent(fruitsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(14, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
