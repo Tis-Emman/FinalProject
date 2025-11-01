@@ -21,6 +21,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         signUpButton.setFocusable(false); 
         setDefaultCloseOperation(SignUpFrame.EXIT_ON_CLOSE);        
         
+        
     }
 
     @SuppressWarnings("unchecked")

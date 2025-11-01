@@ -20,7 +20,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         JPanel topFrame = new JPanel();
         
         newPanel.setBackground(new Color(255, 255, 254));
-        newPanel.setBounds(0, 0, 1250, 120);
+        newPanel.setBounds(0, 0, 1400, 120);
         newPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
         
         topFrame.setBackground(new Color(25, 145, 77));
@@ -31,9 +31,9 @@ public class DashboardFrame extends javax.swing.JFrame {
         setResizable(false);
         jPanel1.setBorder(new MatteBorder(0, 0, 0, 3, new Color(25, 145, 77)));
         
-       defaultLeft(button1);
-       defaultLeft(button2);
-       defaultLeft(button3);
+       defaultLeft(bakeryButton);
+       defaultLeft(butcheryButton);
+       defaultLeft(seafoodsButton);
        defaultLeft(button4);
        defaultLeft(button5);
        defaultLeft(button6);
@@ -45,13 +45,46 @@ public class DashboardFrame extends javax.swing.JFrame {
        
        Listener.addLabelListener(gotoLoginButton, this, loginFrame);
        Listener.addLabelListener(gotoLoginImage, this, loginFrame);
-
-       add(newPanel);
        
+       
+       add(newPanel);
+       hideAllPanels();
+       setPanelSizes();
+       landingPanel.setVisible(true);
     }
     
-    public void defaultLeft(JButton btn){
+    private void defaultLeft(JButton btn){
          btn.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 20, 0,0)));
+    }
+    
+    private void setPanelSizes() {
+    int width = 975;
+    int height = 550;
+
+    newProductsPanel.setSize(width, height);
+    readyMealsPanel.setSize(width, height);
+    seaFoodsPanel.setSize(width, height);
+    dessertsPanel.setSize(width, height);
+    fruitsPanel.setSize(width, height);
+    bakeryPanel.setSize(width, height);
+    butcheryPanel.setSize(width, height);
+    vegetablesPanel.setSize(width, height);
+    groceryPanel.setSize(width, height);
+}
+    
+    private void hideAllPanels(){
+        newProductsPanel.setVisible(false);
+        readyMealsPanel.setVisible(false);
+        seaFoodsPanel.setVisible(false);
+        dessertsPanel.setVisible(false);
+        fruitsPanel.setVisible(false);
+        bakeryPanel.setVisible(false);
+        butcheryPanel.setVisible(false);
+        vegetablesPanel.setVisible(false);
+        groceryPanel.setVisible(false);
+        snacksPanel.setVisible(false);
+        winesPanel.setVisible(false);
+        landingPanel.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -61,10 +94,11 @@ public class DashboardFrame extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        button1 = new javax.swing.JButton();
-        button2 = new javax.swing.JButton();
-        button3 = new javax.swing.JButton();
+        bakeryButton = new javax.swing.JButton();
+        butcheryButton = new javax.swing.JButton();
+        seafoodsButton = new javax.swing.JButton();
         button4 = new javax.swing.JButton();
         button5 = new javax.swing.JButton();
         button6 = new javax.swing.JButton();
@@ -76,50 +110,86 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         gotoLoginImage = new javax.swing.JLabel();
         gotoLoginButton = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        landingPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        newProductsPanel = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        bakeryPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        butcheryPanel = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        seaFoodsPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        readyMealsPanel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        vegetablesPanel = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        fruitsPanel = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        groceryPanel = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        snacksPanel = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        dessertsPanel = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        winesPanel = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 254));
 
-        button1.setBackground(new java.awt.Color(255, 255, 254));
-        button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bakery icon.png"))); // NOI18N
-        button1.setText("Bakery");
-        button1.setBorder(null);
-        button1.setFocusable(false);
-        button1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        button1.setIconTextGap(14);
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        bakeryButton.setBackground(new java.awt.Color(255, 255, 254));
+        bakeryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bakery icon.png"))); // NOI18N
+        bakeryButton.setText("Bakery");
+        bakeryButton.setBorder(null);
+        bakeryButton.setFocusable(false);
+        bakeryButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bakeryButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        bakeryButton.setIconTextGap(14);
+        bakeryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                bakeryButtonActionPerformed(evt);
             }
         });
 
-        button2.setBackground(new java.awt.Color(255, 255, 254));
-        button2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/butchery icon.png"))); // NOI18N
-        button2.setText("Butchery");
-        button2.setBorder(null);
-        button2.setFocusable(false);
-        button2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button2.setIconTextGap(14);
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        butcheryButton.setBackground(new java.awt.Color(255, 255, 254));
+        butcheryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/butchery icon.png"))); // NOI18N
+        butcheryButton.setText("Butchery");
+        butcheryButton.setBorder(null);
+        butcheryButton.setFocusable(false);
+        butcheryButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        butcheryButton.setIconTextGap(14);
+        butcheryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                butcheryButtonActionPerformed(evt);
             }
         });
 
-        button3.setBackground(new java.awt.Color(255, 255, 254));
-        button3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/seafoods icon.png"))); // NOI18N
-        button3.setText("Seafoods");
-        button3.setBorder(null);
-        button3.setFocusable(false);
-        button3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button3.setIconTextGap(14);
-        button3.setInheritsPopupMenu(true);
-        button3.addActionListener(new java.awt.event.ActionListener() {
+        seafoodsButton.setBackground(new java.awt.Color(255, 255, 254));
+        seafoodsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/seafoods icon.png"))); // NOI18N
+        seafoodsButton.setText("Seafoods");
+        seafoodsButton.setBorder(null);
+        seafoodsButton.setFocusable(false);
+        seafoodsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        seafoodsButton.setIconTextGap(14);
+        seafoodsButton.setInheritsPopupMenu(true);
+        seafoodsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button3ActionPerformed(evt);
+                seafoodsButtonActionPerformed(evt);
             }
         });
 
@@ -233,30 +303,30 @@ public class DashboardFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(seafoodsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butcheryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bakeryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(newProductsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                    .addComponent(newProductsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                     .addComponent(button10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(51, 51, 51)
                 .addComponent(newProductsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bakeryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(butcheryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(seafoodsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -271,7 +341,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addComponent(button9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(25, 145, 77));
@@ -294,6 +364,375 @@ public class DashboardFrame extends javax.swing.JFrame {
         gotoLoginButton.setForeground(new java.awt.Color(153, 153, 153));
         gotoLoginButton.setText("LOGIN");
 
+        jLayeredPane1.setBackground(new java.awt.Color(102, 102, 255));
+
+        jLabel1.setText("landing page");
+
+        javax.swing.GroupLayout landingPanelLayout = new javax.swing.GroupLayout(landingPanel);
+        landingPanel.setLayout(landingPanelLayout);
+        landingPanelLayout.setHorizontalGroup(
+            landingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(landingPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(935, Short.MAX_VALUE))
+        );
+        landingPanelLayout.setVerticalGroup(
+            landingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(landingPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(527, Short.MAX_VALUE))
+        );
+
+        jLabel2.setText("new produts");
+
+        javax.swing.GroupLayout newProductsPanelLayout = new javax.swing.GroupLayout(newProductsPanel);
+        newProductsPanel.setLayout(newProductsPanelLayout);
+        newProductsPanelLayout.setHorizontalGroup(
+            newProductsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newProductsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(932, Short.MAX_VALUE))
+        );
+        newProductsPanelLayout.setVerticalGroup(
+            newProductsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newProductsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(538, Short.MAX_VALUE))
+        );
+
+        jLabel3.setText("bakery");
+
+        javax.swing.GroupLayout bakeryPanelLayout = new javax.swing.GroupLayout(bakeryPanel);
+        bakeryPanel.setLayout(bakeryPanelLayout);
+        bakeryPanelLayout.setHorizontalGroup(
+            bakeryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bakeryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(963, Short.MAX_VALUE))
+        );
+        bakeryPanelLayout.setVerticalGroup(
+            bakeryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bakeryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addContainerGap(542, Short.MAX_VALUE))
+        );
+
+        jLabel4.setText("butchery");
+
+        javax.swing.GroupLayout butcheryPanelLayout = new javax.swing.GroupLayout(butcheryPanel);
+        butcheryPanel.setLayout(butcheryPanelLayout);
+        butcheryPanelLayout.setHorizontalGroup(
+            butcheryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(butcheryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(945, Short.MAX_VALUE))
+        );
+        butcheryPanelLayout.setVerticalGroup(
+            butcheryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(butcheryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addContainerGap(537, Short.MAX_VALUE))
+        );
+
+        jLabel5.setText("seafoods");
+
+        javax.swing.GroupLayout seaFoodsPanelLayout = new javax.swing.GroupLayout(seaFoodsPanel);
+        seaFoodsPanel.setLayout(seaFoodsPanelLayout);
+        seaFoodsPanelLayout.setHorizontalGroup(
+            seaFoodsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seaFoodsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(933, Short.MAX_VALUE))
+        );
+        seaFoodsPanelLayout.setVerticalGroup(
+            seaFoodsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seaFoodsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addContainerGap(537, Short.MAX_VALUE))
+        );
+
+        jLabel6.setText("ready meals");
+
+        javax.swing.GroupLayout readyMealsPanelLayout = new javax.swing.GroupLayout(readyMealsPanel);
+        readyMealsPanel.setLayout(readyMealsPanelLayout);
+        readyMealsPanelLayout.setHorizontalGroup(
+            readyMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(readyMealsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(898, Short.MAX_VALUE))
+        );
+        readyMealsPanelLayout.setVerticalGroup(
+            readyMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(readyMealsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addContainerGap(540, Short.MAX_VALUE))
+        );
+
+        jLabel7.setText("vegetables");
+
+        javax.swing.GroupLayout vegetablesPanelLayout = new javax.swing.GroupLayout(vegetablesPanel);
+        vegetablesPanel.setLayout(vegetablesPanelLayout);
+        vegetablesPanelLayout.setHorizontalGroup(
+            vegetablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vegetablesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(942, Short.MAX_VALUE))
+        );
+        vegetablesPanelLayout.setVerticalGroup(
+            vegetablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(vegetablesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addContainerGap(525, Short.MAX_VALUE))
+        );
+
+        jLabel8.setText("fruits");
+
+        javax.swing.GroupLayout fruitsPanelLayout = new javax.swing.GroupLayout(fruitsPanel);
+        fruitsPanel.setLayout(fruitsPanelLayout);
+        fruitsPanelLayout.setHorizontalGroup(
+            fruitsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fruitsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addContainerGap(971, Short.MAX_VALUE))
+        );
+        fruitsPanelLayout.setVerticalGroup(
+            fruitsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fruitsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addContainerGap(527, Short.MAX_VALUE))
+        );
+
+        jLabel9.setText("grocery");
+
+        javax.swing.GroupLayout groceryPanelLayout = new javax.swing.GroupLayout(groceryPanel);
+        groceryPanel.setLayout(groceryPanelLayout);
+        groceryPanelLayout.setHorizontalGroup(
+            groceryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(groceryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(932, Short.MAX_VALUE))
+        );
+        groceryPanelLayout.setVerticalGroup(
+            groceryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(groceryPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(526, Short.MAX_VALUE))
+        );
+
+        jLabel10.setText("snacks");
+
+        javax.swing.GroupLayout snacksPanelLayout = new javax.swing.GroupLayout(snacksPanel);
+        snacksPanel.setLayout(snacksPanelLayout);
+        snacksPanelLayout.setHorizontalGroup(
+            snacksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(snacksPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addContainerGap(963, Short.MAX_VALUE))
+        );
+        snacksPanelLayout.setVerticalGroup(
+            snacksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(snacksPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addContainerGap(527, Short.MAX_VALUE))
+        );
+
+        jLabel11.setText("desserts");
+
+        javax.swing.GroupLayout dessertsPanelLayout = new javax.swing.GroupLayout(dessertsPanel);
+        dessertsPanel.setLayout(dessertsPanelLayout);
+        dessertsPanelLayout.setHorizontalGroup(
+            dessertsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dessertsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addContainerGap(943, Short.MAX_VALUE))
+        );
+        dessertsPanelLayout.setVerticalGroup(
+            dessertsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dessertsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addContainerGap(525, Short.MAX_VALUE))
+        );
+
+        jLabel12.setText("wines");
+
+        javax.swing.GroupLayout winesPanelLayout = new javax.swing.GroupLayout(winesPanel);
+        winesPanel.setLayout(winesPanelLayout);
+        winesPanelLayout.setHorizontalGroup(
+            winesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(winesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addContainerGap(952, Short.MAX_VALUE))
+        );
+        winesPanelLayout.setVerticalGroup(
+            winesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(winesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel12)
+                .addContainerGap(528, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.setLayer(landingPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(newProductsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(bakeryPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(butcheryPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(seaFoodsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(readyMealsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(vegetablesPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(fruitsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(groceryPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(snacksPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(dessertsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(winesPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(landingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(newProductsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(bakeryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(9, 9, 9)
+                    .addComponent(butcheryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(9, 9, 9)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(15, 15, 15)
+                    .addComponent(seaFoodsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(15, 15, 15)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(21, 21, 21)
+                    .addComponent(readyMealsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(28, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(vegetablesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(fruitsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(groceryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(snacksPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(dessertsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(winesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(landingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newProductsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(bakeryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(19, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(9, 9, 9)
+                    .addComponent(butcheryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(21, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(15, 15, 15)
+                    .addComponent(seaFoodsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(15, 15, 15)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(readyMealsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(21, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(27, Short.MAX_VALUE)
+                    .addComponent(vegetablesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(15, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(26, Short.MAX_VALUE)
+                    .addComponent(fruitsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(14, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(groceryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(snacksPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(dessertsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(winesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -301,28 +740,35 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 950, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(gotoLoginButton)
-                        .addGap(3, 3, 3))
-                    .addComponent(gotoLoginImage))
-                .addGap(159, 159, 159))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(gotoLoginButton)
+                            .addComponent(gotoLoginImage))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(28, 28, 28)
                 .addComponent(gotoLoginImage)
                 .addGap(2, 2, 2)
                 .addComponent(gotoLoginButton)
-                .addGap(25, 25, 25)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         pack();
@@ -331,60 +777,83 @@ public class DashboardFrame extends javax.swing.JFrame {
     private JButton selectedButton = null;
     private boolean isClicked = false;
  
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void bakeryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bakeryButtonActionPerformed
 
-       selectButton(button1);
-       addLeftGreenColor(button1);
-    }//GEN-LAST:event_button1ActionPerformed
+       selectButton(bakeryButton);
+       addLeftGreenColor(bakeryButton);
+       hideAllPanels();
+       bakeryPanel.setVisible(true);
+    }//GEN-LAST:event_bakeryButtonActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
-       selectButton(button2);
-       addLeftGreenColor(button2);
-    }//GEN-LAST:event_button2ActionPerformed
+    private void butcheryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butcheryButtonActionPerformed
+       selectButton(butcheryButton);
+       addLeftGreenColor(butcheryButton);
+       hideAllPanels();
+       butcheryPanel.setVisible(true);
+       
+    }//GEN-LAST:event_butcheryButtonActionPerformed
 
-    private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
-       selectButton(button3);
-       addLeftGreenColor(button3);
-    }//GEN-LAST:event_button3ActionPerformed
+    private void seafoodsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seafoodsButtonActionPerformed
+       selectButton(seafoodsButton);
+       addLeftGreenColor(seafoodsButton);
+       hideAllPanels();
+       seaFoodsPanel.setVisible(true);
+    }//GEN-LAST:event_seafoodsButtonActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
        selectButton(button4);
        addLeftGreenColor(button4);
+       hideAllPanels();
+       readyMealsPanel.setVisible(true);
     }//GEN-LAST:event_button4ActionPerformed
 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
        selectButton(button5);
        addLeftGreenColor(button5);
+       hideAllPanels();
+       vegetablesPanel.setVisible(true);
     }//GEN-LAST:event_button5ActionPerformed
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
        selectButton(button6);
        addLeftGreenColor(button6);
+       hideAllPanels();
+       fruitsPanel.setVisible(true);
     }//GEN-LAST:event_button6ActionPerformed
 
     private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
        selectButton(button7);
        addLeftGreenColor(button7);
+       hideAllPanels();
+       groceryPanel.setVisible(true);
     }//GEN-LAST:event_button7ActionPerformed
 
     private void button8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button8ActionPerformed
        selectButton(button8);
        addLeftGreenColor(button8);
+       hideAllPanels();
+       snacksPanel.setVisible(true);
     }//GEN-LAST:event_button8ActionPerformed
 
     private void button9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button9ActionPerformed
        selectButton(button9);
        addLeftGreenColor(button9);
+       hideAllPanels();
+       dessertsPanel.setVisible(true);
     }//GEN-LAST:event_button9ActionPerformed
-
+    
     private void newProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProductsButtonActionPerformed
-        selectButton(newProductsButton);
+       selectButton(newProductsButton);
        addLeftGreenColor(newProductsButton);
+       hideAllPanels();
+       newProductsPanel.setVisible(true);
     }//GEN-LAST:event_newProductsButtonActionPerformed
 
     private void button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button10ActionPerformed
        selectButton(button10);
        addLeftGreenColor(button10);
+       hideAllPanels();
+       winesPanel.setVisible(true);
     }//GEN-LAST:event_button10ActionPerformed
 
     
@@ -419,10 +888,11 @@ public class DashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton button1;
+    private javax.swing.JButton bakeryButton;
+    private javax.swing.JPanel bakeryPanel;
+    private javax.swing.JButton butcheryButton;
+    private javax.swing.JPanel butcheryPanel;
     private javax.swing.JButton button10;
-    private javax.swing.JButton button2;
-    private javax.swing.JButton button3;
     private javax.swing.JButton button4;
     private javax.swing.JButton button5;
     private javax.swing.JButton button6;
@@ -431,12 +901,37 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton button9;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JPanel dessertsPanel;
+    private javax.swing.JPanel fruitsPanel;
     private javax.swing.JLabel gotoLoginButton;
     private javax.swing.JLabel gotoLoginImage;
+    private javax.swing.JPanel groceryPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel landingPanel;
     private javax.swing.JButton newProductsButton;
+    private javax.swing.JPanel newProductsPanel;
+    private javax.swing.JPanel readyMealsPanel;
+    private javax.swing.JPanel seaFoodsPanel;
+    private javax.swing.JButton seafoodsButton;
+    private javax.swing.JPanel snacksPanel;
+    private javax.swing.JPanel vegetablesPanel;
+    private javax.swing.JPanel winesPanel;
     // End of variables declaration//GEN-END:variables
 
 }
