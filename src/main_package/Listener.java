@@ -19,7 +19,7 @@ public class Listener {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e){
                 targetedFrame.setVisible(true);
-                targetedFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                targetedFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 currentFrame.dispose();
             }
         });

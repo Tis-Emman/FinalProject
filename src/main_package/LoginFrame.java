@@ -5,14 +5,18 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.event.*;
 import javax.swing.border.LineBorder;
 
 
 public class LoginFrame extends javax.swing.JFrame {
-   static LoginFrame frames = new LoginFrame();
+
+   private static DashboardFrame dashBoardFrame;
+   static LoginFrame frames = new LoginFrame(dashBoardFrame);
    static DatabaseManager dbManager = new DatabaseManager();
    
-    public LoginFrame() {
+    public LoginFrame(DashboardFrame dashBoardFrame) {
+        this.dashBoardFrame = dashBoardFrame;
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
@@ -20,6 +24,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginButton.setFocusable(false);
         setDefaultCloseOperation(LoginFrame.EXIT_ON_CLOSE);
     }
+    
     
     //To be fixed!
     public static void addLabelListener(JLabel label, JFrame currentFrame, JFrame targetedFrame){
@@ -149,22 +154,29 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_loginEmailTextFieldActionPerformed
 
+    
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-
+   
         String email = loginEmailTextField.getText().trim();
         String password = new String(loginPasswordTextField.getPassword());
-           
-      
-        
+
         if(dbManager.readEmailPass(email, password)){
-            JOptionPane.showMessageDialog(rootPane, "Succesully logged in!");
-            new DashboardFrame().setVisible(true);
+            JOptionPane.showMessageDialog(rootPane, "Successfully logged in!");
+
+            DashboardFrame dbFrame = new DashboardFrame(true, email);
+
+            // System.out.println(getEmail());
+            
+            dbFrame.setVisible(true);
+            
             this.dispose();
-        }  else if(email.isEmpty() || password.isEmpty()){
-        warningLabel.setText("Please, fill out all the fields");
-        } else{
+            
+            
+        } else if(email.isEmpty() || password.isEmpty()){
+            warningLabel.setText("Please, fill out all the fields");
+        } else {
             warningLabel.setText("User not registered!");
-        }  
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     public static void main(String args[]) {
@@ -195,7 +207,7 @@ public class LoginFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginFrame().setVisible(true);
+                new LoginFrame(dashBoardFrame).setVisible(true);
             }
         });
     }

@@ -102,6 +102,27 @@ public class DatabaseManager {
         }
     }
     
+    public String retrieveUsername(String email){
+        String sql = "SELECT full_name FROM users WHERE email = ?";
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+           PreparedStatement pstmt = conn.prepareStatement(sql);
+                ){
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("full_name");
+            }else{
+                System.out.println("No name found");
+                return null;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public void subtractQnty(int quantityToSubtract, int id){
         String sql = "UPDATE items SET quantity = quantity - ? WHERE id = ?";
         

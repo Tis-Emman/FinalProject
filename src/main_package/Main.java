@@ -8,8 +8,15 @@ public class Main {
     public static void main(String[] args) {
         
         DatabaseManager dbManager = new DatabaseManager();   
-          // new SignUpFrame().setVisible(true);
-          new DashboardFrame().setVisible(true);
+         //new SignUpFrame().setVisible(true);
+         new DashboardFrame(false, null).setVisible(true);
+       String username = dbManager.retrieveUsername("emman123@gmail.com");
+       
+       if(username != null){
+             System.out.println(username);
+       }else{
+           System.out.println("WADAPAK");
+       }
     }
     
     public static void displayItemsId(){
