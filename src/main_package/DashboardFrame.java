@@ -3,21 +3,37 @@ package main_package;
 import java.awt.Color;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 public class DashboardFrame extends javax.swing.JFrame {
-    
+    private static int[] categoryCounters = new int[11];
     static boolean isLoggedIn;
     SignUpFrame signUpFrame = new SignUpFrame();
     DatabaseManager dbManager = new DatabaseManager();
     
     LoginFrame loginFrame = new LoginFrame(this);
     
+    public static JLabel[] category1Slots;
+    public static JLabel[] category2Slots;
+    public static JLabel[] category3Slots;
+    public static JLabel[] category4Slots;
+    public static JLabel[] category5Slots;
+    public static JLabel[] category6Slots;
+    public static JLabel[] category7Slots;
+    public static JLabel[] category8Slots;
+    public static JLabel[] category9Slots;
+    public static JLabel[] category10Slots;
+    public static JLabel[] category11Slots;
+    
     public DashboardFrame(boolean isLoggedIn, String email) {
+
         JLayeredPane layeredPane = new JLayeredPane();
         JPanel newPanel = new JPanel();
         JPanel topFrame = new JPanel();
@@ -30,16 +46,31 @@ public class DashboardFrame extends javax.swing.JFrame {
         topFrame.setBackground(new Color(25, 145, 77));
         topFrame.setBounds(0, 0, 1600, 30);
         
-        bottomFrame.setBackground(new Color(25, 145, 77));
+        bottomFrame.setBackground(new Color(228, 166, 107));
         bottomFrame.setBounds(0, 680, 1600, 105);
         bottomFrame.setLayout(null);
         
+        
+        setBackground(new Color(251, 239, 215));
        
         
         initComponents();
+        
+        category1Slots = new JLabel[] {newProductsSlot1, newProductsSlot2, newProductsSlot3, newProductsSlot4, newProductsSlot5, newProductsSlot6, newProductsSlot7, newProductsSlot8};
+        category2Slots = new JLabel[] {bakerySlot1, bakerySlot2, bakerySlot3, bakerySlot4, bakerySlot5, bakerySlot6, bakerySlot7, bakerySlot8};
+        category3Slots = new JLabel[] {butcherySlot1, butcherySlot2, butcherySlot3, butcherySlot4, butcherySlot5, butcherySlot6, butcherySlot7, butcherySlot8};
+        category4Slots = new JLabel[] {seafoodsSlot1, seafoodsSlot2, seafoodsSlot3, seafoodsSlot4, seafoodsSlot5, seafoodsSlot6, seafoodsSlot7, seafoodsSlot8};
+        category5Slots = new JLabel[] {readyMealsSlot1, readyMealsSlot2, readyMealsSlot3, readyMealsSlot4, readyMealsSlot5, readyMealsSlot6, readyMealsSlot7, readyMealsSlot8};
+        category6Slots = new JLabel[] {vegetablesSlot1, vegetablesSlot2, vegetablesSlot3, vegetablesSlot4, vegetablesSlot5, vegetablesSlot6, vegetablesSlot7, vegetablesSlot8};
+        category7Slots = new JLabel[] {fruitsSlot1, fruitsSlot2, fruitsSlot3, fruitsSlot4, fruitsSlot5, fruitsSlot6, fruitsSlot7, fruitsSlot8};
+        category8Slots = new JLabel[] {grocerySlot1, grocerySlot2, grocerySlot3, grocerySlot4, grocerySlot5, grocerySlot6, grocerySlot7, grocerySlot8};
+        category9Slots = new JLabel[] {snacksSlot1, snacksSlot2, snacksSlot3, snacksSlot4, snacksSlot5, snacksSlot6, snacksSlot7, snacksSlot8};
+        category10Slots = new JLabel[] {dessertsSlot1, dessertsSlot2, dessertsSlot3, dessertsSlot4, dessertsSlot5, dessertsSlot6, dessertsSlot7, dessertsSlot8};
+        category11Slots = new JLabel[] {winesSlot1, winesSlot2, winesSlot3, winesSlot4, winesSlot5, winesSlot6, winesSlot7, winesSlot8};
+        
         setLocationRelativeTo(null);
         setResizable(false);
-        sidebarPanel.setBorder(new MatteBorder(0, 0, 0, 3, new Color(25, 145, 77)));
+        sidebarPanel.setBorder(new MatteBorder(0, 0, 0, 3, new Color(228, 166, 107)));
            
        
         
@@ -59,6 +90,10 @@ public class DashboardFrame extends javax.swing.JFrame {
        Listener.addLabelListener(gotoLoginImage, this, loginFrame);
        Listener.addLabelListener(gotoRegisterImage, this, signUpFrame);
        Listener.addLabelListener(gotoRegisterButton, this, signUpFrame);
+       
+       Listener.showPanel(jLabel15, landingPanel);
+       
+       
        
        add(newPanel);
        add(bottomFrame);
@@ -83,6 +118,41 @@ public class DashboardFrame extends javax.swing.JFrame {
        landingPanel.setVisible(true);
     }
     
+        public static void addProductToCategory(int category, ImageIcon image, String name) {
+        JLabel[] slots = null;
+
+        switch (category) {
+            case 1: slots = category1Slots; break;
+            case 2: slots = category2Slots; break;
+            case 3: slots = category3Slots; break;
+            case 4: slots = category4Slots; break;
+            case 5: slots = category5Slots; break;
+            case 6: slots = category6Slots; break;
+            case 7: slots = category7Slots; break;
+            case 8: slots = category8Slots; break;
+            case 9: slots = category9Slots; break;
+            case 10: slots = category10Slots; break;
+            case 11: slots = category11Slots; break;
+            default:
+                JOptionPane.showMessageDialog(null, "Invalid category number!");
+                return;
+        }
+
+        int index = categoryCounters[category - 1];
+        if (index >= slots.length) {
+            JOptionPane.showMessageDialog(null, "All slots for this category are full!");
+            return;
+        }
+
+        JLabel slot = slots[index];
+        slot.setIcon(image);
+        slot.setText(name);
+        slot.setHorizontalTextPosition(SwingConstants.CENTER);
+        slot.setVerticalTextPosition(SwingConstants.BOTTOM);
+
+        categoryCounters[category - 1]++;
+    }
+    
     private void defaultLeft(JButton btn){
          btn.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 20, 0,0)));
     }
@@ -102,7 +172,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     groceryPanel.setSize(width, height);
 }
     
-    private void hideAllPanels(){
+    public void hideAllPanels(){
         newProductsPanel.setVisible(false);
         readyMealsPanel.setVisible(false);
         seaFoodsPanel.setVisible(false);
@@ -142,56 +212,119 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         landingPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel21 = new javax.swing.JLabel();
         newProductsPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        jPanel20 = new javax.swing.JPanel();
-        jPanel21 = new javax.swing.JPanel();
-        jPanel23 = new javax.swing.JPanel();
-        jPanel24 = new javax.swing.JPanel();
-        jPanel25 = new javax.swing.JPanel();
+        newProductsSlot1 = new javax.swing.JLabel();
+        newProductsSlot3 = new javax.swing.JLabel();
+        newProductsSlot4 = new javax.swing.JLabel();
+        newProductsSlot2 = new javax.swing.JLabel();
+        newProductsSlot6 = new javax.swing.JLabel();
+        newProductsSlot5 = new javax.swing.JLabel();
+        newProductsSlot7 = new javax.swing.JLabel();
+        newProductsSlot8 = new javax.swing.JLabel();
         bakeryPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel16 = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
-        jPanel19 = new javax.swing.JPanel();
+        bakerySlot5 = new javax.swing.JLabel();
+        bakerySlot1 = new javax.swing.JLabel();
+        bakerySlot2 = new javax.swing.JLabel();
+        bakerySlot6 = new javax.swing.JLabel();
+        bakerySlot7 = new javax.swing.JLabel();
+        bakerySlot3 = new javax.swing.JLabel();
+        bakerySlot4 = new javax.swing.JLabel();
+        bakerySlot8 = new javax.swing.JLabel();
         butcheryPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
+        butcherySlot5 = new javax.swing.JLabel();
+        butcherySlot1 = new javax.swing.JLabel();
+        butcherySlot2 = new javax.swing.JLabel();
+        butcherySlot6 = new javax.swing.JLabel();
+        butcherySlot7 = new javax.swing.JLabel();
+        butcherySlot3 = new javax.swing.JLabel();
+        butcherySlot4 = new javax.swing.JLabel();
+        butcherySlot8 = new javax.swing.JLabel();
         readyMealsPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        readyMealsSlot4 = new javax.swing.JLabel();
+        readyMealsSlot8 = new javax.swing.JLabel();
+        readyMealsSlot7 = new javax.swing.JLabel();
+        readyMealsSlot3 = new javax.swing.JLabel();
+        readyMealsSlot2 = new javax.swing.JLabel();
+        readyMealsSlot6 = new javax.swing.JLabel();
+        readyMealsSlot5 = new javax.swing.JLabel();
+        readyMealsSlot1 = new javax.swing.JLabel();
         vegetablesPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        vegetablesSlot4 = new javax.swing.JLabel();
+        vegetablesSlot8 = new javax.swing.JLabel();
+        vegetablesSlot7 = new javax.swing.JLabel();
+        vegetablesSlot3 = new javax.swing.JLabel();
+        vegetablesSlot2 = new javax.swing.JLabel();
+        vegetablesSlot6 = new javax.swing.JLabel();
+        vegetablesSlot5 = new javax.swing.JLabel();
+        vegetablesSlot1 = new javax.swing.JLabel();
         fruitsPanel = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        fruitsSlot4 = new javax.swing.JLabel();
+        fruitsSlot8 = new javax.swing.JLabel();
+        fruitsSlot7 = new javax.swing.JLabel();
+        fruitsSlot3 = new javax.swing.JLabel();
+        fruitsSlot2 = new javax.swing.JLabel();
+        fruitsSlot6 = new javax.swing.JLabel();
+        fruitsSlot5 = new javax.swing.JLabel();
+        fruitsSlot1 = new javax.swing.JLabel();
         groceryPanel = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        grocerySlot4 = new javax.swing.JLabel();
+        grocerySlot8 = new javax.swing.JLabel();
+        grocerySlot7 = new javax.swing.JLabel();
+        grocerySlot3 = new javax.swing.JLabel();
+        grocerySlot2 = new javax.swing.JLabel();
+        grocerySlot6 = new javax.swing.JLabel();
+        grocerySlot5 = new javax.swing.JLabel();
+        grocerySlot1 = new javax.swing.JLabel();
         snacksPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        snacksSlot4 = new javax.swing.JLabel();
+        snacksSlot8 = new javax.swing.JLabel();
+        snacksSlot7 = new javax.swing.JLabel();
+        snacksSlot3 = new javax.swing.JLabel();
+        snacksSlot2 = new javax.swing.JLabel();
+        snacksSlot6 = new javax.swing.JLabel();
+        snacksSlot5 = new javax.swing.JLabel();
+        snacksSlot1 = new javax.swing.JLabel();
         dessertsPanel = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        dessertsSlot4 = new javax.swing.JLabel();
+        dessertsSlot8 = new javax.swing.JLabel();
+        dessertsSlot7 = new javax.swing.JLabel();
+        dessertsSlot3 = new javax.swing.JLabel();
+        dessertsSlot2 = new javax.swing.JLabel();
+        dessertsSlot6 = new javax.swing.JLabel();
+        dessertsSlot5 = new javax.swing.JLabel();
+        dessertsSlot1 = new javax.swing.JLabel();
         winesPanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        winesSlot4 = new javax.swing.JLabel();
+        winesSlot8 = new javax.swing.JLabel();
+        winesSlot7 = new javax.swing.JLabel();
+        winesSlot3 = new javax.swing.JLabel();
+        winesSlot2 = new javax.swing.JLabel();
+        winesSlot6 = new javax.swing.JLabel();
+        winesSlot5 = new javax.swing.JLabel();
+        winesSlot1 = new javax.swing.JLabel();
         seaFoodsPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        seafoodsSlot4 = new javax.swing.JLabel();
+        seafoodsSlot8 = new javax.swing.JLabel();
+        seafoodsSlot7 = new javax.swing.JLabel();
+        seafoodsSlot3 = new javax.swing.JLabel();
+        seafoodsSlot2 = new javax.swing.JLabel();
+        seafoodsSlot6 = new javax.swing.JLabel();
+        seafoodsSlot5 = new javax.swing.JLabel();
+        seafoodsSlot1 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         gotoLoginImage = new javax.swing.JLabel();
         gotoLoginButton = new javax.swing.JLabel();
         gotoRegisterImage = new javax.swing.JLabel();
@@ -199,6 +332,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         myCartImage = new javax.swing.JLabel();
         myCartButton = new javax.swing.JLabel();
         cartCount = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -214,7 +348,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jButton3.setText("jButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(243, 243, 243));
 
         sidebarPanel.setBackground(new java.awt.Color(255, 255, 254));
 
@@ -410,7 +544,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(25, 145, 77));
+        jPanel2.setBackground(new java.awt.Color(228, 166, 107));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -424,6 +558,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         );
 
         jLayeredPane1.setBackground(new java.awt.Color(102, 102, 255));
+        jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         landingPanel.setBackground(new java.awt.Color(243, 243, 243));
         landingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -432,509 +567,369 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel1.setText("landing page");
         landingPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        jButton1.setText("-");
-        landingPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 70, -1));
+        jLayeredPane1.add(landingPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 553));
 
-        jButton2.setText("+ ");
-        landingPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 90, -1));
-
-        jLabel21.setText("TEST THAT SHIT");
-        landingPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, -1, -1));
-
-        newProductsPanel.setBackground(new java.awt.Color(243, 243, 243));
+        newProductsPanel.setBackground(new java.awt.Color(238, 238, 238));
         newProductsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setBackground(new java.awt.Color(243, 243, 243));
         jLabel2.setText("new products");
         newProductsPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(205, 28, 160, 161));
+        newProductsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 170, 161));
+        newProductsSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
 
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 170, 161));
+        newProductsSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 160, 161));
+        newProductsSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
 
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 30, 170, 160));
+        newProductsSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
 
-        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 30, 170, 160));
+        newProductsSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
 
-        jPanel22.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 170, 161));
+        newProductsSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
 
-        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 160, 161));
+        newProductsSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        newProductsPanel.add(newProductsSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
 
-        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 160, 161));
+        jLayeredPane1.add(newProductsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 538));
 
-        jPanel23.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 250, 170, 161));
-
-        jPanel24.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 250, 170, 160));
-
-        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        newProductsPanel.add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 250, 170, 160));
-
-        bakeryPanel.setBackground(new java.awt.Color(243, 243, 243));
+        bakeryPanel.setBackground(new java.awt.Color(238, 238, 238));
         bakeryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(243, 243, 243));
         jLabel3.setText("bakery");
         bakeryPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+        bakerySlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        bakerySlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
 
-        bakeryPanel.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, 161));
+        bakerySlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
 
-        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+        bakerySlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        bakerySlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
 
-        bakeryPanel.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, -1, 161));
+        bakerySlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
 
-        jPanel16.setBackground(new java.awt.Color(255, 255, 255));
+        bakerySlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        bakerySlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        bakeryPanel.add(bakerySlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
 
-        bakeryPanel.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, -1, 161));
+        jLayeredPane1.add(bakeryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 545));
 
-        jPanel17.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 161, Short.MAX_VALUE)
-        );
-
-        bakeryPanel.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
-
-        jPanel18.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        bakeryPanel.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 40, -1, 161));
-
-        jPanel19.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        bakeryPanel.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 40, -1, 161));
-
-        butcheryPanel.setBackground(new java.awt.Color(243, 243, 243));
+        butcheryPanel.setBackground(new java.awt.Color(238, 238, 238));
+        butcheryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setBackground(new java.awt.Color(243, 243, 243));
         jLabel4.setText("butchery");
+        butcheryPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        butcherySlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 134, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 130, Short.MAX_VALUE)
-        );
+        butcherySlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
 
-        javax.swing.GroupLayout butcheryPanelLayout = new javax.swing.GroupLayout(butcheryPanel);
-        butcheryPanel.setLayout(butcheryPanelLayout);
-        butcheryPanelLayout.setHorizontalGroup(
-            butcheryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(butcheryPanelLayout.createSequentialGroup()
-                .addGroup(butcheryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(butcheryPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4))
-                    .addGroup(butcheryPanelLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1022, Short.MAX_VALUE))
-        );
-        butcheryPanelLayout.setVerticalGroup(
-            butcheryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(butcheryPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(373, Short.MAX_VALUE))
-        );
+        butcherySlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
 
-        readyMealsPanel.setBackground(new java.awt.Color(243, 243, 243));
+        butcherySlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        butcherySlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        butcherySlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        butcherySlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
+
+        butcherySlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        butcheryPanel.add(butcherySlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        jLayeredPane1.add(butcheryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, -1));
+
+        readyMealsPanel.setBackground(new java.awt.Color(238, 238, 238));
+        readyMealsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setBackground(new java.awt.Color(243, 243, 243));
         jLabel6.setText("ready meals");
+        readyMealsPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        readyMealsSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 128, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
+        readyMealsSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
 
-        javax.swing.GroupLayout readyMealsPanelLayout = new javax.swing.GroupLayout(readyMealsPanel);
-        readyMealsPanel.setLayout(readyMealsPanelLayout);
-        readyMealsPanelLayout.setHorizontalGroup(
-            readyMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(readyMealsPanelLayout.createSequentialGroup()
-                .addGroup(readyMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(readyMealsPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6))
-                    .addGroup(readyMealsPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(1041, Short.MAX_VALUE))
-        );
-        readyMealsPanelLayout.setVerticalGroup(
-            readyMealsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(readyMealsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(390, Short.MAX_VALUE))
-        );
+        readyMealsSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
 
-        vegetablesPanel.setBackground(new java.awt.Color(243, 243, 243));
+        readyMealsSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        readyMealsSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        readyMealsSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        readyMealsSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        readyMealsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        readyMealsPanel.add(readyMealsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(readyMealsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
+
+        vegetablesPanel.setBackground(new java.awt.Color(238, 238, 238));
+        vegetablesPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setBackground(new java.awt.Color(243, 243, 243));
         jLabel7.setText("vegetables");
+        vegetablesPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        javax.swing.GroupLayout vegetablesPanelLayout = new javax.swing.GroupLayout(vegetablesPanel);
-        vegetablesPanel.setLayout(vegetablesPanelLayout);
-        vegetablesPanelLayout.setHorizontalGroup(
-            vegetablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(vegetablesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(1139, Short.MAX_VALUE))
-        );
-        vegetablesPanelLayout.setVerticalGroup(
-            vegetablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(vegetablesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(513, Short.MAX_VALUE))
-        );
+        vegetablesSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        fruitsPanel.setBackground(new java.awt.Color(243, 243, 243));
+        vegetablesSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        vegetablesSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        vegetablesSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        vegetablesSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        vegetablesSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        vegetablesSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        vegetablesSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        vegetablesPanel.add(vegetablesSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(vegetablesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, -1));
+
+        fruitsPanel.setBackground(new java.awt.Color(238, 238, 238));
+        fruitsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setBackground(new java.awt.Color(243, 243, 243));
         jLabel8.setText("fruits");
+        fruitsPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        javax.swing.GroupLayout fruitsPanelLayout = new javax.swing.GroupLayout(fruitsPanel);
-        fruitsPanel.setLayout(fruitsPanelLayout);
-        fruitsPanelLayout.setHorizontalGroup(
-            fruitsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(fruitsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(1174, Short.MAX_VALUE))
-        );
-        fruitsPanelLayout.setVerticalGroup(
-            fruitsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(fruitsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(518, Short.MAX_VALUE))
-        );
+        fruitsSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        groceryPanel.setBackground(new java.awt.Color(243, 243, 243));
+        fruitsSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        fruitsSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        fruitsSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        fruitsSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        fruitsSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        fruitsSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        fruitsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        fruitsPanel.add(fruitsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(fruitsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
+
+        groceryPanel.setBackground(new java.awt.Color(238, 238, 238));
+        groceryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setBackground(new java.awt.Color(243, 243, 243));
         jLabel9.setText("grocery");
+        groceryPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        javax.swing.GroupLayout groceryPanelLayout = new javax.swing.GroupLayout(groceryPanel);
-        groceryPanel.setLayout(groceryPanelLayout);
-        groceryPanelLayout.setHorizontalGroup(
-            groceryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(groceryPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(1155, Short.MAX_VALUE))
-        );
-        groceryPanelLayout.setVerticalGroup(
-            groceryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(groceryPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel9)
-                .addContainerGap(518, Short.MAX_VALUE))
-        );
+        grocerySlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        snacksPanel.setBackground(new java.awt.Color(243, 243, 243));
+        grocerySlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        grocerySlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        grocerySlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        grocerySlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        grocerySlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        grocerySlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        grocerySlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        groceryPanel.add(grocerySlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(groceryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
+
+        snacksPanel.setBackground(new java.awt.Color(238, 238, 238));
+        snacksPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setBackground(new java.awt.Color(243, 243, 243));
         jLabel10.setText("snacks");
+        snacksPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        javax.swing.GroupLayout snacksPanelLayout = new javax.swing.GroupLayout(snacksPanel);
-        snacksPanel.setLayout(snacksPanelLayout);
-        snacksPanelLayout.setHorizontalGroup(
-            snacksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(snacksPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addContainerGap(1160, Short.MAX_VALUE))
-        );
-        snacksPanelLayout.setVerticalGroup(
-            snacksPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(snacksPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10)
-                .addContainerGap(518, Short.MAX_VALUE))
-        );
+        snacksSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        dessertsPanel.setBackground(new java.awt.Color(243, 243, 243));
+        snacksSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        snacksSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        snacksSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        snacksSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        snacksSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        snacksSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        snacksSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        snacksPanel.add(snacksSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(snacksPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
+
+        dessertsPanel.setBackground(new java.awt.Color(238, 238, 238));
+        dessertsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setBackground(new java.awt.Color(243, 243, 243));
         jLabel11.setText("desserts");
+        dessertsPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        javax.swing.GroupLayout dessertsPanelLayout = new javax.swing.GroupLayout(dessertsPanel);
-        dessertsPanel.setLayout(dessertsPanelLayout);
-        dessertsPanelLayout.setHorizontalGroup(
-            dessertsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dessertsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11)
-                .addContainerGap(1153, Short.MAX_VALUE))
-        );
-        dessertsPanelLayout.setVerticalGroup(
-            dessertsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dessertsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel11)
-                .addContainerGap(518, Short.MAX_VALUE))
-        );
+        dessertsSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        winesPanel.setBackground(new java.awt.Color(243, 243, 243));
+        dessertsSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        dessertsSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        dessertsSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        dessertsSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        dessertsSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        dessertsSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        dessertsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        dessertsPanel.add(dessertsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(dessertsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
+
+        winesPanel.setBackground(new java.awt.Color(238, 238, 238));
+        winesPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setText("wines");
+        winesPanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        javax.swing.GroupLayout winesPanelLayout = new javax.swing.GroupLayout(winesPanel);
-        winesPanel.setLayout(winesPanelLayout);
-        winesPanelLayout.setHorizontalGroup(
-            winesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(winesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addContainerGap(1165, Short.MAX_VALUE))
-        );
-        winesPanelLayout.setVerticalGroup(
-            winesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(winesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12)
-                .addContainerGap(537, Short.MAX_VALUE))
-        );
+        winesSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        seaFoodsPanel.setBackground(new java.awt.Color(243, 243, 243));
+        winesSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        winesSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        winesSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        winesSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        winesSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        winesSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        winesSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        winesPanel.add(winesSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(winesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
+
+        seaFoodsPanel.setBackground(new java.awt.Color(238, 238, 238));
+        seaFoodsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setBackground(new java.awt.Color(243, 243, 243));
         jLabel5.setText("seafoods");
+        seaFoodsPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        javax.swing.GroupLayout seaFoodsPanelLayout = new javax.swing.GroupLayout(seaFoodsPanel);
-        seaFoodsPanel.setLayout(seaFoodsPanelLayout);
-        seaFoodsPanelLayout.setHorizontalGroup(
-            seaFoodsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seaFoodsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(1148, Short.MAX_VALUE))
-        );
-        seaFoodsPanelLayout.setVerticalGroup(
-            seaFoodsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seaFoodsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(522, Short.MAX_VALUE))
-        );
+        seafoodsSlot4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 70, 160, 120));
 
-        jLayeredPane1.setLayer(landingPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(newProductsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(bakeryPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(butcheryPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(readyMealsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(vegetablesPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(fruitsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(groceryPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(snacksPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(dessertsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(winesPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(seaFoodsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        seafoodsSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(landingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(newProductsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(bakeryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(butcheryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(readyMealsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(vegetablesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(fruitsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(groceryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(snacksPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(dessertsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(winesPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(3, 3, 3)
-                    .addComponent(seaFoodsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(3, 3, 3)))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(landingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(newProductsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 21, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(bakeryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 14, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(butcheryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 16, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(readyMealsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 19, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(vegetablesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 24, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(fruitsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 19, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(groceryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 19, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(snacksPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 19, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(dessertsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 19, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(winesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(9, 9, 9)
-                    .addComponent(seaFoodsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
+        seafoodsSlot7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot7, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 160, 120));
+
+        seafoodsSlot3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 160, 120));
+
+        seafoodsSlot2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 120));
+
+        seafoodsSlot6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 150, 120));
+
+        seafoodsSlot5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 150, 120));
+
+        seafoodsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        seaFoodsPanel.add(seafoodsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        jLayeredPane1.add(seaFoodsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 9, 1250, -1));
 
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("GROUP 4 - FINAL PROJECT ");
@@ -942,28 +937,22 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("DITO ILALAGAY OTHER FRAMES/PAGE OR FUNCTIONS - Brainstorm nalang");
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBackground(new java.awt.Color(251, 239, 215));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel14.setText("SEARCHBAR?");
-        jPanel6.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, -1, -1));
-
-        jLabel13.setText("DITO ILALAGAY ANG LOGO");
-        jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
-
-        gotoLoginImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login icon.png"))); // NOI18N
+        gotoLoginImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login icon - test.png"))); // NOI18N
         jPanel6.add(gotoLoginImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 20, -1, -1));
 
         gotoLoginButton.setBackground(new java.awt.Color(25, 145, 77));
         gotoLoginButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         gotoLoginButton.setForeground(new java.awt.Color(153, 153, 153));
         gotoLoginButton.setText("LOGIN");
-        jPanel6.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 70, -1, -1));
+        jPanel6.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 70, -1, -1));
 
         gotoRegisterImage.setBackground(new java.awt.Color(25, 145, 77));
         gotoRegisterImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         gotoRegisterImage.setForeground(new java.awt.Color(153, 153, 153));
-        gotoRegisterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/register icon.png"))); // NOI18N
+        gotoRegisterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/register icon - test.png"))); // NOI18N
         jPanel6.add(gotoRegisterImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 20, -1, -1));
 
         gotoRegisterButton.setBackground(new java.awt.Color(25, 145, 77));
@@ -976,7 +965,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         myCartImage.setBackground(new java.awt.Color(25, 145, 77));
         myCartImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         myCartImage.setForeground(new java.awt.Color(153, 153, 153));
-        myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon.png"))); // NOI18N
+        myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon - test.png"))); // NOI18N
         jPanel6.add(myCartImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 30, -1, 37));
 
         myCartButton.setBackground(new java.awt.Color(25, 145, 77));
@@ -990,6 +979,9 @@ public class DashboardFrame extends javax.swing.JFrame {
         cartCount.setText("0");
         jPanel6.add(cartCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1510, 10, 20, -1));
 
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/dashboard logo.png"))); // NOI18N
+        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 70));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -998,22 +990,17 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(jLabel18)
-                                .addGap(102, 102, 102)
-                                .addComponent(jLabel19)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel18)
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel19)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1021,11 +1008,11 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, Short.MAX_VALUE))
-                .addGap(0, 54, Short.MAX_VALUE)
+                .addGap(0, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19))
@@ -1117,7 +1104,7 @@ public class DashboardFrame extends javax.swing.JFrame {
        winesPanel.setVisible(true);
     }//GEN-LAST:event_button10ActionPerformed
 
-    private void selectButton(JButton btn){
+    public void selectButton(JButton btn){
         if(selectedButton != null){
             selectedButton.setBackground(Color.WHITE);
             selectedButton.setForeground(Color.black);
@@ -1126,13 +1113,13 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
         
         btn.setBackground(new Color(242, 242, 243));
-        btn.setForeground(new Color(25, 145, 77));
+        btn.setForeground(new Color(110, 66, 39));
         selectedButton = btn;
     }
     
     private void addLeftGreenColor(JButton btn){
         btn.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createMatteBorder(0, 3, 0, 0, new Color(25, 145, 77)),
+        BorderFactory.createMatteBorder(0, 3, 0, 0, new Color(228, 166, 107)),
         BorderFactory.createEmptyBorder(0, 20, 0,0)
         ));
     }
@@ -1148,8 +1135,24 @@ public class DashboardFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bakeryButton;
     private javax.swing.JPanel bakeryPanel;
+    public static javax.swing.JLabel bakerySlot1;
+    public static javax.swing.JLabel bakerySlot2;
+    public static javax.swing.JLabel bakerySlot3;
+    public static javax.swing.JLabel bakerySlot4;
+    public static javax.swing.JLabel bakerySlot5;
+    public static javax.swing.JLabel bakerySlot6;
+    public static javax.swing.JLabel bakerySlot7;
+    public static javax.swing.JLabel bakerySlot8;
     private javax.swing.JButton butcheryButton;
     private javax.swing.JPanel butcheryPanel;
+    public static javax.swing.JLabel butcherySlot1;
+    public static javax.swing.JLabel butcherySlot2;
+    public static javax.swing.JLabel butcherySlot3;
+    public static javax.swing.JLabel butcherySlot4;
+    public static javax.swing.JLabel butcherySlot5;
+    public static javax.swing.JLabel butcherySlot6;
+    public static javax.swing.JLabel butcherySlot7;
+    public static javax.swing.JLabel butcherySlot8;
     private javax.swing.JButton button10;
     private javax.swing.JButton button4;
     private javax.swing.JButton button5;
@@ -1161,25 +1164,45 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel cartCount;
     private javax.swing.JPanel dessertsPanel;
+    public static javax.swing.JLabel dessertsSlot1;
+    public static javax.swing.JLabel dessertsSlot2;
+    public static javax.swing.JLabel dessertsSlot3;
+    public static javax.swing.JLabel dessertsSlot4;
+    public static javax.swing.JLabel dessertsSlot5;
+    public static javax.swing.JLabel dessertsSlot6;
+    public static javax.swing.JLabel dessertsSlot7;
+    public static javax.swing.JLabel dessertsSlot8;
     private javax.swing.JPanel fruitsPanel;
+    public static javax.swing.JLabel fruitsSlot1;
+    public static javax.swing.JLabel fruitsSlot2;
+    public static javax.swing.JLabel fruitsSlot3;
+    public static javax.swing.JLabel fruitsSlot4;
+    public static javax.swing.JLabel fruitsSlot5;
+    public static javax.swing.JLabel fruitsSlot6;
+    public static javax.swing.JLabel fruitsSlot7;
+    public static javax.swing.JLabel fruitsSlot8;
     private javax.swing.JLabel gotoLoginButton;
     public javax.swing.JLabel gotoLoginImage;
     private javax.swing.JLabel gotoRegisterButton;
     private javax.swing.JLabel gotoRegisterImage;
     private javax.swing.JPanel groceryPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public static javax.swing.JLabel grocerySlot1;
+    public static javax.swing.JLabel grocerySlot2;
+    public static javax.swing.JLabel grocerySlot3;
+    public static javax.swing.JLabel grocerySlot4;
+    public static javax.swing.JLabel grocerySlot5;
+    public static javax.swing.JLabel grocerySlot6;
+    public static javax.swing.JLabel grocerySlot7;
+    public static javax.swing.JLabel grocerySlot8;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1188,42 +1211,70 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel landingPanel;
     private javax.swing.JLabel myCartButton;
     private javax.swing.JLabel myCartImage;
     private javax.swing.JButton newProductsButton;
     private javax.swing.JPanel newProductsPanel;
+    public static javax.swing.JLabel newProductsSlot1;
+    public static javax.swing.JLabel newProductsSlot2;
+    public static javax.swing.JLabel newProductsSlot3;
+    public static javax.swing.JLabel newProductsSlot4;
+    public static javax.swing.JLabel newProductsSlot5;
+    public static javax.swing.JLabel newProductsSlot6;
+    public static javax.swing.JLabel newProductsSlot7;
+    public static javax.swing.JLabel newProductsSlot8;
     private javax.swing.JPanel readyMealsPanel;
+    public static javax.swing.JLabel readyMealsSlot1;
+    public static javax.swing.JLabel readyMealsSlot2;
+    public static javax.swing.JLabel readyMealsSlot3;
+    public static javax.swing.JLabel readyMealsSlot4;
+    public static javax.swing.JLabel readyMealsSlot5;
+    public static javax.swing.JLabel readyMealsSlot6;
+    public static javax.swing.JLabel readyMealsSlot7;
+    public static javax.swing.JLabel readyMealsSlot8;
     private javax.swing.JPanel seaFoodsPanel;
     private javax.swing.JButton seafoodsButton;
+    public static javax.swing.JLabel seafoodsSlot1;
+    public static javax.swing.JLabel seafoodsSlot2;
+    public static javax.swing.JLabel seafoodsSlot3;
+    public static javax.swing.JLabel seafoodsSlot4;
+    public static javax.swing.JLabel seafoodsSlot5;
+    public static javax.swing.JLabel seafoodsSlot6;
+    public static javax.swing.JLabel seafoodsSlot7;
+    public static javax.swing.JLabel seafoodsSlot8;
     private javax.swing.JPanel sidebarPanel;
     private javax.swing.JPanel snacksPanel;
+    public static javax.swing.JLabel snacksSlot1;
+    public static javax.swing.JLabel snacksSlot2;
+    public static javax.swing.JLabel snacksSlot3;
+    public static javax.swing.JLabel snacksSlot4;
+    public static javax.swing.JLabel snacksSlot5;
+    public static javax.swing.JLabel snacksSlot6;
+    public static javax.swing.JLabel snacksSlot7;
+    public static javax.swing.JLabel snacksSlot8;
     private javax.swing.JPanel vegetablesPanel;
+    public static javax.swing.JLabel vegetablesSlot1;
+    public static javax.swing.JLabel vegetablesSlot2;
+    public static javax.swing.JLabel vegetablesSlot3;
+    public static javax.swing.JLabel vegetablesSlot4;
+    public static javax.swing.JLabel vegetablesSlot5;
+    public static javax.swing.JLabel vegetablesSlot6;
+    public static javax.swing.JLabel vegetablesSlot7;
+    public static javax.swing.JLabel vegetablesSlot8;
     private javax.swing.JPanel winesPanel;
+    public static javax.swing.JLabel winesSlot1;
+    public static javax.swing.JLabel winesSlot2;
+    public static javax.swing.JLabel winesSlot3;
+    public static javax.swing.JLabel winesSlot4;
+    public static javax.swing.JLabel winesSlot5;
+    public static javax.swing.JLabel winesSlot6;
+    public static javax.swing.JLabel winesSlot7;
+    public static javax.swing.JLabel winesSlot8;
     // End of variables declaration//GEN-END:variables
 
 }

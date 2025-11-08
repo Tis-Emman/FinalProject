@@ -7,9 +7,9 @@ public class Main {
    
     public static void main(String[] args) {
         
-        DatabaseManager dbManager = new DatabaseManager();   
+       DatabaseManager dbManager = new DatabaseManager();   
          //new SignUpFrame().setVisible(true);
-         new DashboardFrame(false, null).setVisible(true);
+       // new DashboardFrame(false, null).setVisible(true);
        String username = dbManager.retrieveUsername("emman123@gmail.com");
        
        if(username != null){
@@ -17,6 +17,8 @@ public class Main {
        }else{
            System.out.println("WADAPAK");
        }
+       
+       new AdminPage().setVisible(true);
     }
     
     public static void displayItemsId(){
