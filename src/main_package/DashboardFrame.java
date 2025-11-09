@@ -1,6 +1,7 @@
 package main_package;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -149,7 +150,10 @@ public class DashboardFrame extends javax.swing.JFrame {
         slot.setText(name);
         slot.setHorizontalTextPosition(SwingConstants.CENTER);
         slot.setVerticalTextPosition(SwingConstants.BOTTOM);
-
+        slot.setHorizontalAlignment(JLabel.CENTER);    // align icon + text in the label
+        slot.setVerticalAlignment(JLabel.TOP);         // icon at top
+        slot.setFont(new Font("Arial", Font.BOLD, 12));
+        slot.setForeground(Color.BLACK);
         categoryCounters[category - 1]++;
     }
     
@@ -222,6 +226,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         newProductsSlot5 = new javax.swing.JLabel();
         newProductsSlot7 = new javax.swing.JLabel();
         newProductsSlot8 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         bakeryPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         bakerySlot5 = new javax.swing.JLabel();
@@ -232,6 +244,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         bakerySlot3 = new javax.swing.JLabel();
         bakerySlot4 = new javax.swing.JLabel();
         bakerySlot8 = new javax.swing.JLabel();
+        bakeryLabel2 = new javax.swing.JLabel();
+        bakeryLabel1 = new javax.swing.JLabel();
+        bakeryLabel3 = new javax.swing.JLabel();
+        bakeryLabel4 = new javax.swing.JLabel();
+        bakeryLabel8 = new javax.swing.JLabel();
+        bakeryLabel7 = new javax.swing.JLabel();
+        bakeryLabel6 = new javax.swing.JLabel();
+        bakeryLabel5 = new javax.swing.JLabel();
         butcheryPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         butcherySlot5 = new javax.swing.JLabel();
@@ -242,6 +262,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         butcherySlot3 = new javax.swing.JLabel();
         butcherySlot4 = new javax.swing.JLabel();
         butcherySlot8 = new javax.swing.JLabel();
+        butcheryLabel2 = new javax.swing.JLabel();
+        butcheryLabel1 = new javax.swing.JLabel();
+        butcheryLabel3 = new javax.swing.JLabel();
+        butcheryLabel4 = new javax.swing.JLabel();
+        butcheryLabel8 = new javax.swing.JLabel();
+        butcheryLabel7 = new javax.swing.JLabel();
+        butcheryLabel6 = new javax.swing.JLabel();
+        butcheryLabel5 = new javax.swing.JLabel();
         readyMealsPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         readyMealsSlot4 = new javax.swing.JLabel();
@@ -252,6 +280,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         readyMealsSlot6 = new javax.swing.JLabel();
         readyMealsSlot5 = new javax.swing.JLabel();
         readyMealsSlot1 = new javax.swing.JLabel();
+        readyMealsLabel2 = new javax.swing.JLabel();
+        readyMealsLabel1 = new javax.swing.JLabel();
+        readyMealsLabel3 = new javax.swing.JLabel();
+        readyMealsLabel4 = new javax.swing.JLabel();
+        readyMealsLabel8 = new javax.swing.JLabel();
+        readyMealsLabel7 = new javax.swing.JLabel();
+        readyMealsLabel6 = new javax.swing.JLabel();
+        readyMealsLabel5 = new javax.swing.JLabel();
         vegetablesPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         vegetablesSlot4 = new javax.swing.JLabel();
@@ -262,6 +298,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         vegetablesSlot6 = new javax.swing.JLabel();
         vegetablesSlot5 = new javax.swing.JLabel();
         vegetablesSlot1 = new javax.swing.JLabel();
+        vegetablesLabel2 = new javax.swing.JLabel();
+        vegetablesLabel1 = new javax.swing.JLabel();
+        vegetablesLabel3 = new javax.swing.JLabel();
+        vegetablesLabel4 = new javax.swing.JLabel();
+        vegetablesLabel8 = new javax.swing.JLabel();
+        vegetablesLabel7 = new javax.swing.JLabel();
+        vegetablesLabel6 = new javax.swing.JLabel();
+        vegetablesLabel5 = new javax.swing.JLabel();
         fruitsPanel = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         fruitsSlot4 = new javax.swing.JLabel();
@@ -272,6 +316,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         fruitsSlot6 = new javax.swing.JLabel();
         fruitsSlot5 = new javax.swing.JLabel();
         fruitsSlot1 = new javax.swing.JLabel();
+        fruitsLabel2 = new javax.swing.JLabel();
+        fruitsLabel1 = new javax.swing.JLabel();
+        fruitsLabel3 = new javax.swing.JLabel();
+        fruitsLabel4 = new javax.swing.JLabel();
+        fruitsLabel8 = new javax.swing.JLabel();
+        fruitsLabel7 = new javax.swing.JLabel();
+        fruitsLabel6 = new javax.swing.JLabel();
+        fruitsLabel5 = new javax.swing.JLabel();
         groceryPanel = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         grocerySlot4 = new javax.swing.JLabel();
@@ -282,6 +334,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         grocerySlot6 = new javax.swing.JLabel();
         grocerySlot5 = new javax.swing.JLabel();
         grocerySlot1 = new javax.swing.JLabel();
+        groceryLabel2 = new javax.swing.JLabel();
+        groceryLabel1 = new javax.swing.JLabel();
+        groceryLabel3 = new javax.swing.JLabel();
+        groceryLabel4 = new javax.swing.JLabel();
+        groceryLabel8 = new javax.swing.JLabel();
+        groceryLabel7 = new javax.swing.JLabel();
+        groceryLabel6 = new javax.swing.JLabel();
+        groceryLabel5 = new javax.swing.JLabel();
         snacksPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         snacksSlot4 = new javax.swing.JLabel();
@@ -292,6 +352,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         snacksSlot6 = new javax.swing.JLabel();
         snacksSlot5 = new javax.swing.JLabel();
         snacksSlot1 = new javax.swing.JLabel();
+        snacksLabel2 = new javax.swing.JLabel();
+        snacksLabel1 = new javax.swing.JLabel();
+        snacksLabel3 = new javax.swing.JLabel();
+        snacksLabel4 = new javax.swing.JLabel();
+        snacksLabel8 = new javax.swing.JLabel();
+        snacksLabel7 = new javax.swing.JLabel();
+        snacksLabel6 = new javax.swing.JLabel();
+        jLabel79 = new javax.swing.JLabel();
         dessertsPanel = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         dessertsSlot4 = new javax.swing.JLabel();
@@ -302,6 +370,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         dessertsSlot6 = new javax.swing.JLabel();
         dessertsSlot5 = new javax.swing.JLabel();
         dessertsSlot1 = new javax.swing.JLabel();
+        dessertsLabel2 = new javax.swing.JLabel();
+        dessertsLabel1 = new javax.swing.JLabel();
+        dessertsLabel3 = new javax.swing.JLabel();
+        dessertsLabel4 = new javax.swing.JLabel();
+        dessertsLabel8 = new javax.swing.JLabel();
+        dessertsLabel7 = new javax.swing.JLabel();
+        dessertsLabel6 = new javax.swing.JLabel();
+        dessertsLabel5 = new javax.swing.JLabel();
         winesPanel = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         winesSlot4 = new javax.swing.JLabel();
@@ -312,6 +388,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         winesSlot6 = new javax.swing.JLabel();
         winesSlot5 = new javax.swing.JLabel();
         winesSlot1 = new javax.swing.JLabel();
+        winesLabel2 = new javax.swing.JLabel();
+        winesLabel1 = new javax.swing.JLabel();
+        winesLabel3 = new javax.swing.JLabel();
+        winesLabel4 = new javax.swing.JLabel();
+        winesLabel8 = new javax.swing.JLabel();
+        winesLabel7 = new javax.swing.JLabel();
+        winesLabel6 = new javax.swing.JLabel();
+        winesLabel5 = new javax.swing.JLabel();
         seaFoodsPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         seafoodsSlot4 = new javax.swing.JLabel();
@@ -322,6 +406,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         seafoodsSlot6 = new javax.swing.JLabel();
         seafoodsSlot5 = new javax.swing.JLabel();
         seafoodsSlot1 = new javax.swing.JLabel();
+        seafoodsLabel2 = new javax.swing.JLabel();
+        seafoodsLabel1 = new javax.swing.JLabel();
+        seafoodsLabel3 = new javax.swing.JLabel();
+        seafoodsLabel4 = new javax.swing.JLabel();
+        seafoodsLabel8 = new javax.swing.JLabel();
+        seafoodsLabel7 = new javax.swing.JLabel();
+        seafoodsLabel6 = new javax.swing.JLabel();
+        seafoodsLabel5 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -460,7 +552,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         button9.setBackground(new java.awt.Color(255, 255, 254));
         button9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desserts icon.png"))); // NOI18N
-        button9.setText("Desserts");
+        button9.setText("Beverages");
         button9.setBorder(null);
         button9.setFocusable(false);
         button9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -600,6 +692,30 @@ public class DashboardFrame extends javax.swing.JFrame {
         newProductsSlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         newProductsPanel.add(newProductsSlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
 
+        jLabel13.setText("Product Name");
+        newProductsPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        jLabel14.setText("Product Name");
+        newProductsPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        jLabel16.setText("Product Name");
+        newProductsPanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        jLabel17.setText("Product Name");
+        newProductsPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        jLabel20.setText("Product Name");
+        newProductsPanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        jLabel21.setText("Product Name");
+        newProductsPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
+
+        jLabel22.setText("Product Name");
+        newProductsPanel.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        jLabel23.setText("Product Name");
+        newProductsPanel.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
         jLayeredPane1.add(newProductsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 538));
 
         bakeryPanel.setBackground(new java.awt.Color(238, 238, 238));
@@ -632,6 +748,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         bakerySlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         bakeryPanel.add(bakerySlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
+
+        bakeryLabel2.setText("Product Name");
+        bakeryPanel.add(bakeryLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        bakeryLabel1.setText("Product Name");
+        bakeryPanel.add(bakeryLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        bakeryLabel3.setText("Product Name");
+        bakeryPanel.add(bakeryLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        bakeryLabel4.setText("Product Name");
+        bakeryPanel.add(bakeryLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        bakeryLabel8.setText("Product Name");
+        bakeryPanel.add(bakeryLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        bakeryLabel7.setText("Product Name");
+        bakeryPanel.add(bakeryLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        bakeryLabel6.setText("Product Name");
+        bakeryPanel.add(bakeryLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        bakeryLabel5.setText("Product Name");
+        bakeryPanel.add(bakeryLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
 
         jLayeredPane1.add(bakeryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 545));
 
@@ -666,6 +806,30 @@ public class DashboardFrame extends javax.swing.JFrame {
         butcherySlot8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         butcheryPanel.add(butcherySlot8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 290, 160, 120));
 
+        butcheryLabel2.setText("Product Name");
+        butcheryPanel.add(butcheryLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        butcheryLabel1.setText("Product Name");
+        butcheryPanel.add(butcheryLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        butcheryLabel3.setText("Product Name");
+        butcheryPanel.add(butcheryLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        butcheryLabel4.setText("Product Name");
+        butcheryPanel.add(butcheryLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        butcheryLabel8.setText("Product Name");
+        butcheryPanel.add(butcheryLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        butcheryLabel7.setText("Product Name");
+        butcheryPanel.add(butcheryLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        butcheryLabel6.setText("Product Name");
+        butcheryPanel.add(butcheryLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        butcheryLabel5.setText("Product Name");
+        butcheryPanel.add(butcheryLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
+
         jLayeredPane1.add(butcheryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, -1));
 
         readyMealsPanel.setBackground(new java.awt.Color(238, 238, 238));
@@ -698,6 +862,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         readyMealsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         readyMealsPanel.add(readyMealsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        readyMealsLabel2.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        readyMealsLabel1.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        readyMealsLabel3.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        readyMealsLabel4.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        readyMealsLabel8.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        readyMealsLabel7.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        readyMealsLabel6.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        readyMealsLabel5.setText("Product Name");
+        readyMealsPanel.add(readyMealsLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
 
         jLayeredPane1.add(readyMealsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
 
@@ -732,6 +920,30 @@ public class DashboardFrame extends javax.swing.JFrame {
         vegetablesSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         vegetablesPanel.add(vegetablesSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
 
+        vegetablesLabel2.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        vegetablesLabel1.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        vegetablesLabel3.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        vegetablesLabel4.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        vegetablesLabel8.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        vegetablesLabel7.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        vegetablesLabel6.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        vegetablesLabel5.setText("Product Name");
+        vegetablesPanel.add(vegetablesLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
+
         jLayeredPane1.add(vegetablesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, -1));
 
         fruitsPanel.setBackground(new java.awt.Color(238, 238, 238));
@@ -764,6 +976,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         fruitsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         fruitsPanel.add(fruitsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        fruitsLabel2.setText("Product Name");
+        fruitsPanel.add(fruitsLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        fruitsLabel1.setText("Product Name");
+        fruitsPanel.add(fruitsLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        fruitsLabel3.setText("Product Name");
+        fruitsPanel.add(fruitsLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        fruitsLabel4.setText("Product Name");
+        fruitsPanel.add(fruitsLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        fruitsLabel8.setText("Product Name");
+        fruitsPanel.add(fruitsLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        fruitsLabel7.setText("Product Name");
+        fruitsPanel.add(fruitsLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        fruitsLabel6.setText("Product Name");
+        fruitsPanel.add(fruitsLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        fruitsLabel5.setText("Product Name");
+        fruitsPanel.add(fruitsLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
 
         jLayeredPane1.add(fruitsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
 
@@ -798,6 +1034,30 @@ public class DashboardFrame extends javax.swing.JFrame {
         grocerySlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         groceryPanel.add(grocerySlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
 
+        groceryLabel2.setText("Product Name");
+        groceryPanel.add(groceryLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        groceryLabel1.setText("Product Name");
+        groceryPanel.add(groceryLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        groceryLabel3.setText("Product Name");
+        groceryPanel.add(groceryLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        groceryLabel4.setText("Product Name");
+        groceryPanel.add(groceryLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        groceryLabel8.setText("Product Name");
+        groceryPanel.add(groceryLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        groceryLabel7.setText("Product Name");
+        groceryPanel.add(groceryLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        groceryLabel6.setText("Product Name");
+        groceryPanel.add(groceryLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        groceryLabel5.setText("Product Name");
+        groceryPanel.add(groceryLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
+
         jLayeredPane1.add(groceryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
 
         snacksPanel.setBackground(new java.awt.Color(238, 238, 238));
@@ -830,6 +1090,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         snacksSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         snacksPanel.add(snacksSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        snacksLabel2.setText("Product Name");
+        snacksPanel.add(snacksLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        snacksLabel1.setText("Product Name");
+        snacksPanel.add(snacksLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        snacksLabel3.setText("Product Name");
+        snacksPanel.add(snacksLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        snacksLabel4.setText("Product Name");
+        snacksPanel.add(snacksLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        snacksLabel8.setText("Product Name");
+        snacksPanel.add(snacksLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        snacksLabel7.setText("Product Name");
+        snacksPanel.add(snacksLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        snacksLabel6.setText("Product Name");
+        snacksPanel.add(snacksLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        jLabel79.setText("Product Name");
+        snacksPanel.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
 
         jLayeredPane1.add(snacksPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
 
@@ -864,6 +1148,30 @@ public class DashboardFrame extends javax.swing.JFrame {
         dessertsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         dessertsPanel.add(dessertsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
 
+        dessertsLabel2.setText("Product Name");
+        dessertsPanel.add(dessertsLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        dessertsLabel1.setText("Product Name");
+        dessertsPanel.add(dessertsLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        dessertsLabel3.setText("Product Name");
+        dessertsPanel.add(dessertsLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        dessertsLabel4.setText("Product Name");
+        dessertsPanel.add(dessertsLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        dessertsLabel8.setText("Product Name");
+        dessertsPanel.add(dessertsLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        dessertsLabel7.setText("Product Name");
+        dessertsPanel.add(dessertsLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        dessertsLabel6.setText("Product Name");
+        dessertsPanel.add(dessertsLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        dessertsLabel5.setText("Product Name");
+        dessertsPanel.add(dessertsLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
+
         jLayeredPane1.add(dessertsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
 
         winesPanel.setBackground(new java.awt.Color(238, 238, 238));
@@ -895,6 +1203,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         winesSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         winesPanel.add(winesSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        winesLabel2.setText("Product Name");
+        winesPanel.add(winesLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        winesLabel1.setText("Product Name");
+        winesPanel.add(winesLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        winesLabel3.setText("Product Name");
+        winesPanel.add(winesLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        winesLabel4.setText("Product Name");
+        winesPanel.add(winesLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        winesLabel8.setText("Product Name");
+        winesPanel.add(winesLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        winesLabel7.setText("Product Name");
+        winesPanel.add(winesLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        winesLabel6.setText("Product Name");
+        winesPanel.add(winesLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        winesLabel5.setText("Product Name");
+        winesPanel.add(winesLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
 
         jLayeredPane1.add(winesPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1256, -1));
 
@@ -928,6 +1260,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         seafoodsSlot1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         seaFoodsPanel.add(seafoodsSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 150, 120));
+
+        seafoodsLabel2.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+
+        seafoodsLabel1.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, -1, -1));
+
+        seafoodsLabel3.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, -1, -1));
+
+        seafoodsLabel4.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 200, -1, -1));
+
+        seafoodsLabel8.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 420, -1, -1));
+
+        seafoodsLabel7.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, -1, -1));
+
+        seafoodsLabel6.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, -1, -1));
+
+        seafoodsLabel5.setText("Product Name");
+        seaFoodsPanel.add(seafoodsLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 420, -1, -1));
 
         jLayeredPane1.add(seaFoodsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 9, 1250, -1));
 
@@ -1134,6 +1490,14 @@ public class DashboardFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bakeryButton;
+    public static javax.swing.JLabel bakeryLabel1;
+    public static javax.swing.JLabel bakeryLabel2;
+    public static javax.swing.JLabel bakeryLabel3;
+    public static javax.swing.JLabel bakeryLabel4;
+    public static javax.swing.JLabel bakeryLabel5;
+    public static javax.swing.JLabel bakeryLabel6;
+    public static javax.swing.JLabel bakeryLabel7;
+    public static javax.swing.JLabel bakeryLabel8;
     private javax.swing.JPanel bakeryPanel;
     public static javax.swing.JLabel bakerySlot1;
     public static javax.swing.JLabel bakerySlot2;
@@ -1144,6 +1508,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel bakerySlot7;
     public static javax.swing.JLabel bakerySlot8;
     private javax.swing.JButton butcheryButton;
+    private javax.swing.JLabel butcheryLabel1;
+    private javax.swing.JLabel butcheryLabel2;
+    private javax.swing.JLabel butcheryLabel3;
+    private javax.swing.JLabel butcheryLabel4;
+    private javax.swing.JLabel butcheryLabel5;
+    private javax.swing.JLabel butcheryLabel6;
+    private javax.swing.JLabel butcheryLabel7;
+    private javax.swing.JLabel butcheryLabel8;
     private javax.swing.JPanel butcheryPanel;
     public static javax.swing.JLabel butcherySlot1;
     public static javax.swing.JLabel butcherySlot2;
@@ -1163,6 +1535,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel cartCount;
+    private javax.swing.JLabel dessertsLabel1;
+    private javax.swing.JLabel dessertsLabel2;
+    private javax.swing.JLabel dessertsLabel3;
+    private javax.swing.JLabel dessertsLabel4;
+    private javax.swing.JLabel dessertsLabel5;
+    private javax.swing.JLabel dessertsLabel6;
+    private javax.swing.JLabel dessertsLabel7;
+    private javax.swing.JLabel dessertsLabel8;
     private javax.swing.JPanel dessertsPanel;
     public static javax.swing.JLabel dessertsSlot1;
     public static javax.swing.JLabel dessertsSlot2;
@@ -1172,6 +1552,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel dessertsSlot6;
     public static javax.swing.JLabel dessertsSlot7;
     public static javax.swing.JLabel dessertsSlot8;
+    private javax.swing.JLabel fruitsLabel1;
+    private javax.swing.JLabel fruitsLabel2;
+    private javax.swing.JLabel fruitsLabel3;
+    private javax.swing.JLabel fruitsLabel4;
+    private javax.swing.JLabel fruitsLabel5;
+    private javax.swing.JLabel fruitsLabel6;
+    private javax.swing.JLabel fruitsLabel7;
+    private javax.swing.JLabel fruitsLabel8;
     private javax.swing.JPanel fruitsPanel;
     public static javax.swing.JLabel fruitsSlot1;
     public static javax.swing.JLabel fruitsSlot2;
@@ -1185,6 +1573,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     public javax.swing.JLabel gotoLoginImage;
     private javax.swing.JLabel gotoRegisterButton;
     private javax.swing.JLabel gotoRegisterImage;
+    private javax.swing.JLabel groceryLabel1;
+    private javax.swing.JLabel groceryLabel2;
+    private javax.swing.JLabel groceryLabel3;
+    private javax.swing.JLabel groceryLabel4;
+    private javax.swing.JLabel groceryLabel5;
+    private javax.swing.JLabel groceryLabel6;
+    private javax.swing.JLabel groceryLabel7;
+    private javax.swing.JLabel groceryLabel8;
     private javax.swing.JPanel groceryPanel;
     public static javax.swing.JLabel grocerySlot1;
     public static javax.swing.JLabel grocerySlot2;
@@ -1199,15 +1595,24 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
@@ -1228,6 +1633,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel newProductsSlot6;
     public static javax.swing.JLabel newProductsSlot7;
     public static javax.swing.JLabel newProductsSlot8;
+    private javax.swing.JLabel readyMealsLabel1;
+    private javax.swing.JLabel readyMealsLabel2;
+    private javax.swing.JLabel readyMealsLabel3;
+    private javax.swing.JLabel readyMealsLabel4;
+    private javax.swing.JLabel readyMealsLabel5;
+    private javax.swing.JLabel readyMealsLabel6;
+    private javax.swing.JLabel readyMealsLabel7;
+    private javax.swing.JLabel readyMealsLabel8;
     private javax.swing.JPanel readyMealsPanel;
     public static javax.swing.JLabel readyMealsSlot1;
     public static javax.swing.JLabel readyMealsSlot2;
@@ -1239,6 +1652,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel readyMealsSlot8;
     private javax.swing.JPanel seaFoodsPanel;
     private javax.swing.JButton seafoodsButton;
+    private javax.swing.JLabel seafoodsLabel1;
+    private javax.swing.JLabel seafoodsLabel2;
+    private javax.swing.JLabel seafoodsLabel3;
+    private javax.swing.JLabel seafoodsLabel4;
+    private javax.swing.JLabel seafoodsLabel5;
+    private javax.swing.JLabel seafoodsLabel6;
+    private javax.swing.JLabel seafoodsLabel7;
+    private javax.swing.JLabel seafoodsLabel8;
     public static javax.swing.JLabel seafoodsSlot1;
     public static javax.swing.JLabel seafoodsSlot2;
     public static javax.swing.JLabel seafoodsSlot3;
@@ -1248,6 +1669,13 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel seafoodsSlot7;
     public static javax.swing.JLabel seafoodsSlot8;
     private javax.swing.JPanel sidebarPanel;
+    private javax.swing.JLabel snacksLabel1;
+    private javax.swing.JLabel snacksLabel2;
+    private javax.swing.JLabel snacksLabel3;
+    private javax.swing.JLabel snacksLabel4;
+    private javax.swing.JLabel snacksLabel6;
+    private javax.swing.JLabel snacksLabel7;
+    private javax.swing.JLabel snacksLabel8;
     private javax.swing.JPanel snacksPanel;
     public static javax.swing.JLabel snacksSlot1;
     public static javax.swing.JLabel snacksSlot2;
@@ -1257,6 +1685,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel snacksSlot6;
     public static javax.swing.JLabel snacksSlot7;
     public static javax.swing.JLabel snacksSlot8;
+    private javax.swing.JLabel vegetablesLabel1;
+    private javax.swing.JLabel vegetablesLabel2;
+    private javax.swing.JLabel vegetablesLabel3;
+    private javax.swing.JLabel vegetablesLabel4;
+    private javax.swing.JLabel vegetablesLabel5;
+    private javax.swing.JLabel vegetablesLabel6;
+    private javax.swing.JLabel vegetablesLabel7;
+    private javax.swing.JLabel vegetablesLabel8;
     private javax.swing.JPanel vegetablesPanel;
     public static javax.swing.JLabel vegetablesSlot1;
     public static javax.swing.JLabel vegetablesSlot2;
@@ -1266,6 +1702,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel vegetablesSlot6;
     public static javax.swing.JLabel vegetablesSlot7;
     public static javax.swing.JLabel vegetablesSlot8;
+    private javax.swing.JLabel winesLabel1;
+    private javax.swing.JLabel winesLabel2;
+    private javax.swing.JLabel winesLabel3;
+    private javax.swing.JLabel winesLabel4;
+    private javax.swing.JLabel winesLabel5;
+    private javax.swing.JLabel winesLabel6;
+    private javax.swing.JLabel winesLabel7;
+    private javax.swing.JLabel winesLabel8;
     private javax.swing.JPanel winesPanel;
     public static javax.swing.JLabel winesSlot1;
     public static javax.swing.JLabel winesSlot2;

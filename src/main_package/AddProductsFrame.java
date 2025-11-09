@@ -27,6 +27,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         setResizable(false);
         setLocation(943, 145);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
+         categoryLabel.setText("New Products");
         
     }
 
@@ -55,6 +56,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         categoryNumber = new javax.swing.JLabel();
         incrementButton = new javax.swing.JButton();
         decrementButton = new javax.swing.JButton();
+        categoryLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(251, 239, 215));
@@ -133,7 +135,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
 
         categoryNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         categoryNumber.setForeground(new java.awt.Color(110, 66, 41));
-        categoryNumber.setText("0");
+        categoryNumber.setText("1");
         jPanel1.add(categoryNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 30, -1));
 
         incrementButton.setText("+");
@@ -153,6 +155,10 @@ public class AddProductsFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(decrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+
+        categoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        categoryLabel.setText("XXXXXXX");
+        jPanel1.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 170, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 720));
 
@@ -229,7 +235,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         
         ImageIcon scaledIcon = new ImageIcon(
             new ImageIcon(destFile.getAbsolutePath())
-            .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
+            .getImage().getScaledInstance(160, 120, Image.SCALE_SMOOTH)
         );
         
         DashboardFrame.addProductToCategory(category, scaledIcon, productName);
@@ -239,55 +245,92 @@ public class AddProductsFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error saving image: " + e.getMessage());
     }
     }//GEN-LAST:event_submitButtonActionPerformed
-
+  
     private void decrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decrementButtonActionPerformed
        String categoryNum = categoryNumber.getText();
        int totalCategoryNum = Integer.parseInt(categoryNum);
-       
-       
-       if(totalCategoryNum > 0){
+
+       if(totalCategoryNum > 1){
        totalCategoryNum--;
        String show = String.valueOf(totalCategoryNum);
        
        categoryNumber.setText(show);
-       }  
+       }
+       
+       if(totalCategoryNum == 1){
+            categoryLabel.setText("New Products");
+       } else if(totalCategoryNum == 2){
+            categoryLabel.setText("Bakery");
+       } else if(totalCategoryNum == 3){
+            categoryLabel.setText("Butchery");
+       } else if(totalCategoryNum == 4){
+            categoryLabel.setText("Seafoods");
+       } else if(totalCategoryNum == 5){
+            categoryLabel.setText("Ready Meals");
+       } else if(totalCategoryNum == 6){
+            categoryLabel.setText("Vegetables");
+       } else if(totalCategoryNum == 7){
+            categoryLabel.setText("Fruits");
+       } else if(totalCategoryNum == 8){
+            categoryLabel.setText("Grocery");
+       } else if(totalCategoryNum == 9){
+            categoryLabel.setText("Snacks");
+       } else if(totalCategoryNum == 10){
+            categoryLabel.setText("Desserts");
+       } else if(totalCategoryNum == 11){
+            categoryLabel.setText("Wines");
+       }
     }//GEN-LAST:event_decrementButtonActionPerformed
 
     private void incrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incrementButtonActionPerformed
        String categoryNum = categoryNumber.getText();
        int totalCategoryNum = Integer.parseInt(categoryNum);
        
-     
-       if(totalCategoryNum < 12){
+       if(totalCategoryNum < 11){
         totalCategoryNum++;
         String show = String.valueOf(totalCategoryNum);
 
         categoryNumber.setText(show);
        }
+       
+       switch(totalCategoryNum){
+           case 1: 
+               categoryLabel.setText("New Products");
+               break;
+           case 2:
+               categoryLabel.setText("Bakery");
+               break;
+           case 3:
+               categoryLabel.setText("Butchery");
+               break;
+           case 4:
+               categoryLabel.setText("Seafoods");
+               break;
+           case 5:
+               categoryLabel.setText("Ready Meals");
+               break; 
+           case 6:
+               categoryLabel.setText("Vegetables");
+               break;
+           case 7:
+               categoryLabel.setText("Fruits");
+               break;
+           case 8:
+               categoryLabel.setText("Grocery");
+               break;
+           case 9:
+               categoryLabel.setText("Snacks");
+               break; 
+           case 10:
+               categoryLabel.setText("Desserts");
+               break;
+           case 11:
+               categoryLabel.setText("Wines");
+               break;
+       }
         
     }//GEN-LAST:event_incrementButtonActionPerformed
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     /**
      * @param args the command line arguments
@@ -325,6 +368,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel categoryLabel;
     private javax.swing.JLabel categoryNumber;
     private javax.swing.JButton decrementButton;
     private javax.swing.JFileChooser imgSelector;
