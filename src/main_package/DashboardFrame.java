@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 public class DashboardFrame extends javax.swing.JFrame {
-    private static int[] categoryCounters = new int[11];
+    public static int[] categoryCounters = new int[11];
     static boolean isLoggedIn;
     SignUpFrame signUpFrame = new SignUpFrame();
     DatabaseManager dbManager = new DatabaseManager();
@@ -92,6 +92,8 @@ public class DashboardFrame extends javax.swing.JFrame {
        
         
         initComponents();
+        
+        
         
         category1Slots = new JLabel[] {newProductsSlot1, newProductsSlot2, newProductsSlot3, newProductsSlot4, newProductsSlot5, newProductsSlot6, newProductsSlot7, newProductsSlot8};
         category2Slots = new JLabel[] {bakerySlot1, bakerySlot2, bakerySlot3, bakerySlot4, bakerySlot5, bakerySlot6, bakerySlot7, bakerySlot8};
@@ -185,6 +187,8 @@ public class DashboardFrame extends javax.swing.JFrame {
        hideAllPanels();
        setPanelSizes();
        landingPanel.setVisible(true);
+       
+       DatabaseManager.loadProductsFromDB();
     }
     
         public static void addProductToCategory(int category, ImageIcon image, String name, String price) {
@@ -1015,7 +1019,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         button9.setBackground(new java.awt.Color(255, 255, 254));
         button9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desserts icon.png"))); // NOI18N
-        button9.setText("Beverages");
+        button9.setText("Ice Cream / Desserts");
         button9.setBorder(null);
         button9.setFocusable(false);
         button9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1041,7 +1045,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         button10.setBackground(new java.awt.Color(255, 255, 254));
         button10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/wine icon.png"))); // NOI18N
-        button10.setText("Wines");
+        button10.setText("Beverages / Wines");
         button10.setBorder(null);
         button10.setFocusable(false);
         button10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

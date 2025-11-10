@@ -328,7 +328,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/desserts icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Beverages"/>
+            <Property name="text" type="java.lang.String" value="Ice Cream / Desserts"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -368,7 +368,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/wine icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Wines"/>
+            <Property name="text" type="java.lang.String" value="Beverages / Wines"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>

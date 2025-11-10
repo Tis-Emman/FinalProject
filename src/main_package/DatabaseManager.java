@@ -1,5 +1,6 @@
 package main_package;
 
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -264,5 +266,53 @@ public class DatabaseManager {
            
        }catch(SQLException e){   
        }
+   }
+   
+   public static void addAll(String name, int category, float price, int quantity, String imagePath){
+       String query = "INSERT into products (name, category, price, quantity, image_path) VALUES (?, ?, ?, ?, ?)";
+       
+       try(Connection conn = DriverManager.getConnection(URL);
+           PreparedStatement ptsmt = conn.prepareStatement(query)
+               ){
+           ptsmt.setString(1, name);
+           ptsmt.setInt(2, category);
+           ptsmt.setFloat(3, price);
+           ptsmt.setInt(4, quantity);
+           ptsmt.setString(5, imagePath);
+           ptsmt.executeUpdate();
+           
+       }catch(SQLException e){
+           System.out.println(e.getMessage());
+       }
+   }
+   
+   public static void loadProductsFromDB(){
+    for (int i = 0; i < DashboardFrame.categoryCounters.length; i++) {
+        DashboardFrame.categoryCounters[i] = 0;
+    }
+
+    try (Connection conn = DriverManager.getConnection(URL);
+         Statement stmt = conn.createStatement()) {
+
+        String query = "SELECT name, category, price, quantity, image_path FROM products ORDER BY category, id";
+        ResultSet rs = stmt.executeQuery(query);
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+            int category = rs.getInt("category");
+            String price = String.valueOf(rs.getFloat("price"));
+            String imagePath = rs.getString("image_path");
+
+            ImageIcon origIcon = new ImageIcon(imagePath);
+            Image scaledImg = origIcon.getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH);
+            ImageIcon icon = new ImageIcon(scaledImg);
+
+            DashboardFrame.addProductToCategory(category, icon, name, price);
+
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error loading products: " + e.getMessage());
+    }
    }
 }

@@ -238,6 +238,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         );
         
         DashboardFrame.addProductToCategory(category, scaledIcon, productName, prdctPrice);
+        DatabaseManager.addAll(productName, category, productPrice, productQuantity, destFile.getAbsolutePath());
         
     } catch (IOException e) {
         JOptionPane.showMessageDialog(this, "Error saving image: " + e.getMessage());
