@@ -213,11 +213,10 @@ public class AddProductsFrame extends javax.swing.JFrame {
        int productQuantity = Integer.parseInt(productQuantityField.getText());
        
        String categoryNum = categoryNumber.getText();
+       String prdctPrice = String.valueOf(productPrice);
        
        int category = Integer.parseInt(categoryNum);
-       
-       
-       
+            
         if (selectedFile == null) {
         JOptionPane.showMessageDialog(this, "Please select an image before submitting!");
         return;
@@ -235,12 +234,11 @@ public class AddProductsFrame extends javax.swing.JFrame {
         
         ImageIcon scaledIcon = new ImageIcon(
             new ImageIcon(destFile.getAbsolutePath())
-            .getImage().getScaledInstance(160, 120, Image.SCALE_SMOOTH)
+            .getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH)
         );
         
-        DashboardFrame.addProductToCategory(category, scaledIcon, productName);
+        DashboardFrame.addProductToCategory(category, scaledIcon, productName, prdctPrice);
         
-        JOptionPane.showMessageDialog(this, "Image saved successfully in project");
     } catch (IOException e) {
         JOptionPane.showMessageDialog(this, "Error saving image: " + e.getMessage());
     }
