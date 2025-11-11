@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         
        DatabaseManager dbManager = new DatabaseManager();   
-         //new SignUpFrame().setVisible(true);
+        //new SignUpFrame().setVisible(true);
+        new LoginFrame(null).setVisible(true);
        // new DashboardFrame(false, null).setVisible(true);
        String username = dbManager.retrieveUsername("emman123@gmail.com");
        
@@ -18,7 +19,7 @@ public class Main {
            System.out.println("WADAPAK");
        }
        
-       new AdminPage().setVisible(true);
+       //new AdminPage().setVisible(true);
     }
     
     public static void displayItemsId(){

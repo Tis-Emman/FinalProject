@@ -177,6 +177,12 @@ public class LoginFrame extends javax.swing.JFrame {
         } else {
             warningLabel.setText("User not registered!");
         }
+        
+        if(email.equalsIgnoreCase("admin") && password.equals("admin")){
+            AdminPage aP = new AdminPage();
+            aP.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     public static void main(String args[]) {
