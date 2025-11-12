@@ -18,6 +18,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     static boolean isLoggedIn;
     SignUpFrame signUpFrame = new SignUpFrame();
     DatabaseManager dbManager = new DatabaseManager();
+    TestLoginFrame tFrame = new TestLoginFrame();
     
     LoginFrame loginFrame = new LoginFrame(this);
     
@@ -159,10 +160,10 @@ public class DashboardFrame extends javax.swing.JFrame {
        defaultLeft(button10);
        defaultLeft(newProductsButton);
        
-       Listener.addLabelListener(gotoLoginButton, this, loginFrame);
-       Listener.addLabelListener(gotoLoginImage, this, loginFrame);
-       Listener.addLabelListener(gotoRegisterImage, this, signUpFrame);
-       Listener.addLabelListener(gotoRegisterButton, this, signUpFrame);
+       Listener.addLabelListener(gotoLoginButton, this, tFrame);
+       Listener.addLabelListener(gotoLoginImage, this,  tFrame);
+       Listener.addLabelListener(gotoRegisterImage, this, tFrame);
+       Listener.addLabelListener(gotoRegisterButton, this, tFrame);
        
        Listener.showPanel(jLabel15, landingPanel);
        
