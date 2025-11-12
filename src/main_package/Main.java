@@ -9,7 +9,8 @@ public class Main {
         
        DatabaseManager dbManager = new DatabaseManager();   
         //new SignUpFrame().setVisible(true);
-        new LoginFrame(null).setVisible(true);
+        //new LoginFrame(null).setVisible(true);
+        new TestLoginFrame().setVisible(true);
        // new DashboardFrame(false, null).setVisible(true);
        String username = dbManager.retrieveUsername("emman123@gmail.com");
        
