@@ -16,11 +16,9 @@ import javax.swing.border.MatteBorder;
 public class DashboardFrame extends javax.swing.JFrame {
     public static int[] categoryCounters = new int[11];
     static boolean isLoggedIn;
-    SignUpFrame signUpFrame = new SignUpFrame();
     DatabaseManager dbManager = new DatabaseManager();
     TestLoginFrame tFrame = new TestLoginFrame();
     
-    LoginFrame loginFrame = new LoginFrame(this);
     
     public static JLabel[] category1Slots;
     public static JLabel[] category2Slots;
@@ -162,8 +160,8 @@ public class DashboardFrame extends javax.swing.JFrame {
        
        Listener.addLabelListener(gotoLoginButton, this, tFrame);
        Listener.addLabelListener(gotoLoginImage, this,  tFrame);
-       Listener.addLabelListener(gotoRegisterImage, this, tFrame);
-       Listener.addLabelListener(gotoRegisterButton, this, tFrame);
+       Listener.gotoRegisterPanel(gotoRegisterImage, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
+       Listener.gotoRegisterPanel(gotoRegisterButton, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
        
        Listener.showPanel(jLabel15, landingPanel);
        
