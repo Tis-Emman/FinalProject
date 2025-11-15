@@ -14,12 +14,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
 public class DashboardFrame extends javax.swing.JFrame {
+
     public static int[] categoryCounters = new int[11];
     static boolean isLoggedIn;
     DatabaseManager dbManager = new DatabaseManager();
     TestLoginFrame tFrame = new TestLoginFrame();
-    
-    
+
     public static JLabel[] category1Slots;
     public static JLabel[] category2Slots;
     public static JLabel[] category3Slots;
@@ -31,7 +31,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category9Slots;
     public static JLabel[] category10Slots;
     public static JLabel[] category11Slots;
-    
+
     public static JLabel[] category1Labels;
     public static JLabel[] category2Labels;
     public static JLabel[] category3Labels;
@@ -43,7 +43,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category9Labels;
     public static JLabel[] category10Labels;
     public static JLabel[] category11Labels;
-    
+
     public static JLabel[] category1Price;
     public static JLabel[] category2Price;
     public static JLabel[] category3Price;
@@ -55,7 +55,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category9Price;
     public static JLabel[] category10Price;
     public static JLabel[] category11Price;
-    
+
     public static JLabel[] category1Stock;
     public static JLabel[] category2Stock;
     public static JLabel[] category3Stock;
@@ -67,211 +67,206 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category9Stock;
     public static JLabel[] category10Stock;
     public static JLabel[] category11Stock;
-    
+
     public DashboardFrame(boolean isLoggedIn, String email) {
 
-        JLayeredPane layeredPane = new JLayeredPane();
         JPanel newPanel = new JPanel();
         JPanel topFrame = new JPanel();
         JPanel bottomFrame = new JPanel();
-        
+
         newPanel.setBackground(new Color(255, 255, 254));
         newPanel.setBounds(0, 0, 1600, 120);
         newPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-        
+
         topFrame.setBackground(new Color(25, 145, 77));
         topFrame.setBounds(0, 0, 1600, 30);
-        
+
         bottomFrame.setBackground(new Color(228, 166, 107));
         bottomFrame.setBounds(0, 680, 1600, 105);
         bottomFrame.setLayout(null);
-        
-        
+
         setBackground(new Color(251, 239, 215));
-       
-        
+
         initComponents();
-        
-        
-        
-        category1Slots = new JLabel[] {newProductsSlot1, newProductsSlot2, newProductsSlot3, newProductsSlot4, newProductsSlot5, newProductsSlot6, newProductsSlot7, newProductsSlot8};
-        category2Slots = new JLabel[] {bakerySlot1, bakerySlot2, bakerySlot3, bakerySlot4, bakerySlot5, bakerySlot6, bakerySlot7, bakerySlot8};
-        category3Slots = new JLabel[] {butcherySlot1, butcherySlot2, butcherySlot3, butcherySlot4, butcherySlot5, butcherySlot6, butcherySlot7, butcherySlot8};
-        category4Slots = new JLabel[] {seafoodsSlot1, seafoodsSlot2, seafoodsSlot3, seafoodsSlot4, seafoodsSlot5, seafoodsSlot6, seafoodsSlot7, seafoodsSlot8};
-        category5Slots = new JLabel[] {readyMealsSlot1, readyMealsSlot2, readyMealsSlot3, readyMealsSlot4, readyMealsSlot5, readyMealsSlot6, readyMealsSlot7, readyMealsSlot8};
-        category6Slots = new JLabel[] {vegetablesSlot1, vegetablesSlot2, vegetablesSlot3, vegetablesSlot4, vegetablesSlot5, vegetablesSlot6, vegetablesSlot7, vegetablesSlot8};
-        category7Slots = new JLabel[] {fruitsSlot1, fruitsSlot2, fruitsSlot3, fruitsSlot4, fruitsSlot5, fruitsSlot6, fruitsSlot7, fruitsSlot8};
-        category8Slots = new JLabel[] {grocerySlot1, grocerySlot2, grocerySlot3, grocerySlot4, grocerySlot5, grocerySlot6, grocerySlot7, grocerySlot8};
-        category9Slots = new JLabel[] {snacksSlot1, snacksSlot2, snacksSlot3, snacksSlot4, snacksSlot5, snacksSlot6, snacksSlot7, snacksSlot8};
-        category10Slots = new JLabel[] {dessertsSlot1, dessertsSlot2, dessertsSlot3, dessertsSlot4, dessertsSlot5, dessertsSlot6, dessertsSlot7, dessertsSlot8};
-        category11Slots = new JLabel[] {winesSlot1, winesSlot2, winesSlot3, winesSlot4, winesSlot5, winesSlot6, winesSlot7, winesSlot8};
-        
-        category1Labels = new JLabel[] {newProductsLabel1, newProductsLabel2, newProductsLabel3, newProductsLabel4, newProductsLabel5, newProductsLabel6, newProductsLabel7, newProductsLabel8};
-        category2Labels = new JLabel[] {bakeryLabel1, bakeryLabel2, bakeryLabel3, bakeryLabel4, bakeryLabel5, bakeryLabel6, bakeryLabel7, bakeryLabel8};
-        category3Labels = new JLabel[] {butcheryLabel1, butcheryLabel2, butcheryLabel3, butcheryLabel4, butcheryLabel5, butcheryLabel6, butcheryLabel7, butcheryLabel8};
-        category4Labels = new JLabel[] {seafoodsLabel1, seafoodsLabel2, seafoodsLabel3, seafoodsLabel4, seafoodsLabel5, seafoodsLabel6, seafoodsLabel7, seafoodsLabel8};
-        category5Labels = new JLabel[] {readyMealsLabel1, readyMealsLabel2, readyMealsLabel3, readyMealsLabel4, readyMealsLabel5, readyMealsLabel6, readyMealsLabel7, readyMealsLabel8};
-        category6Labels = new JLabel[] {vegetablesLabel1, vegetablesLabel2, vegetablesLabel3, vegetablesLabel4, vegetablesLabel5, vegetablesLabel6, vegetablesLabel7, vegetablesLabel8};
-        category7Labels = new JLabel[] {fruitsLabel1, fruitsLabel2, fruitsLabel3, fruitsLabel4, fruitsLabel5, fruitsLabel6, fruitsLabel7, fruitsLabel8};
-        category8Labels = new JLabel[] {groceryLabel1, groceryLabel2, groceryLabel3, groceryLabel4, groceryLabel5, groceryLabel6, groceryLabel7, groceryLabel8};
-        category9Labels = new JLabel[] {snacksLabel1, snacksLabel2, snacksLabel3, snacksLabel4, snacksLabel5, snacksLabel6, snacksLabel7, snacksLabel8};
-        category10Labels = new JLabel[] {dessertsLabel1, dessertsLabel2, dessertsLabel3, dessertsLabel4, dessertsLabel5, dessertsLabel6, dessertsLabel7, dessertsLabel8};
-        category11Labels = new JLabel[] {winesLabel1, winesLabel2,winesLabel3, winesLabel4, winesLabel5, winesLabel6, winesLabel7, winesLabel8};
-        
-        category1Price = new JLabel[] {newProductsPrice1, newProductsPrice2, newProductsPrice3, newProductsPrice4, newProductsPrice5, newProductsPrice6, newProductsPrice7, newProductsPrice8};
-        category2Price = new JLabel[] {bakeryPrice1, bakeryPrice2, bakeryPrice3, bakeryPrice4, bakeryPrice5, bakeryPrice6, bakeryPrice7, bakeryPrice8};
-        category3Price = new JLabel[] {butcheryPrice1, butcheryPrice2, butcheryPrice3, butcheryPrice4, butcheryPrice5, butcheryPrice6, butcheryPrice7, butcheryPrice8};        
-        category4Price = new JLabel[] {seafoodsPrice1, seafoodsPrice2, seafoodsPrice3, seafoodsPrice4, seafoodsPrice5, seafoodsPrice6, seafoodsPrice7, seafoodsPrice8};
-        category5Price = new JLabel[] {readyMealsPrice1, readyMealsPrice2, readyMealsPrice3, readyMealsPrice4, readyMealsPrice5, readyMealsPrice6, readyMealsPrice7, readyMealsPrice8};
-        category6Price = new JLabel[] {vegetablesPrice1, vegetablesPrice2, vegetablesPrice3, vegetablesPrice4, vegetablesPrice5, vegetablesPrice6, vegetablesPrice7, vegetablesPrice8};
-        category7Price = new JLabel[] {fruitsPrice1, fruitsPrice2, fruitsPrice3, fruitsPrice4, fruitsPrice5, fruitsPrice6, fruitsPrice7, fruitsPrice8};
-        category8Price = new JLabel[] {groceryPrice1, groceryPrice2, groceryPrice3, groceryPrice4, groceryPrice5, groceryPrice6, groceryPrice7, groceryPrice8};
-        category9Price = new JLabel[] {snacksPrice1, snacksPrice2, snacksPrice3, snacksPrice4, snacksPrice5, snacksPrice6, snacksPrice7, snacksPrice8};
-        category10Price = new JLabel[] {dessertsPrice1, dessertsPrice2, dessertsPrice3, dessertsPrice4, dessertsPrice5, dessertsPrice6, dessertsPrice7, dessertsPrice8};
-        category11Price = new JLabel[] {winesPrice1, winesPrice2, winesPrice3, winesPrice4, winesPrice5, winesPrice6, winesPrice7, winesPrice8};
-        
-        category1Stock = new JLabel[] {newProductsStockLabel1, newProductsStockLabel2, newProductsStockLabel3,newProductsStockLabel4, newProductsStockLabel5, newProductsStockLabel6, newProductsStockLabel7, newProductsStockLabel8};
-        category2Stock = new JLabel[] {bakeryStock1, bakeryStock2,bakeryStock3,bakeryStock4, bakeryStock5, bakeryStock6, bakeryStock7, bakeryStock8};
-        category3Stock = new JLabel[] {butcheryStock1, butcheryStock2, butcheryStock3, butcheryStock4, butcheryStock5, butcheryStock6, butcheryStock7, butcheryStock8};
-        category4Stock = new JLabel[] {seafoodsStock1, seafoodsStock2, seafoodsStock3, seafoodsStock4, seafoodsStock5, seafoodsStock6, seafoodsStock7, seafoodsStock8};
-        category5Stock = new JLabel[] {readyMealsStock1, readyMealsStock2, readyMealsStock3, readyMealsStock4, readyMealsStock5, readyMealsStock6, readyMealsStock7, readyMealsStock8};
-        category6Stock = new JLabel[] {vegetablesStock1, vegetablesStock2, vegetablesStock3, vegetablesStock4, vegetablesStock5, vegetablesStock6, vegetablesStock7, vegetablesStock8};
-        category7Stock = new JLabel[] {fruitsStock1, fruitsStock2, fruitsStock3, fruitsStock4, fruitsStock5, fruitsStock6, fruitsStock7, fruitsStock8};
-        category8Stock = new JLabel[] {groceryStock1, groceryStock2, groceryStock3, groceryStock4, groceryStock5, groceryStock6, groceryStock7, groceryStock8};
-        category9Stock = new JLabel[] {snacksStock1, snacksStock2, snacksStock3, snacksStock4, snacksStock5, snacksStock6, snacksStock7, snacksStock8};
-        category10Stock = new JLabel[] {dessertsStock1, dessertsStock2, dessertsStock3, dessertsStock4, dessertsStock5, dessertsStock6, dessertsStock7, dessertsStock8};
-        category11Stock = new JLabel[] {winesStock1, winesStock2, winesStock3, winesStock4, winesStock5, winesStock6, winesStock7, winesStock8};
-        
+
+        category1Slots = new JLabel[]{newProductsSlot1, newProductsSlot2, newProductsSlot3, newProductsSlot4, newProductsSlot5, newProductsSlot6, newProductsSlot7, newProductsSlot8};
+        category2Slots = new JLabel[]{bakerySlot1, bakerySlot2, bakerySlot3, bakerySlot4, bakerySlot5, bakerySlot6, bakerySlot7, bakerySlot8};
+        category3Slots = new JLabel[]{butcherySlot1, butcherySlot2, butcherySlot3, butcherySlot4, butcherySlot5, butcherySlot6, butcherySlot7, butcherySlot8};
+        category4Slots = new JLabel[]{seafoodsSlot1, seafoodsSlot2, seafoodsSlot3, seafoodsSlot4, seafoodsSlot5, seafoodsSlot6, seafoodsSlot7, seafoodsSlot8};
+        category5Slots = new JLabel[]{readyMealsSlot1, readyMealsSlot2, readyMealsSlot3, readyMealsSlot4, readyMealsSlot5, readyMealsSlot6, readyMealsSlot7, readyMealsSlot8};
+        category6Slots = new JLabel[]{vegetablesSlot1, vegetablesSlot2, vegetablesSlot3, vegetablesSlot4, vegetablesSlot5, vegetablesSlot6, vegetablesSlot7, vegetablesSlot8};
+        category7Slots = new JLabel[]{fruitsSlot1, fruitsSlot2, fruitsSlot3, fruitsSlot4, fruitsSlot5, fruitsSlot6, fruitsSlot7, fruitsSlot8};
+        category8Slots = new JLabel[]{grocerySlot1, grocerySlot2, grocerySlot3, grocerySlot4, grocerySlot5, grocerySlot6, grocerySlot7, grocerySlot8};
+        category9Slots = new JLabel[]{snacksSlot1, snacksSlot2, snacksSlot3, snacksSlot4, snacksSlot5, snacksSlot6, snacksSlot7, snacksSlot8};
+        category10Slots = new JLabel[]{dessertsSlot1, dessertsSlot2, dessertsSlot3, dessertsSlot4, dessertsSlot5, dessertsSlot6, dessertsSlot7, dessertsSlot8};
+        category11Slots = new JLabel[]{winesSlot1, winesSlot2, winesSlot3, winesSlot4, winesSlot5, winesSlot6, winesSlot7, winesSlot8};
+
+        category1Labels = new JLabel[]{newProductsLabel1, newProductsLabel2, newProductsLabel3, newProductsLabel4, newProductsLabel5, newProductsLabel6, newProductsLabel7, newProductsLabel8};
+        category2Labels = new JLabel[]{bakeryLabel1, bakeryLabel2, bakeryLabel3, bakeryLabel4, bakeryLabel5, bakeryLabel6, bakeryLabel7, bakeryLabel8};
+        category3Labels = new JLabel[]{butcheryLabel1, butcheryLabel2, butcheryLabel3, butcheryLabel4, butcheryLabel5, butcheryLabel6, butcheryLabel7, butcheryLabel8};
+        category4Labels = new JLabel[]{seafoodsLabel1, seafoodsLabel2, seafoodsLabel3, seafoodsLabel4, seafoodsLabel5, seafoodsLabel6, seafoodsLabel7, seafoodsLabel8};
+        category5Labels = new JLabel[]{readyMealsLabel1, readyMealsLabel2, readyMealsLabel3, readyMealsLabel4, readyMealsLabel5, readyMealsLabel6, readyMealsLabel7, readyMealsLabel8};
+        category6Labels = new JLabel[]{vegetablesLabel1, vegetablesLabel2, vegetablesLabel3, vegetablesLabel4, vegetablesLabel5, vegetablesLabel6, vegetablesLabel7, vegetablesLabel8};
+        category7Labels = new JLabel[]{fruitsLabel1, fruitsLabel2, fruitsLabel3, fruitsLabel4, fruitsLabel5, fruitsLabel6, fruitsLabel7, fruitsLabel8};
+        category8Labels = new JLabel[]{groceryLabel1, groceryLabel2, groceryLabel3, groceryLabel4, groceryLabel5, groceryLabel6, groceryLabel7, groceryLabel8};
+        category9Labels = new JLabel[]{snacksLabel1, snacksLabel2, snacksLabel3, snacksLabel4, snacksLabel5, snacksLabel6, snacksLabel7, snacksLabel8};
+        category10Labels = new JLabel[]{dessertsLabel1, dessertsLabel2, dessertsLabel3, dessertsLabel4, dessertsLabel5, dessertsLabel6, dessertsLabel7, dessertsLabel8};
+        category11Labels = new JLabel[]{winesLabel1, winesLabel2, winesLabel3, winesLabel4, winesLabel5, winesLabel6, winesLabel7, winesLabel8};
+
+        category1Price = new JLabel[]{newProductsPrice1, newProductsPrice2, newProductsPrice3, newProductsPrice4, newProductsPrice5, newProductsPrice6, newProductsPrice7, newProductsPrice8};
+        category2Price = new JLabel[]{bakeryPrice1, bakeryPrice2, bakeryPrice3, bakeryPrice4, bakeryPrice5, bakeryPrice6, bakeryPrice7, bakeryPrice8};
+        category3Price = new JLabel[]{butcheryPrice1, butcheryPrice2, butcheryPrice3, butcheryPrice4, butcheryPrice5, butcheryPrice6, butcheryPrice7, butcheryPrice8};
+        category4Price = new JLabel[]{seafoodsPrice1, seafoodsPrice2, seafoodsPrice3, seafoodsPrice4, seafoodsPrice5, seafoodsPrice6, seafoodsPrice7, seafoodsPrice8};
+        category5Price = new JLabel[]{readyMealsPrice1, readyMealsPrice2, readyMealsPrice3, readyMealsPrice4, readyMealsPrice5, readyMealsPrice6, readyMealsPrice7, readyMealsPrice8};
+        category6Price = new JLabel[]{vegetablesPrice1, vegetablesPrice2, vegetablesPrice3, vegetablesPrice4, vegetablesPrice5, vegetablesPrice6, vegetablesPrice7, vegetablesPrice8};
+        category7Price = new JLabel[]{fruitsPrice1, fruitsPrice2, fruitsPrice3, fruitsPrice4, fruitsPrice5, fruitsPrice6, fruitsPrice7, fruitsPrice8};
+        category8Price = new JLabel[]{groceryPrice1, groceryPrice2, groceryPrice3, groceryPrice4, groceryPrice5, groceryPrice6, groceryPrice7, groceryPrice8};
+        category9Price = new JLabel[]{snacksPrice1, snacksPrice2, snacksPrice3, snacksPrice4, snacksPrice5, snacksPrice6, snacksPrice7, snacksPrice8};
+        category10Price = new JLabel[]{dessertsPrice1, dessertsPrice2, dessertsPrice3, dessertsPrice4, dessertsPrice5, dessertsPrice6, dessertsPrice7, dessertsPrice8};
+        category11Price = new JLabel[]{winesPrice1, winesPrice2, winesPrice3, winesPrice4, winesPrice5, winesPrice6, winesPrice7, winesPrice8};
+
+        category1Stock = new JLabel[]{newProductsStockLabel1, newProductsStockLabel2, newProductsStockLabel3, newProductsStockLabel4, newProductsStockLabel5, newProductsStockLabel6, newProductsStockLabel7, newProductsStockLabel8};
+        category2Stock = new JLabel[]{bakeryStock1, bakeryStock2, bakeryStock3, bakeryStock4, bakeryStock5, bakeryStock6, bakeryStock7, bakeryStock8};
+        category3Stock = new JLabel[]{butcheryStock1, butcheryStock2, butcheryStock3, butcheryStock4, butcheryStock5, butcheryStock6, butcheryStock7, butcheryStock8};
+        category4Stock = new JLabel[]{seafoodsStock1, seafoodsStock2, seafoodsStock3, seafoodsStock4, seafoodsStock5, seafoodsStock6, seafoodsStock7, seafoodsStock8};
+        category5Stock = new JLabel[]{readyMealsStock1, readyMealsStock2, readyMealsStock3, readyMealsStock4, readyMealsStock5, readyMealsStock6, readyMealsStock7, readyMealsStock8};
+        category6Stock = new JLabel[]{vegetablesStock1, vegetablesStock2, vegetablesStock3, vegetablesStock4, vegetablesStock5, vegetablesStock6, vegetablesStock7, vegetablesStock8};
+        category7Stock = new JLabel[]{fruitsStock1, fruitsStock2, fruitsStock3, fruitsStock4, fruitsStock5, fruitsStock6, fruitsStock7, fruitsStock8};
+        category8Stock = new JLabel[]{groceryStock1, groceryStock2, groceryStock3, groceryStock4, groceryStock5, groceryStock6, groceryStock7, groceryStock8};
+        category9Stock = new JLabel[]{snacksStock1, snacksStock2, snacksStock3, snacksStock4, snacksStock5, snacksStock6, snacksStock7, snacksStock8};
+        category10Stock = new JLabel[]{dessertsStock1, dessertsStock2, dessertsStock3, dessertsStock4, dessertsStock5, dessertsStock6, dessertsStock7, dessertsStock8};
+        category11Stock = new JLabel[]{winesStock1, winesStock2, winesStock3, winesStock4, winesStock5, winesStock6, winesStock7, winesStock8};
+
         setLocationRelativeTo(null);
         setResizable(false);
         sidebarPanel.setBorder(new MatteBorder(0, 0, 0, 3, new Color(228, 166, 107)));
 
-       defaultLeft(bakeryButton);
-       defaultLeft(butcheryButton);
-       defaultLeft(seafoodsButton);
-       defaultLeft(button4);
-       defaultLeft(button5);
-       defaultLeft(button6);
-       defaultLeft(button7);
-       defaultLeft(button8);
-       defaultLeft(button9);
-       defaultLeft(button10);
-       defaultLeft(newProductsButton);
-       
-       Listener.addLabelListener(gotoLoginButton, this, tFrame);
-       Listener.addLabelListener(gotoLoginImage, this,  tFrame);
-       Listener.gotoRegisterPanel(gotoRegisterImage, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
-       Listener.gotoRegisterPanel(gotoRegisterButton, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
-       
-       Listener.showPanel(jLabel15, landingPanel);
-       
-       add(newPanel);
-       add(bottomFrame);
-       
-       DashboardFrame.isLoggedIn = true;
-       
-       if(isLoggedIn){
-           gotoLoginImage.setVisible(false);
-           gotoLoginButton.setVisible(false);
-           gotoRegisterButton.setText("MY ACCOUNT");
-           
-        for (java.awt.event.MouseListener listener : gotoRegisterImage.getMouseListeners()) {
-        gotoRegisterImage.removeMouseListener(listener);
+        defaultLeft(bakeryButton);
+        defaultLeft(butcheryButton);
+        defaultLeft(seafoodsButton);
+        defaultLeft(button4);
+        defaultLeft(button5);
+        defaultLeft(button6);
+        defaultLeft(button7);
+        defaultLeft(button8);
+        defaultLeft(button9);
+        defaultLeft(button10);
+        defaultLeft(newProductsButton);
+
+        Listener.addLabelListener(gotoLoginButton, this, tFrame);
+        Listener.addLabelListener(gotoLoginImage, this, tFrame);
+        Listener.gotoRegisterPanel(gotoRegisterImage, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
+        Listener.gotoRegisterPanel(gotoRegisterButton, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
+
+        Listener.showPanel(jLabel15, landingPanel);
+
+        add(newPanel);
+        add(bottomFrame);
+
+        DashboardFrame.isLoggedIn = true;
+
+        if (isLoggedIn) {
+            gotoLoginImage.setVisible(false);
+            gotoLoginButton.setVisible(false);
+            gotoRegisterButton.setText("MY ACCOUNT");
+
+            for (java.awt.event.MouseListener listener : gotoRegisterImage.getMouseListeners()) {
+                gotoRegisterImage.removeMouseListener(listener);
+            }
+
+            System.out.println(email);
+            String rt = dbManager.retrieveUsername(email);
         }
 
-         System.out.println(email);
-         String rt = dbManager.retrieveUsername(email);        
-       }
-       
-       hideAllPanels();
-       setPanelSizes();
-       landingPanel.setVisible(true);
-       
-       DatabaseManager.loadProductsFromDB();
-    }
-    
-        public static void addProductToCategory(int category, ImageIcon image, String name, String price) {
-          JLabel[][] allCategorySlots = {
-        category1Slots, category2Slots, category3Slots, category4Slots, category5Slots,
-        category6Slots, category7Slots, category8Slots, category9Slots, category10Slots, category11Slots
-    };
+        hideAllPanels();
+        setPanelSizes();
+        landingPanel.setVisible(true);
 
-    JLabel[][] allCategoryLabels = {
-        category1Labels, category2Labels, category3Labels, category4Labels, category5Labels,
-        category6Labels, category7Labels, category8Labels, category9Labels, category10Labels, category11Labels
-    };
-    
-    JLabel[][] allCategoryPrice = {
-        category1Price, category2Price, category3Price, category4Price, category5Price,
-        category6Price, category7Price, category8Price, category9Price, category10Price, category11Price
-    };
-    
-    JLabel[][] allCategoryStock = {
-        category1Stock, category2Stock, category3Stock, category4Stock, category5Stock,
-        category6Stock, category7Stock, category8Stock, category9Stock, category10Stock, category11Stock
-    };
-
-    if (category < 1 || category > allCategorySlots.length) {
-        JOptionPane.showMessageDialog(null, "Invalid category number!");
-        return;
+        DatabaseManager.loadProductsFromDB();
     }
 
-    JLabel[] imageSlots = allCategorySlots[category - 1];
-    JLabel[] textSlots = allCategoryLabels[category - 1];
-    JLabel[] priceSlots = allCategoryPrice[category -1];
-    JLabel[] stockSlots = allCategoryStock[category -1];
-    
-    int index = categoryCounters[category - 1];
+    public static void addProductToCategory(int category, ImageIcon image, String name, String price) {
+        JLabel[][] allCategorySlots = {
+            category1Slots, category2Slots, category3Slots, category4Slots, category5Slots,
+            category6Slots, category7Slots, category8Slots, category9Slots, category10Slots, category11Slots
+        };
 
-    if (index >= imageSlots.length) {
-        JOptionPane.showMessageDialog(null, "All slots for this category are full!");
-        return;
+        JLabel[][] allCategoryLabels = {
+            category1Labels, category2Labels, category3Labels, category4Labels, category5Labels,
+            category6Labels, category7Labels, category8Labels, category9Labels, category10Labels, category11Labels
+        };
+
+        JLabel[][] allCategoryPrice = {
+            category1Price, category2Price, category3Price, category4Price, category5Price,
+            category6Price, category7Price, category8Price, category9Price, category10Price, category11Price
+        };
+
+        JLabel[][] allCategoryStock = {
+            category1Stock, category2Stock, category3Stock, category4Stock, category5Stock,
+            category6Stock, category7Stock, category8Stock, category9Stock, category10Stock, category11Stock
+        };
+
+        if (category < 1 || category > allCategorySlots.length) {
+            JOptionPane.showMessageDialog(null, "Invalid category number!");
+            return;
+        }
+
+        JLabel[] imageSlots = allCategorySlots[category - 1];
+        JLabel[] textSlots = allCategoryLabels[category - 1];
+        JLabel[] priceSlots = allCategoryPrice[category - 1];
+        JLabel[] stockSlots = allCategoryStock[category - 1];
+
+        int index = categoryCounters[category - 1];
+
+        if (index >= imageSlots.length) {
+            JOptionPane.showMessageDialog(null, "All slots for this category are full!");
+            return;
+        }
+
+        JLabel imageLabel = imageSlots[index];
+        imageLabel.setIcon(image);
+
+        JLabel textLabel = textSlots[index];
+        textLabel.setText(name);
+        textLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        textLabel.setFont(new Font("Segoe", Font.BOLD, 14));
+        textLabel.setForeground(new Color(111, 65, 44));
+
+        JLabel priceLabel = priceSlots[index];
+        priceLabel.setText("P" + price);
+        priceLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        priceLabel.setFont(new Font("Segoe", Font.BOLD, 12));
+        priceLabel.setForeground(new Color(207, 127, 52));
+
+        JLabel stockLabel = stockSlots[index];
+        stockLabel.setText("On stock");
+        stockLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        stockLabel.setFont(new Font("Segoe", Font.PLAIN, 10));
+        stockLabel.setForeground(Color.GRAY);
+
+        categoryCounters[category - 1]++;
     }
 
-    JLabel imageLabel = imageSlots[index];
-    imageLabel.setIcon(image);
+    private void defaultLeft(JButton btn) {
+        btn.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 20, 0, 0)));
+    }
 
-    JLabel textLabel = textSlots[index];
-    textLabel.setText(name);
-    textLabel.setHorizontalAlignment(SwingConstants.LEFT);
-    textLabel.setFont(new Font("Segoe", Font.BOLD, 14));
-    textLabel.setForeground(new Color(111,65,44));
-    
-    JLabel priceLabel = priceSlots[index];
-    priceLabel.setText("P" +price);
-    priceLabel.setHorizontalAlignment(SwingConstants.LEFT);
-    priceLabel.setFont(new Font("Segoe", Font.BOLD, 12));
-    priceLabel.setForeground(new Color(207,127,52));
-    
-    JLabel stockLabel = stockSlots[index];
-    stockLabel.setText("On stock");
-    stockLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-    stockLabel.setFont(new Font("Segoe", Font.PLAIN, 10));
-    stockLabel.setForeground(Color.GRAY);
-    
-    categoryCounters[category - 1]++;
-    }
-    
-    private void defaultLeft(JButton btn){
-         btn.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 20, 0,0)));
-    }
-    
     private void setPanelSizes() {
-    int width = 975;
-    int height = 550;
+        int width = 975;
+        int height = 550;
 
-    newProductsPanel.setSize(width, height);
-    readyMealsPanel.setSize(width, height);
-    seaFoodsPanel.setSize(width, height);
-    dessertsPanel.setSize(width, height);
-    fruitsPanel.setSize(width, height);
-    bakeryPanel.setSize(width, height);
-    butcheryPanel.setSize(width, height);
-    vegetablesPanel.setSize(width, height);
-    groceryPanel.setSize(width, height);
-}
-    
-    public void hideAllPanels(){
+        newProductsPanel.setSize(width, height);
+        readyMealsPanel.setSize(width, height);
+        seaFoodsPanel.setSize(width, height);
+        dessertsPanel.setSize(width, height);
+        fruitsPanel.setSize(width, height);
+        bakeryPanel.setSize(width, height);
+        butcheryPanel.setSize(width, height);
+        vegetablesPanel.setSize(width, height);
+        groceryPanel.setSize(width, height);
+    }
+
+    public void hideAllPanels() {
         newProductsPanel.setVisible(false);
         readyMealsPanel.setVisible(false);
         seaFoodsPanel.setVisible(false);
@@ -1018,7 +1013,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         button9.setBackground(new java.awt.Color(255, 255, 254));
         button9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desserts icon.png"))); // NOI18N
-        button9.setText("Ice Cream / Desserts");
+        button9.setText("Ice Cream");
         button9.setBorder(null);
         button9.setFocusable(false);
         button9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1044,7 +1039,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         button10.setBackground(new java.awt.Color(255, 255, 254));
         button10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/wine icon.png"))); // NOI18N
-        button10.setText("Beverages / Wines");
+        button10.setText("Beverages");
         button10.setBorder(null);
         button10.setFocusable(false);
         button10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -3447,109 +3442,109 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private JButton selectedButton = null;
     private boolean isClicked = false;
- 
+
     private void bakeryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bakeryButtonActionPerformed
 
-       selectButton(bakeryButton);
-       addLeftGreenColor(bakeryButton);
-       hideAllPanels();
-       bakeryPanel.setVisible(true);
+        selectButton(bakeryButton);
+        addLeftGreenColor(bakeryButton);
+        hideAllPanels();
+        bakeryPanel.setVisible(true);
     }//GEN-LAST:event_bakeryButtonActionPerformed
 
     private void butcheryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butcheryButtonActionPerformed
-       selectButton(butcheryButton);
-       addLeftGreenColor(butcheryButton);
-       hideAllPanels();
-       butcheryPanel.setVisible(true);
-       
+        selectButton(butcheryButton);
+        addLeftGreenColor(butcheryButton);
+        hideAllPanels();
+        butcheryPanel.setVisible(true);
+
     }//GEN-LAST:event_butcheryButtonActionPerformed
 
     private void seafoodsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seafoodsButtonActionPerformed
-       selectButton(seafoodsButton);
-       addLeftGreenColor(seafoodsButton);
-       hideAllPanels();
-       seaFoodsPanel.setVisible(true);
+        selectButton(seafoodsButton);
+        addLeftGreenColor(seafoodsButton);
+        hideAllPanels();
+        seaFoodsPanel.setVisible(true);
     }//GEN-LAST:event_seafoodsButtonActionPerformed
 
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
-       selectButton(button4);
-       addLeftGreenColor(button4);
-       hideAllPanels();
-       readyMealsPanel.setVisible(true);
+        selectButton(button4);
+        addLeftGreenColor(button4);
+        hideAllPanels();
+        readyMealsPanel.setVisible(true);
     }//GEN-LAST:event_button4ActionPerformed
 
     private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
-       selectButton(button5);
-       addLeftGreenColor(button5);
-       hideAllPanels();
-       vegetablesPanel.setVisible(true);
+        selectButton(button5);
+        addLeftGreenColor(button5);
+        hideAllPanels();
+        vegetablesPanel.setVisible(true);
     }//GEN-LAST:event_button5ActionPerformed
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
-       selectButton(button6);
-       addLeftGreenColor(button6);
-       hideAllPanels();
-       fruitsPanel.setVisible(true);
+        selectButton(button6);
+        addLeftGreenColor(button6);
+        hideAllPanels();
+        fruitsPanel.setVisible(true);
     }//GEN-LAST:event_button6ActionPerformed
 
     private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
-       selectButton(button7);
-       addLeftGreenColor(button7);
-       hideAllPanels();
-       groceryPanel.setVisible(true);
+        selectButton(button7);
+        addLeftGreenColor(button7);
+        hideAllPanels();
+        groceryPanel.setVisible(true);
     }//GEN-LAST:event_button7ActionPerformed
 
     private void button8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button8ActionPerformed
-       selectButton(button8);
-       addLeftGreenColor(button8);
-       hideAllPanels();
-       snacksPanel.setVisible(true);
+        selectButton(button8);
+        addLeftGreenColor(button8);
+        hideAllPanels();
+        snacksPanel.setVisible(true);
     }//GEN-LAST:event_button8ActionPerformed
 
     private void button9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button9ActionPerformed
-       selectButton(button9);
-       addLeftGreenColor(button9);
-       hideAllPanels();
-       dessertsPanel.setVisible(true);
+        selectButton(button9);
+        addLeftGreenColor(button9);
+        hideAllPanels();
+        dessertsPanel.setVisible(true);
     }//GEN-LAST:event_button9ActionPerformed
-    
+
     private void newProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProductsButtonActionPerformed
-       selectButton(newProductsButton);
-       addLeftGreenColor(newProductsButton);
-       hideAllPanels();
-       newProductsPanel.setVisible(true);
+        selectButton(newProductsButton);
+        addLeftGreenColor(newProductsButton);
+        hideAllPanels();
+        newProductsPanel.setVisible(true);
     }//GEN-LAST:event_newProductsButtonActionPerformed
 
     private void button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button10ActionPerformed
-       selectButton(button10);
-       addLeftGreenColor(button10);
-       hideAllPanels();
-       winesPanel.setVisible(true);
+        selectButton(button10);
+        addLeftGreenColor(button10);
+        hideAllPanels();
+        winesPanel.setVisible(true);
     }//GEN-LAST:event_button10ActionPerformed
 
-    public void selectButton(JButton btn){
-        if(selectedButton != null){
+    public void selectButton(JButton btn) {
+        if (selectedButton != null) {
             selectedButton.setBackground(Color.WHITE);
             selectedButton.setForeground(Color.black);
             selectedButton.setBorder(BorderFactory.createMatteBorder(0, 3, 0, 0, new Color(255, 255, 254)));
-            selectedButton.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 20, 0,0)));
+            selectedButton.setBorder(BorderFactory.createCompoundBorder(null, BorderFactory.createEmptyBorder(0, 20, 0, 0)));
         }
-        
+
         btn.setBackground(new Color(242, 242, 243));
         btn.setForeground(new Color(110, 66, 39));
         selectedButton = btn;
     }
-    
-    private void addLeftGreenColor(JButton btn){
+
+    private void addLeftGreenColor(JButton btn) {
         btn.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createMatteBorder(0, 3, 0, 0, new Color(228, 166, 107)),
-        BorderFactory.createEmptyBorder(0, 20, 0,0)
+                BorderFactory.createMatteBorder(0, 3, 0, 0, new Color(228, 166, 107)),
+                BorderFactory.createEmptyBorder(0, 20, 0, 0)
         ));
     }
-    
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

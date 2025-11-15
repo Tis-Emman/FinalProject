@@ -9,22 +9,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 
 public class TestLoginFrame extends javax.swing.JFrame {
-     
-private static DashboardFrame dashboardFrame;
-DatabaseManager dbManager = new DatabaseManager();
-LoginFrame signIn = new LoginFrame(dashboardFrame);
-Listener listener = new Listener();
+
+    private static DashboardFrame dashboardFrame;
+    DatabaseManager dbManager = new DatabaseManager();
+    LoginFrame signIn = new LoginFrame(dashboardFrame);
+    Listener listener = new Listener();
 
     public TestLoginFrame() {
         initComponents();
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(TestLoginFrame.EXIT_ON_CLOSE);   
-        gotoRegisterButton.setBackground(new Color(252,239,216));
+        setDefaultCloseOperation(TestLoginFrame.EXIT_ON_CLOSE);
+        gotoRegisterButton.setBackground(new Color(252, 239, 216));
         registerPanel.setVisible(false);
         togglePasswordVisibility(loginPasswordTextField, eyeIcon);
         togglePasswordVisibility(signUpPasswordTextField, registerPasswordEye);
         togglePasswordVisibility(passConfirmationField, registerConfirmationPasswordEye);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -524,135 +525,129 @@ Listener listener = new Listener();
     private void rememberMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rememberMeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rememberMeActionPerformed
-    
-        private void togglePasswordVisibility(JPasswordField passwordField, JLabel eyeLabel) {
-    eyeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-        private boolean isVisible = false;
 
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent e) {
-            isVisible = !isVisible;
+    private void togglePasswordVisibility(JPasswordField passwordField, JLabel eyeLabel) {
+        eyeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            private boolean isVisible = false;
 
-            if (isVisible) {
-                passwordField.setEchoChar((char) 0); 
-                eyeLabel.setIcon(new ImageIcon(getClass().getResource("/icons/closed.png" ))); // open eye
-            } else {
-                passwordField.setEchoChar('•'); 
-                eyeLabel.setIcon(new ImageIcon(getClass().getResource("/icons/open.png"))); // closed eye
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                isVisible = !isVisible;
+
+                if (isVisible) {
+                    passwordField.setEchoChar((char) 0);
+                    eyeLabel.setIcon(new ImageIcon(getClass().getResource("/icons/closed.png"))); // open eye
+                } else {
+                    passwordField.setEchoChar('•');
+                    eyeLabel.setIcon(new ImageIcon(getClass().getResource("/icons/open.png"))); // closed eye
+                }
             }
-        }
-    });
-}
-        
+        });
+    }
+
     private JButton selectedButton = null;
-    
+
     private void gotoRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoRegisterButtonActionPerformed
-       registerPanel.setVisible(true);
-       loginPanel.setVisible(false);
-       
-       gotoLoginButton.setBackground(new Color(252,239,216));
-       selectButton(gotoRegisterButton);
-       
+        registerPanel.setVisible(true);
+        loginPanel.setVisible(false);
+
+        gotoLoginButton.setBackground(new Color(252, 239, 216));
+        selectButton(gotoRegisterButton);
+
     }//GEN-LAST:event_gotoRegisterButtonActionPerformed
 
-     public void selectButton(JButton btn){
-        if(selectedButton != null){
-            selectedButton.setBackground(new Color(252,239,216));
+    public void selectButton(JButton btn) {
+        if (selectedButton != null) {
+            selectedButton.setBackground(new Color(252, 239, 216));
         }
-        
-        btn.setBackground(new Color(137,102,38));
+
+        btn.setBackground(new Color(137, 102, 38));
         selectedButton = btn;
     }
-     
+
     private void gotoLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gotoLoginButtonActionPerformed
-      loginPanel.setVisible(true);
-      registerPanel.setVisible(false);
-      
-       selectButton(gotoLoginButton);
-      
+        loginPanel.setVisible(true);
+        registerPanel.setVisible(false);
+
+        selectButton(gotoLoginButton);
+
     }//GEN-LAST:event_gotoLoginButtonActionPerformed
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
-       String fullName = fullNameTextField.getText().trim();
-       String email =  emailTextField.getText().trim();
-       String password = new String(signUpPasswordTextField.getPassword()); 
-       String confirmationPass = new String(passConfirmationField.getPassword());
-       
-         if(fullName.isEmpty() || email.isEmpty() || password.isEmpty()){
-          registerWarningLabel.setText("Please fill out all the forms!");
-        }else if(dbManager.checkEmailExist(email, passwordWarningLabel)){
-          passwordWarningLabel.setText("Email is already registered!");
-        }else if(password.length() <= 8){
-          passwordWarningLabel.setText("Password must be greater than 8 characters!");
-          emailWarningLabel.setText("");
-          registerWarningLabel.setText("");
-        }else if(!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")){
-          emailWarningLabel.setText("Email is not valid!");
-          registerWarningLabel.setText("");
-          passwordWarningLabel.setText("");
-        } else if(!password.equals(confirmationPass)){
-          confirmationPassLabel.setText("Password do not match!");
-        }
-         else {
-                                
-          emailWarningLabel.setText("");
-          registerWarningLabel.setText("");
-          passwordWarningLabel.setText("");
-          confirmationPassLabel.setText("");
-          dbManager.insertUserInfo(fullName, email, password);
-          JOptionPane.showMessageDialog(rootPane, "Sign up successfull!");
-          
-          fullNameTextField.setText("");
-          emailTextField.setText("");
-          signUpPasswordTextField.setText("");
-          passConfirmationField.setText("");
-          
-          
-          DashboardFrame dbFrame = new DashboardFrame(true, email);
-         // dbFrame.setVisible(true);
-         // dashboardFrame.gotoLoginImage.setVisible(false);
-         loginPanel.setVisible(true);
-         registerPanel.setVisible(false);
-         gotoRegisterButton.setBackground(new Color(252,239,216));
-         gotoLoginButton.setBackground(new Color(137,102,38));
+        String fullName = fullNameTextField.getText().trim();
+        String email = emailTextField.getText().trim();
+        String password = new String(signUpPasswordTextField.getPassword());
+        String confirmationPass = new String(passConfirmationField.getPassword());
+
+        if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            registerWarningLabel.setText("Please fill out all the forms!");
+        } else if (dbManager.checkEmailExist(email, passwordWarningLabel)) {
+            passwordWarningLabel.setText("Email is already registered!");
+        } else if (password.length() <= 8) {
+            passwordWarningLabel.setText("Password must be greater than 8 characters!");
+            emailWarningLabel.setText("");
+            registerWarningLabel.setText("");
+        } else if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            emailWarningLabel.setText("Email is not valid!");
+            registerWarningLabel.setText("");
+            passwordWarningLabel.setText("");
+        } else if (!password.equals(confirmationPass)) {
+            confirmationPassLabel.setText("Password do not match!");
+        } else {
+
+            registerPanel.setVisible(false);
+            loginPanel.setVisible(true);
+            gotoRegisterButton.setBackground(new Color(252, 239, 216));
+            gotoLoginButton.setBackground(new Color(137, 102, 38));
+            emailWarningLabel.setText("");
+            registerWarningLabel.setText("");
+            passwordWarningLabel.setText("");
+            confirmationPassLabel.setText("");
+            dbManager.insertUserInfo(fullName, email, password);
+            JOptionPane.showMessageDialog(rootPane, "Sign up successfull!");
+
+            fullNameTextField.setText("");
+            emailTextField.setText("");
+            signUpPasswordTextField.setText("");
+            passConfirmationField.setText("");
+
+            //  DashboardFrame dbFrame = new DashboardFrame(true, email);
+            // dbFrame.setVisible(true);
+            // dashboardFrame.gotoLoginImage.setVisible(false);
     }//GEN-LAST:event_signUpButtonActionPerformed
-}
+    }
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-         String email = loginEmailTextField.getText().trim();
+        String email = loginEmailTextField.getText().trim();
         String password = new String(loginPasswordTextField.getPassword());
 
-        if(dbManager.readEmailPass(email, password)){
+        if (dbManager.readEmailPass(email, password)) {
             JOptionPane.showMessageDialog(rootPane, "Successfully logged in!");
 
             DashboardFrame dbFrame = new DashboardFrame(true, email);
 
             // System.out.println(getEmail());
-            
             dbFrame.setVisible(true);
-            
+
             this.dispose();
-            
-            
-        } else if(email.isEmpty() || password.isEmpty()){
+
+        } else if (email.isEmpty() || password.isEmpty()) {
             loginWarningLabel.setText("Please, fill out all the fields");
         } else {
-           loginWarningLabel.setText("User not registered!");
+            loginWarningLabel.setText("User not registered!");
         }
-        
-        if(email.equalsIgnoreCase("admin") && password.equals("admin")){
+
+        if (email.equalsIgnoreCase("admin") && password.equals("admin")) {
             AdminPage aP = new AdminPage();
             aP.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    
-    
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-          
+
             }
         });
     }
