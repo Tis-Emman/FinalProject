@@ -158,7 +158,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         Listener.gotoRegisterPanel(gotoRegisterImage, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
         Listener.gotoRegisterPanel(gotoRegisterButton, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
 
-        Listener.showPanel(jLabel15, landingPanel);
+        Listener.showPanel(gotoLandingPanelLogo, landingPanel);
 
         add(newPanel);
         add(bottomFrame);
@@ -305,7 +305,17 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         landingPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        bakeryLandingIcon = new javax.swing.JLabel();
+        butcheryLandingIcon = new javax.swing.JLabel();
+        seafoodsLandingIcon = new javax.swing.JLabel();
+        readyMealsLandingIcon = new javax.swing.JLabel();
+        vegetablesLandingIcon = new javax.swing.JLabel();
+        fruitsLandingIcon = new javax.swing.JLabel();
+        snakcsLandingIcon = new javax.swing.JLabel();
+        dessertsLandingIcon = new javax.swing.JLabel();
+        beveragesLandingIcon = new javax.swing.JLabel();
+        newProductsLandingIcon = new javax.swing.JLabel();
         newProductsPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         newProductsSlot1 = new javax.swing.JLabel();
@@ -885,7 +895,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         myCartImage = new javax.swing.JLabel();
         myCartButton = new javax.swing.JLabel();
         cartCount = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        gotoLandingPanelLogo = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1116,9 +1126,39 @@ public class DashboardFrame extends javax.swing.JFrame {
         landingPanel.setBackground(new java.awt.Color(243, 243, 243));
         landingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setBackground(new java.awt.Color(243, 243, 243));
-        jLabel1.setText("landing page");
-        landingPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/landing panel icon.png"))); // NOI18N
+        jLabel5.setText("jLabel5");
+        landingPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        bakeryLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bakery landing icon.png"))); // NOI18N
+        landingPanel.add(bakeryLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 427, -1, -1));
+
+        butcheryLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/butchery landing icon.png"))); // NOI18N
+        landingPanel.add(butcheryLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, -1, 110));
+
+        seafoodsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/seafoods landing icon.png"))); // NOI18N
+        landingPanel.add(seafoodsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, -1, 110));
+
+        readyMealsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ready meals landing icon.png"))); // NOI18N
+        landingPanel.add(readyMealsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, -1, -1));
+
+        vegetablesLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vegetables landing icon.png"))); // NOI18N
+        landingPanel.add(vegetablesLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, -1, -1));
+
+        fruitsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fruits landing icon.png"))); // NOI18N
+        landingPanel.add(fruitsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, -1, -1));
+
+        snakcsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/snacks landing icon.png"))); // NOI18N
+        landingPanel.add(snakcsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, -1, -1));
+
+        dessertsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desserts landing icon.png"))); // NOI18N
+        landingPanel.add(dessertsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 430, -1, -1));
+
+        beveragesLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/beverages landing icon.png"))); // NOI18N
+        landingPanel.add(beveragesLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 430, -1, -1));
+
+        newProductsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new products landing icon.png"))); // NOI18N
+        landingPanel.add(newProductsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 430, -1, -1));
 
         jLayeredPane1.add(landingPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
 
@@ -3400,8 +3440,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         cartCount.setText("0");
         jPanel6.add(cartCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1510, 10, 20, -1));
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/dashboard logo.png"))); // NOI18N
-        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 70));
+        gotoLandingPanelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/dashboard logo.png"))); // NOI18N
+        jPanel6.add(gotoLandingPanelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -3563,6 +3603,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel bakeryLabel6;
     public static javax.swing.JLabel bakeryLabel7;
     public static javax.swing.JLabel bakeryLabel8;
+    private javax.swing.JLabel bakeryLandingIcon;
     private javax.swing.JPanel bakeryPanel;
     public static javax.swing.JLabel bakeryPrice1;
     public static javax.swing.JLabel bakeryPrice2;
@@ -3589,6 +3630,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel bakeryStock7;
     private javax.swing.JLabel bakeryStock8;
     private javax.swing.JLabel bakeryStock9;
+    private javax.swing.JLabel beveragesLandingIcon;
     private javax.swing.JButton butcheryButton;
     public static javax.swing.JLabel butcheryLabel1;
     public static javax.swing.JLabel butcheryLabel2;
@@ -3598,6 +3640,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel butcheryLabel6;
     public static javax.swing.JLabel butcheryLabel7;
     public static javax.swing.JLabel butcheryLabel8;
+    private javax.swing.JLabel butcheryLandingIcon;
     private javax.swing.JPanel butcheryPanel;
     public static javax.swing.JLabel butcheryPrice1;
     public static javax.swing.JLabel butcheryPrice2;
@@ -3646,6 +3689,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel dessertsLabel6;
     public static javax.swing.JLabel dessertsLabel7;
     public static javax.swing.JLabel dessertsLabel8;
+    private javax.swing.JLabel dessertsLandingIcon;
     private javax.swing.JPanel dessertsPanel;
     public static javax.swing.JLabel dessertsPrice1;
     public static javax.swing.JLabel dessertsPrice2;
@@ -3679,6 +3723,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel fruitsLabel6;
     public static javax.swing.JLabel fruitsLabel7;
     public static javax.swing.JLabel fruitsLabel8;
+    private javax.swing.JLabel fruitsLandingIcon;
     private javax.swing.JPanel fruitsPanel;
     public static javax.swing.JLabel fruitsPrice1;
     public static javax.swing.JLabel fruitsPrice2;
@@ -3704,6 +3749,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel fruitsStock6;
     private javax.swing.JLabel fruitsStock7;
     private javax.swing.JLabel fruitsStock8;
+    private javax.swing.JLabel gotoLandingPanelLogo;
     private javax.swing.JLabel gotoLoginButton;
     public javax.swing.JLabel gotoLoginImage;
     private javax.swing.JLabel gotoRegisterButton;
@@ -3748,17 +3794,16 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel groceryStock7;
     private javax.swing.JLabel groceryStock8;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -3955,6 +4000,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel newProductsLabel6;
     public static javax.swing.JLabel newProductsLabel7;
     public static javax.swing.JLabel newProductsLabel8;
+    private javax.swing.JLabel newProductsLandingIcon;
     private javax.swing.JPanel newProductsPanel;
     public static javax.swing.JLabel newProductsPrice1;
     public static javax.swing.JLabel newProductsPrice2;
@@ -3988,6 +4034,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel readyMealsLabel6;
     public static javax.swing.JLabel readyMealsLabel7;
     public static javax.swing.JLabel readyMealsLabel8;
+    private javax.swing.JLabel readyMealsLandingIcon;
     private javax.swing.JPanel readyMealsPanel;
     public static javax.swing.JLabel readyMealsPrice1;
     public static javax.swing.JLabel readyMealsPrice2;
@@ -4023,6 +4070,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel seafoodsLabel6;
     public static javax.swing.JLabel seafoodsLabel7;
     public static javax.swing.JLabel seafoodsLabel8;
+    private javax.swing.JLabel seafoodsLandingIcon;
     public static javax.swing.JLabel seafoodsPrice1;
     public static javax.swing.JLabel seafoodsPrice2;
     public static javax.swing.JLabel seafoodsPrice3;
@@ -4082,6 +4130,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel snacksStock6;
     private javax.swing.JLabel snacksStock7;
     private javax.swing.JLabel snacksStock8;
+    private javax.swing.JLabel snakcsLandingIcon;
     public static javax.swing.JLabel vegetablesLabel1;
     public static javax.swing.JLabel vegetablesLabel2;
     public static javax.swing.JLabel vegetablesLabel3;
@@ -4090,6 +4139,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static javax.swing.JLabel vegetablesLabel6;
     public static javax.swing.JLabel vegetablesLabel7;
     public static javax.swing.JLabel vegetablesLabel8;
+    private javax.swing.JLabel vegetablesLandingIcon;
     private javax.swing.JPanel vegetablesPanel;
     public static javax.swing.JLabel vegetablesPrice1;
     public static javax.swing.JLabel vegetablesPrice2;
