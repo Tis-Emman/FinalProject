@@ -3,9 +3,13 @@ package main_package;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -144,21 +148,22 @@ public class DashboardFrame extends javax.swing.JFrame {
         defaultLeft(bakeryButton);
         defaultLeft(butcheryButton);
         defaultLeft(seafoodsButton);
-        defaultLeft(button4);
-        defaultLeft(button5);
-        defaultLeft(button6);
-        defaultLeft(button7);
-        defaultLeft(button8);
-        defaultLeft(button9);
-        defaultLeft(button10);
+        defaultLeft(readyMealsButton);
+        defaultLeft(vegetableButton);
+        defaultLeft(fruitsButton);
+        //defaultLeft(groceryButton);
+        defaultLeft(snacksButton);
+        defaultLeft(iceCreamButton);
+        defaultLeft(beveragesButton);
         defaultLeft(newProductsButton);
 
         Listener.addLabelListener(gotoLoginButton, this, tFrame);
         Listener.addLabelListener(gotoLoginImage, this, tFrame);
+        Listener.addLabelListener(shopNowButton, this, tFrame);
         Listener.gotoRegisterPanel(gotoRegisterImage, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
         Listener.gotoRegisterPanel(gotoRegisterButton, this, tFrame, TestLoginFrame.loginPanel, TestLoginFrame.registerPanel);
 
-        Listener.showPanel(gotoLandingPanelLogo, landingPanel);
+        showPanel(gotoLandingPanelLogo, landingPanel);
 
         add(newPanel);
         add(bottomFrame);
@@ -168,14 +173,18 @@ public class DashboardFrame extends javax.swing.JFrame {
         if (isLoggedIn) {
             gotoLoginImage.setVisible(false);
             gotoLoginButton.setVisible(false);
+            shopNowButton.setVisible(false);
             gotoRegisterButton.setText("MY ACCOUNT");
 
-            for (java.awt.event.MouseListener listener : gotoRegisterImage.getMouseListeners()) {
-                gotoRegisterImage.removeMouseListener(listener);
-            }
+            showPanel(gotoRegisterImage, accountPanel, this);
+            showPanel(myCartImage, cartPanel, this);
 
-            System.out.println(email);
             String rt = dbManager.retrieveUsername(email);
+            System.out.println(rt);
+
+            switchPanel(this, landingPanel);
+        } else {
+            switchPanel(this, landingPanel);
         }
 
         hideAllPanels();
@@ -183,6 +192,38 @@ public class DashboardFrame extends javax.swing.JFrame {
         landingPanel.setVisible(true);
 
         DatabaseManager.loadProductsFromDB();
+    }
+
+    public static void switchPanel(DashboardFrame frame, JPanel panelToShow) {
+        frame.hideAllPanels();         // hide all panels in the instance
+        panelToShow.setVisible(true);  // show only the target panel
+        panelToShow.revalidate();
+        panelToShow.repaint();
+        System.out.println("DEBUGGER: Showing panel " + panelToShow.getName());
+    }
+
+    public static void showPanel(JLabel label, JPanel panelToShow, DashboardFrame frame) {
+        // Remove old listeners
+        for (MouseListener listener : label.getMouseListeners()) {
+            label.removeMouseListener(listener);
+        }
+
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                switchPanel(frame, panelToShow);
+            }
+        });
+    }
+
+    public static void showPanel(JLabel label, JPanel panelToShow) {
+        label.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                panelToShow.setVisible(true);
+            }
+        });
     }
 
     public static void addProductToCategory(int category, ImageIcon image, String name, String price) {
@@ -290,22 +331,30 @@ public class DashboardFrame extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        gotoLoginImage = new javax.swing.JLabel();
+        gotoLoginButton = new javax.swing.JLabel();
+        gotoRegisterImage = new javax.swing.JLabel();
+        gotoRegisterButton = new javax.swing.JLabel();
+        myCartImage = new javax.swing.JLabel();
+        myCartButton = new javax.swing.JLabel();
+        cartCount = new javax.swing.JLabel();
+        gotoLandingPanelLogo = new javax.swing.JLabel();
         sidebarPanel = new javax.swing.JPanel();
         bakeryButton = new javax.swing.JButton();
         butcheryButton = new javax.swing.JButton();
         seafoodsButton = new javax.swing.JButton();
-        button4 = new javax.swing.JButton();
-        button5 = new javax.swing.JButton();
-        button6 = new javax.swing.JButton();
-        button7 = new javax.swing.JButton();
-        button8 = new javax.swing.JButton();
-        button9 = new javax.swing.JButton();
+        readyMealsButton = new javax.swing.JButton();
+        vegetableButton = new javax.swing.JButton();
+        fruitsButton = new javax.swing.JButton();
+        snacksButton = new javax.swing.JButton();
+        iceCreamButton = new javax.swing.JButton();
         newProductsButton = new javax.swing.JButton();
-        button10 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        beveragesButton = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         landingPanel = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        shopNowButton = new javax.swing.JLabel();
         bakeryLandingIcon = new javax.swing.JLabel();
         butcheryLandingIcon = new javax.swing.JLabel();
         seafoodsLandingIcon = new javax.swing.JLabel();
@@ -316,6 +365,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         dessertsLandingIcon = new javax.swing.JLabel();
         beveragesLandingIcon = new javax.swing.JLabel();
         newProductsLandingIcon = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         newProductsPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         newProductsSlot1 = new javax.swing.JLabel();
@@ -885,17 +935,28 @@ public class DashboardFrame extends javax.swing.JFrame {
         seafoodsSlot6 = new javax.swing.JLabel();
         seafoodsSlot7 = new javax.swing.JLabel();
         seafoodsSlot8 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        accountPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        gotoLoginImage = new javax.swing.JLabel();
-        gotoLoginButton = new javax.swing.JLabel();
-        gotoRegisterImage = new javax.swing.JLabel();
-        gotoRegisterButton = new javax.swing.JLabel();
-        myCartImage = new javax.swing.JLabel();
-        myCartButton = new javax.swing.JLabel();
-        cartCount = new javax.swing.JLabel();
-        gotoLandingPanelLogo = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        cartPanel = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel92 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        paymentOptionsLabel = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        aboutUsLabel = new javax.swing.JLabel();
+        FAQsLabel = new javax.swing.JLabel();
+        privacyPolicyLabel = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -913,6 +974,64 @@ public class DashboardFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(243, 243, 243));
 
+        jPanel2.setBackground(new java.awt.Color(228, 166, 107));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel6.setBackground(new java.awt.Color(251, 239, 215));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        gotoLoginImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login icon - test.png"))); // NOI18N
+        jPanel6.add(gotoLoginImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 20, -1, -1));
+
+        gotoLoginButton.setBackground(new java.awt.Color(25, 145, 77));
+        gotoLoginButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        gotoLoginButton.setForeground(new java.awt.Color(153, 153, 153));
+        gotoLoginButton.setText("LOGIN");
+        jPanel6.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 70, -1, -1));
+
+        gotoRegisterImage.setBackground(new java.awt.Color(25, 145, 77));
+        gotoRegisterImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        gotoRegisterImage.setForeground(new java.awt.Color(153, 153, 153));
+        gotoRegisterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/register icon - test.png"))); // NOI18N
+        jPanel6.add(gotoRegisterImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 20, -1, -1));
+
+        gotoRegisterButton.setBackground(new java.awt.Color(25, 145, 77));
+        gotoRegisterButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        gotoRegisterButton.setForeground(new java.awt.Color(153, 153, 153));
+        gotoRegisterButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gotoRegisterButton.setText("REGISTER");
+        jPanel6.add(gotoRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 70, 210, 20));
+
+        myCartImage.setBackground(new java.awt.Color(25, 145, 77));
+        myCartImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        myCartImage.setForeground(new java.awt.Color(153, 153, 153));
+        myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon - test.png"))); // NOI18N
+        jPanel6.add(myCartImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 30, -1, 37));
+
+        myCartButton.setBackground(new java.awt.Color(25, 145, 77));
+        myCartButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        myCartButton.setForeground(new java.awt.Color(153, 153, 153));
+        myCartButton.setText("MY CART");
+        jPanel6.add(myCartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 70, -1, -1));
+
+        cartCount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cartCount.setForeground(new java.awt.Color(255, 102, 102));
+        cartCount.setText("0");
+        jPanel6.add(cartCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1510, 10, 20, -1));
+
+        gotoLandingPanelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/dashboard logo.png"))); // NOI18N
+        jPanel6.add(gotoLandingPanelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 70));
+
         sidebarPanel.setBackground(new java.awt.Color(255, 255, 254));
 
         bakeryButton.setBackground(new java.awt.Color(255, 255, 254));
@@ -923,6 +1042,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         bakeryButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bakeryButton.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         bakeryButton.setIconTextGap(14);
+        bakeryButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                bakeryButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                bakeryButtonMouseExited(evt);
+            }
+        });
         bakeryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bakeryButtonActionPerformed(evt);
@@ -936,6 +1063,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         butcheryButton.setFocusable(false);
         butcheryButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         butcheryButton.setIconTextGap(14);
+        butcheryButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                butcheryButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                butcheryButtonMouseExited(evt);
+            }
+        });
         butcheryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butcheryButtonActionPerformed(evt);
@@ -950,87 +1085,122 @@ public class DashboardFrame extends javax.swing.JFrame {
         seafoodsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         seafoodsButton.setIconTextGap(14);
         seafoodsButton.setInheritsPopupMenu(true);
+        seafoodsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                seafoodsButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                seafoodsButtonMouseExited(evt);
+            }
+        });
         seafoodsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seafoodsButtonActionPerformed(evt);
             }
         });
 
-        button4.setBackground(new java.awt.Color(255, 255, 254));
-        button4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ready meals icon.png"))); // NOI18N
-        button4.setText("Ready Meals");
-        button4.setBorder(null);
-        button4.setFocusable(false);
-        button4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button4.setIconTextGap(14);
-        button4.addActionListener(new java.awt.event.ActionListener() {
+        readyMealsButton.setBackground(new java.awt.Color(255, 255, 254));
+        readyMealsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ready meals icon.png"))); // NOI18N
+        readyMealsButton.setText("Ready Meals");
+        readyMealsButton.setBorder(null);
+        readyMealsButton.setFocusable(false);
+        readyMealsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        readyMealsButton.setIconTextGap(14);
+        readyMealsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                readyMealsButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                readyMealsButtonMouseExited(evt);
+            }
+        });
+        readyMealsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button4ActionPerformed(evt);
+                readyMealsButtonActionPerformed(evt);
             }
         });
 
-        button5.setBackground(new java.awt.Color(255, 255, 254));
-        button5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vegetables icon.png"))); // NOI18N
-        button5.setText("Vegetables");
-        button5.setBorder(null);
-        button5.setFocusable(false);
-        button5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button5.setIconTextGap(14);
-        button5.addActionListener(new java.awt.event.ActionListener() {
+        vegetableButton.setBackground(new java.awt.Color(255, 255, 254));
+        vegetableButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vegetables icon.png"))); // NOI18N
+        vegetableButton.setText("Vegetables");
+        vegetableButton.setBorder(null);
+        vegetableButton.setFocusable(false);
+        vegetableButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vegetableButton.setIconTextGap(14);
+        vegetableButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                vegetableButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                vegetableButtonMouseExited(evt);
+            }
+        });
+        vegetableButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button5ActionPerformed(evt);
+                vegetableButtonActionPerformed(evt);
             }
         });
 
-        button6.setBackground(new java.awt.Color(255, 255, 254));
-        button6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fruits icon.png"))); // NOI18N
-        button6.setText("Fruits");
-        button6.setBorder(null);
-        button6.setFocusable(false);
-        button6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button6.setIconTextGap(14);
-        button6.addActionListener(new java.awt.event.ActionListener() {
+        fruitsButton.setBackground(new java.awt.Color(255, 255, 254));
+        fruitsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fruits icon.png"))); // NOI18N
+        fruitsButton.setText("Fruits");
+        fruitsButton.setBorder(null);
+        fruitsButton.setFocusable(false);
+        fruitsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        fruitsButton.setIconTextGap(14);
+        fruitsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fruitsButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fruitsButtonMouseExited(evt);
+            }
+        });
+        fruitsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button6ActionPerformed(evt);
+                fruitsButtonActionPerformed(evt);
             }
         });
 
-        button7.setBackground(new java.awt.Color(255, 255, 254));
-        button7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grocery icon.png"))); // NOI18N
-        button7.setText("Grocery");
-        button7.setBorder(null);
-        button7.setFocusable(false);
-        button7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button7.setIconTextGap(14);
-        button7.addActionListener(new java.awt.event.ActionListener() {
+        snacksButton.setBackground(new java.awt.Color(255, 255, 254));
+        snacksButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/snacks icon.png"))); // NOI18N
+        snacksButton.setText("Snacks");
+        snacksButton.setBorder(null);
+        snacksButton.setFocusable(false);
+        snacksButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        snacksButton.setIconTextGap(14);
+        snacksButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                snacksButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                snacksButtonMouseExited(evt);
+            }
+        });
+        snacksButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button7ActionPerformed(evt);
+                snacksButtonActionPerformed(evt);
             }
         });
 
-        button8.setBackground(new java.awt.Color(255, 255, 254));
-        button8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/snacks icon.png"))); // NOI18N
-        button8.setText("Snacks");
-        button8.setBorder(null);
-        button8.setFocusable(false);
-        button8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button8.setIconTextGap(14);
-        button8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button8ActionPerformed(evt);
+        iceCreamButton.setBackground(new java.awt.Color(255, 255, 254));
+        iceCreamButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desserts icon.png"))); // NOI18N
+        iceCreamButton.setText("Ice Cream");
+        iceCreamButton.setBorder(null);
+        iceCreamButton.setFocusable(false);
+        iceCreamButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        iceCreamButton.setIconTextGap(14);
+        iceCreamButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                iceCreamButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                iceCreamButtonMouseExited(evt);
             }
         });
-
-        button9.setBackground(new java.awt.Color(255, 255, 254));
-        button9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desserts icon.png"))); // NOI18N
-        button9.setText("Ice Cream");
-        button9.setBorder(null);
-        button9.setFocusable(false);
-        button9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button9.setIconTextGap(14);
-        button9.addActionListener(new java.awt.event.ActionListener() {
+        iceCreamButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button9ActionPerformed(evt);
+                iceCreamButtonActionPerformed(evt);
             }
         });
 
@@ -1041,22 +1211,38 @@ public class DashboardFrame extends javax.swing.JFrame {
         newProductsButton.setFocusable(false);
         newProductsButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         newProductsButton.setIconTextGap(14);
+        newProductsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                newProductsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                newProductsMouseExited(evt);
+            }
+        });
         newProductsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newProductsButtonActionPerformed(evt);
             }
         });
 
-        button10.setBackground(new java.awt.Color(255, 255, 254));
-        button10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/wine icon.png"))); // NOI18N
-        button10.setText("Beverages");
-        button10.setBorder(null);
-        button10.setFocusable(false);
-        button10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        button10.setIconTextGap(14);
-        button10.addActionListener(new java.awt.event.ActionListener() {
+        beveragesButton.setBackground(new java.awt.Color(255, 255, 254));
+        beveragesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/wine icon.png"))); // NOI18N
+        beveragesButton.setText("Beverages");
+        beveragesButton.setBorder(null);
+        beveragesButton.setFocusable(false);
+        beveragesButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        beveragesButton.setIconTextGap(14);
+        beveragesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                beveragesButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                beveragesButtonMouseExited(evt);
+            }
+        });
+        beveragesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button10ActionPerformed(evt);
+                beveragesButtonActionPerformed(evt);
             }
         });
 
@@ -1067,16 +1253,15 @@ public class DashboardFrame extends javax.swing.JFrame {
             .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(seafoodsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(readyMealsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(butcheryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(bakeryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vegetableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fruitsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(snacksButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(iceCreamButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(newProductsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                    .addComponent(button10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(beveragesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         sidebarPanelLayout.setVerticalGroup(
@@ -1091,33 +1276,18 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(seafoodsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(readyMealsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(vegetableButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fruitsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(snacksButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(iceCreamButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
-        );
-
-        jPanel2.setBackground(new java.awt.Color(228, 166, 107));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+                .addComponent(beveragesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLayeredPane1.setBackground(new java.awt.Color(102, 102, 255));
@@ -1126,9 +1296,13 @@ public class DashboardFrame extends javax.swing.JFrame {
         landingPanel.setBackground(new java.awt.Color(243, 243, 243));
         landingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/landing panel icon.png"))); // NOI18N
-        jLabel5.setText("jLabel5");
-        landingPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        shopNowButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/shop now icon.png"))); // NOI18N
+        shopNowButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                shopNowButtonMouseEntered(evt);
+            }
+        });
+        landingPanel.add(shopNowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, -1, -1));
 
         bakeryLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bakery landing icon.png"))); // NOI18N
         landingPanel.add(bakeryLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 427, -1, -1));
@@ -1159,6 +1333,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         newProductsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new products landing icon.png"))); // NOI18N
         landingPanel.add(newProductsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 430, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new (2).png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        landingPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLayeredPane1.add(landingPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
 
@@ -3392,92 +3570,158 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLayeredPane1.add(seaFoodsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, -1, 1250, 550));
 
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("GROUP 4 - FINAL PROJECT ");
+        accountPanel.setBackground(new java.awt.Color(243, 243, 243));
+        accountPanel.setForeground(new java.awt.Color(59, 59, 59));
+        accountPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("DITO ILALAGAY OTHER FRAMES/PAGE OR FUNCTIONS - Brainstorm nalang");
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(48, 48, 48));
+        jLabel19.setText("MY PROFILE");
+        accountPanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 50));
 
-        jPanel6.setBackground(new java.awt.Color(251, 239, 215));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel17.setText("Password");
+        accountPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
-        gotoLoginImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login icon - test.png"))); // NOI18N
-        jPanel6.add(gotoLoginImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 20, -1, -1));
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setText("Email");
+        accountPanel.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
-        gotoLoginButton.setBackground(new java.awt.Color(25, 145, 77));
-        gotoLoginButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        gotoLoginButton.setForeground(new java.awt.Color(153, 153, 153));
-        gotoLoginButton.setText("LOGIN");
-        jPanel6.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 70, -1, -1));
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel25.setText("Manage your very cozy account");
+        accountPanel.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        gotoRegisterImage.setBackground(new java.awt.Color(25, 145, 77));
-        gotoRegisterImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        gotoRegisterImage.setForeground(new java.awt.Color(153, 153, 153));
-        gotoRegisterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/register icon - test.png"))); // NOI18N
-        jPanel6.add(gotoRegisterImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 20, -1, -1));
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel26.setText("Address");
+        accountPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, -1, -1));
 
-        gotoRegisterButton.setBackground(new java.awt.Color(25, 145, 77));
-        gotoRegisterButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        gotoRegisterButton.setForeground(new java.awt.Color(153, 153, 153));
-        gotoRegisterButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        gotoRegisterButton.setText("REGISTER");
-        jPanel6.add(gotoRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 70, 210, 20));
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel27.setText("Full Name");
+        accountPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
 
-        myCartImage.setBackground(new java.awt.Color(25, 145, 77));
-        myCartImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        myCartImage.setForeground(new java.awt.Color(153, 153, 153));
-        myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon - test.png"))); // NOI18N
-        jPanel6.add(myCartImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 30, -1, 37));
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel28.setText("Full Name");
+        accountPanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
 
-        myCartButton.setBackground(new java.awt.Color(25, 145, 77));
-        myCartButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        myCartButton.setForeground(new java.awt.Color(153, 153, 153));
-        myCartButton.setText("MY CART");
-        jPanel6.add(myCartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 70, -1, -1));
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel29.setText("Gender");
+        accountPanel.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
 
-        cartCount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        cartCount.setForeground(new java.awt.Color(255, 102, 102));
-        cartCount.setText("0");
-        jPanel6.add(cartCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1510, 10, 20, -1));
+        jLayeredPane1.add(accountPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
 
-        gotoLandingPanelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/dashboard logo.png"))); // NOI18N
-        jPanel6.add(gotoLandingPanelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 70));
+        cartPanel.setBackground(new java.awt.Color(243, 243, 243));
+        cartPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setText("YOU ARE NOW IN CART PANEL");
+        cartPanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLayeredPane1.add(cartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
+
+        jPanel92.setBackground(new java.awt.Color(228, 166, 107));
+        jPanel92.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/facebook icon.png"))); // NOI18N
+        jPanel92.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 50, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pinterest icon.png"))); // NOI18N
+        jPanel92.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1440, 50, -1, 50));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/instagram icon.png"))); // NOI18N
+        jPanel92.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 50, -1, -1));
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/follow us on icon.png"))); // NOI18N
+        jPanel92.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1420, 10, -1, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/motto icon.png"))); // NOI18N
+        jPanel92.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 70));
+
+        paymentOptionsLabel.setBackground(new java.awt.Color(185, 85, 0));
+        paymentOptionsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        paymentOptionsLabel.setForeground(new java.awt.Color(101, 13, 2));
+        paymentOptionsLabel.setText("Payment Options");
+        paymentOptionsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                paymentOptionsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                paymentOptionsMouseExited(evt);
+            }
+        });
+        jPanel92.add(paymentOptionsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 30, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel18.setText("@Group4FinalProject - All rights reserved");
+        jPanel92.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 70, -1, -1));
+
+        aboutUsLabel.setBackground(new java.awt.Color(185, 85, 0));
+        aboutUsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        aboutUsLabel.setForeground(new java.awt.Color(101, 13, 2));
+        aboutUsLabel.setText("About Us");
+        aboutUsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                aboutUsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                aboutUsMouseExited(evt);
+            }
+        });
+        jPanel92.add(aboutUsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
+
+        FAQsLabel.setBackground(new java.awt.Color(185, 85, 0));
+        FAQsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        FAQsLabel.setForeground(new java.awt.Color(101, 13, 2));
+        FAQsLabel.setText("FAQs");
+        FAQsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                FAQsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                FAQsMouseExited(evt);
+            }
+        });
+        jPanel92.add(FAQsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 30, -1, -1));
+
+        privacyPolicyLabel.setBackground(new java.awt.Color(185, 85, 0));
+        privacyPolicyLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
+        privacyPolicyLabel.setForeground(new java.awt.Color(101, 13, 2));
+        privacyPolicyLabel.setText("Privacy & Policy");
+        privacyPolicyLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                privacyPolicyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                privacyPolicyMouseExited(evt);
+            }
+        });
+        jPanel92.add(privacyPolicyLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel18)
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel19)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel92, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, Short.MAX_VALUE))
-                .addGap(0, 53, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel19))
-                .addGap(39, 39, 39))
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel92, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -3485,6 +3729,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
     private JButton selectedButton = null;
     private boolean isClicked = false;
+
+    public void resetAllButtons() {
+        JButton[] buttons = {
+            newProductsButton,
+            bakeryButton,
+            butcheryButton,
+            seafoodsButton,
+            readyMealsButton,
+            vegetableButton,
+            fruitsButton,
+            snacksButton,
+            iceCreamButton,
+            beveragesButton
+        // add all your sidebar buttons here
+        };
+
+        for (JButton btn : buttons) {
+            btn.setBackground(Color.WHITE);
+            btn.setForeground(Color.BLACK);
+            btn.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0)); // default border
+        }
+
+        selectedButton = null; // remove any selected state
+    }
 
     private void bakeryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bakeryButtonActionPerformed
 
@@ -3509,47 +3777,40 @@ public class DashboardFrame extends javax.swing.JFrame {
         seaFoodsPanel.setVisible(true);
     }//GEN-LAST:event_seafoodsButtonActionPerformed
 
-    private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
-        selectButton(button4);
-        addLeftGreenColor(button4);
+    private void readyMealsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readyMealsButtonActionPerformed
+        selectButton(readyMealsButton);
+        addLeftGreenColor(readyMealsButton);
         hideAllPanels();
         readyMealsPanel.setVisible(true);
-    }//GEN-LAST:event_button4ActionPerformed
+    }//GEN-LAST:event_readyMealsButtonActionPerformed
 
-    private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
-        selectButton(button5);
-        addLeftGreenColor(button5);
+    private void vegetableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vegetableButtonActionPerformed
+        selectButton(vegetableButton);
+        addLeftGreenColor(vegetableButton);
         hideAllPanels();
         vegetablesPanel.setVisible(true);
-    }//GEN-LAST:event_button5ActionPerformed
+    }//GEN-LAST:event_vegetableButtonActionPerformed
 
-    private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
-        selectButton(button6);
-        addLeftGreenColor(button6);
+    private void fruitsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fruitsButtonActionPerformed
+        selectButton(fruitsButton);
+        addLeftGreenColor(fruitsButton);
         hideAllPanels();
         fruitsPanel.setVisible(true);
-    }//GEN-LAST:event_button6ActionPerformed
+    }//GEN-LAST:event_fruitsButtonActionPerformed
 
-    private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
-        selectButton(button7);
-        addLeftGreenColor(button7);
-        hideAllPanels();
-        groceryPanel.setVisible(true);
-    }//GEN-LAST:event_button7ActionPerformed
-
-    private void button8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button8ActionPerformed
-        selectButton(button8);
-        addLeftGreenColor(button8);
+    private void snacksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_snacksButtonActionPerformed
+        selectButton(snacksButton);
+        addLeftGreenColor(snacksButton);
         hideAllPanels();
         snacksPanel.setVisible(true);
-    }//GEN-LAST:event_button8ActionPerformed
+    }//GEN-LAST:event_snacksButtonActionPerformed
 
-    private void button9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button9ActionPerformed
-        selectButton(button9);
-        addLeftGreenColor(button9);
+    private void iceCreamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iceCreamButtonActionPerformed
+        selectButton(iceCreamButton);
+        addLeftGreenColor(iceCreamButton);
         hideAllPanels();
         dessertsPanel.setVisible(true);
-    }//GEN-LAST:event_button9ActionPerformed
+    }//GEN-LAST:event_iceCreamButtonActionPerformed
 
     private void newProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProductsButtonActionPerformed
         selectButton(newProductsButton);
@@ -3558,12 +3819,179 @@ public class DashboardFrame extends javax.swing.JFrame {
         newProductsPanel.setVisible(true);
     }//GEN-LAST:event_newProductsButtonActionPerformed
 
-    private void button10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button10ActionPerformed
-        selectButton(button10);
-        addLeftGreenColor(button10);
+    private void beveragesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beveragesButtonActionPerformed
+        selectButton(beveragesButton);
+        addLeftGreenColor(beveragesButton);
         hideAllPanels();
         winesPanel.setVisible(true);
-    }//GEN-LAST:event_button10ActionPerformed
+    }//GEN-LAST:event_beveragesButtonActionPerformed
+
+    private void aboutUsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutUsMouseEntered
+        aboutUsLabel.setForeground(new Color(255, 255, 255));
+        aboutUsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_aboutUsMouseEntered
+
+    private void aboutUsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutUsMouseExited
+        aboutUsLabel.setForeground(new Color(101, 13, 2));
+    }//GEN-LAST:event_aboutUsMouseExited
+
+    private void FAQsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FAQsMouseEntered
+        FAQsLabel.setForeground(new Color(255, 255, 255));
+        FAQsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_FAQsMouseEntered
+
+    private void FAQsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FAQsMouseExited
+        FAQsLabel.setForeground(new Color(101, 13, 2));
+    }//GEN-LAST:event_FAQsMouseExited
+
+    private void privacyPolicyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_privacyPolicyMouseEntered
+        privacyPolicyLabel.setForeground(new Color(255, 255, 255));
+        privacyPolicyLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_privacyPolicyMouseEntered
+
+    private void privacyPolicyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_privacyPolicyMouseExited
+        privacyPolicyLabel.setForeground(new Color(101, 13, 2));
+    }//GEN-LAST:event_privacyPolicyMouseExited
+
+    private void paymentOptionsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentOptionsMouseEntered
+        paymentOptionsLabel.setForeground(new Color(255, 255, 255));
+        paymentOptionsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+    }//GEN-LAST:event_paymentOptionsMouseEntered
+
+    private void paymentOptionsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentOptionsMouseExited
+        paymentOptionsLabel.setForeground(new Color(101, 13, 2));
+    }//GEN-LAST:event_paymentOptionsMouseExited
+
+    private void newProductsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newProductsMouseEntered
+        newProductsButton.setBackground(new Color(242, 242, 243));
+        newProductsButton.setForeground(new Color(110, 66, 39));
+        newProductsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_newProductsMouseEntered
+
+    private void newProductsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newProductsMouseExited
+        if (selectedButton != newProductsButton) {
+            // Only reset if this button is NOT the selected one
+            newProductsButton.setBackground(Color.WHITE);
+            newProductsButton.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_newProductsMouseExited
+
+    private void bakeryButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bakeryButtonMouseEntered
+        bakeryButton.setBackground(new Color(242, 242, 243));
+        bakeryButton.setForeground(new Color(110, 66, 39));
+        bakeryButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_bakeryButtonMouseEntered
+
+    private void bakeryButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bakeryButtonMouseExited
+        if (selectedButton != bakeryButton) {
+            // Only reset if this button is NOT the selected one
+            bakeryButton.setBackground(Color.WHITE);
+            bakeryButton.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_bakeryButtonMouseExited
+    //////
+    private void butcheryButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butcheryButtonMouseEntered
+            butcheryButton.setBackground(new Color(242, 242, 243));
+            butcheryButton.setForeground(new Color(110, 66, 39));
+            butcheryButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_butcheryButtonMouseEntered
+
+    private void butcheryButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butcheryButtonMouseExited
+        if (selectedButton != butcheryButton) {
+            // Only reset if this button is NOT the selected one
+            butcheryButton.setBackground(Color.WHITE);
+            butcheryButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_butcheryButtonMouseExited
+
+    private void seafoodsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seafoodsButtonMouseEntered
+        seafoodsButton.setBackground(new Color(242, 242, 243));
+        seafoodsButton.setForeground(new Color(110, 66, 39));
+        seafoodsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_seafoodsButtonMouseEntered
+
+    private void seafoodsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seafoodsButtonMouseExited
+        if (selectedButton != seafoodsButton) {
+            // Only reset if this button is NOT the selected one
+            seafoodsButton.setBackground(Color.WHITE);
+            seafoodsButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_seafoodsButtonMouseExited
+
+    private void readyMealsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readyMealsButtonMouseEntered
+        readyMealsButton.setBackground(new Color(242, 242, 243));
+        readyMealsButton.setForeground(new Color(110, 66, 39));
+        readyMealsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));    }//GEN-LAST:event_readyMealsButtonMouseEntered
+
+    private void readyMealsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readyMealsButtonMouseExited
+        if (selectedButton != readyMealsButton) {
+            // Only reset if this button is NOT the selected one
+            readyMealsButton.setBackground(Color.WHITE);
+            readyMealsButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_readyMealsButtonMouseExited
+
+    private void vegetableButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vegetableButtonMouseEntered
+        vegetableButton.setBackground(new Color(242, 242, 243));
+        vegetableButton.setForeground(new Color(110, 66, 39));
+        vegetableButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));    }//GEN-LAST:event_vegetableButtonMouseEntered
+
+    private void vegetableButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vegetableButtonMouseExited
+        if (selectedButton != vegetableButton) {
+            // Only reset if this button is NOT the selected one
+            vegetableButton.setBackground(Color.WHITE);
+            vegetableButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_vegetableButtonMouseExited
+
+    private void fruitsButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fruitsButtonMouseEntered
+        fruitsButton.setBackground(new Color(242, 242, 243));
+        fruitsButton.setForeground(new Color(110, 66, 39));
+        fruitsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));    }//GEN-LAST:event_fruitsButtonMouseEntered
+
+    private void fruitsButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fruitsButtonMouseExited
+        if (selectedButton != fruitsButton) {
+            // Only reset if this button is NOT the selected one
+            fruitsButton.setBackground(Color.WHITE);
+            fruitsButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_fruitsButtonMouseExited
+
+    private void snacksButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_snacksButtonMouseEntered
+        snacksButton.setBackground(new Color(242, 242, 243));
+        snacksButton.setForeground(new Color(110, 66, 39));
+        snacksButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));    }//GEN-LAST:event_snacksButtonMouseEntered
+
+    private void snacksButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_snacksButtonMouseExited
+        if (selectedButton != snacksButton) {
+            // Only reset if this button is NOT the selected one
+            snacksButton.setBackground(Color.WHITE);
+            snacksButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_snacksButtonMouseExited
+
+    private void iceCreamButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iceCreamButtonMouseEntered
+        iceCreamButton.setBackground(new Color(242, 242, 243));
+        iceCreamButton.setForeground(new Color(110, 66, 39));
+        iceCreamButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));    }//GEN-LAST:event_iceCreamButtonMouseEntered
+
+    private void iceCreamButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iceCreamButtonMouseExited
+        if (selectedButton != iceCreamButton) {
+            // Only reset if this button is NOT the selected one
+            iceCreamButton.setBackground(Color.WHITE);
+            iceCreamButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_iceCreamButtonMouseExited
+
+    private void beveragesButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beveragesButtonMouseEntered
+        beveragesButton.setBackground(new Color(242, 242, 243));
+        beveragesButton.setForeground(new Color(110, 66, 39));
+        beveragesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));    }//GEN-LAST:event_beveragesButtonMouseEntered
+
+    private void beveragesButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beveragesButtonMouseExited
+        if (selectedButton != beveragesButton) {
+            // Only reset if this button is NOT the selected one
+            beveragesButton.setBackground(Color.WHITE);
+            beveragesButton.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_beveragesButtonMouseExited
+
+    private void shopNowButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shopNowButtonMouseEntered
+        shopNowButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_shopNowButtonMouseEntered
 
     public void selectButton(JButton btn) {
         if (selectedButton != null) {
@@ -3594,6 +4022,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FAQsLabel;
+    private javax.swing.JLabel aboutUsLabel;
+    private javax.swing.JPanel accountPanel;
     private javax.swing.JButton bakeryButton;
     public static javax.swing.JLabel bakeryLabel1;
     public static javax.swing.JLabel bakeryLabel2;
@@ -3630,6 +4061,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel bakeryStock7;
     private javax.swing.JLabel bakeryStock8;
     private javax.swing.JLabel bakeryStock9;
+    private javax.swing.JButton beveragesButton;
     private javax.swing.JLabel beveragesLandingIcon;
     private javax.swing.JButton butcheryButton;
     public static javax.swing.JLabel butcheryLabel1;
@@ -3671,16 +4103,10 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel butcheryStock6;
     private javax.swing.JLabel butcheryStock7;
     private javax.swing.JLabel butcheryStock8;
-    private javax.swing.JButton button10;
-    private javax.swing.JButton button4;
-    private javax.swing.JButton button5;
-    private javax.swing.JButton button6;
-    private javax.swing.JButton button7;
-    private javax.swing.JButton button8;
-    private javax.swing.JButton button9;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel cartCount;
+    private javax.swing.JPanel cartPanel;
     public static javax.swing.JLabel dessertsLabel1;
     public static javax.swing.JLabel dessertsLabel2;
     public static javax.swing.JLabel dessertsLabel3;
@@ -3715,6 +4141,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel dessertsStock6;
     private javax.swing.JLabel dessertsStock7;
     private javax.swing.JLabel dessertsStock8;
+    private javax.swing.JButton fruitsButton;
     public static javax.swing.JLabel fruitsLabel1;
     public static javax.swing.JLabel fruitsLabel2;
     public static javax.swing.JLabel fruitsLabel3;
@@ -3793,20 +4220,34 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel groceryStock6;
     private javax.swing.JLabel groceryStock7;
     private javax.swing.JLabel groceryStock8;
+    private javax.swing.JButton iceCreamButton;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -3899,6 +4340,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanel90;
     private javax.swing.JPanel jPanel91;
+    private javax.swing.JPanel jPanel92;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel landingPanel;
     private javax.swing.JLabel myCartButton;
@@ -4026,6 +4468,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel newProductsStockLabel6;
     private javax.swing.JLabel newProductsStockLabel7;
     private javax.swing.JLabel newProductsStockLabel8;
+    private javax.swing.JLabel paymentOptionsLabel;
+    private javax.swing.JLabel privacyPolicyLabel;
+    private javax.swing.JButton readyMealsButton;
     public static javax.swing.JLabel readyMealsLabel1;
     public static javax.swing.JLabel readyMealsLabel2;
     public static javax.swing.JLabel readyMealsLabel3;
@@ -4096,7 +4541,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel seafoodsStock7;
     private javax.swing.JLabel seafoodsStock8;
     private javax.swing.JLabel seafoodsTitle;
+    private javax.swing.JLabel shopNowButton;
     private javax.swing.JPanel sidebarPanel;
+    private javax.swing.JButton snacksButton;
     public static javax.swing.JLabel snacksLabel1;
     public static javax.swing.JLabel snacksLabel2;
     public static javax.swing.JLabel snacksLabel3;
@@ -4131,6 +4578,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel snacksStock7;
     private javax.swing.JLabel snacksStock8;
     private javax.swing.JLabel snakcsLandingIcon;
+    private javax.swing.JButton vegetableButton;
     public static javax.swing.JLabel vegetablesLabel1;
     public static javax.swing.JLabel vegetablesLabel2;
     public static javax.swing.JLabel vegetablesLabel3;

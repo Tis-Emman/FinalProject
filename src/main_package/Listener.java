@@ -49,6 +49,8 @@ public class Listener {
                 TestLoginFrame.gotoLoginButton.setBackground(new Color(252,239,216));
                 TestLoginFrame.gotoRegisterButton.setBackground(new Color(137,102,38));
                 
+                
+                
             }
         });
     }
@@ -72,9 +74,11 @@ public class Listener {
               panelToShow.setVisible(true);
               frame.hideAllPanels();
               
+              
             }
         });
     }
+    
     
     
     
