@@ -92,7 +92,9 @@ public class DashboardFrame extends javax.swing.JFrame {
         setBackground(new Color(251, 239, 215));
 
         initComponents();
-
+        gotoLandingPanelLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); 
+        
+        
         category1Slots = new JLabel[]{newProductsSlot1, newProductsSlot2, newProductsSlot3, newProductsSlot4, newProductsSlot5, newProductsSlot6, newProductsSlot7, newProductsSlot8};
         category2Slots = new JLabel[]{bakerySlot1, bakerySlot2, bakerySlot3, bakerySlot4, bakerySlot5, bakerySlot6, bakerySlot7, bakerySlot8};
         category3Slots = new JLabel[]{butcherySlot1, butcherySlot2, butcherySlot3, butcherySlot4, butcherySlot5, butcherySlot6, butcherySlot7, butcherySlot8};
@@ -178,25 +180,48 @@ public class DashboardFrame extends javax.swing.JFrame {
 
             showPanel(gotoRegisterImage, accountPanel, this);
             showPanel(myCartImage, cartPanel, this);
-
+            
+            gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); 
+            
             String rt = dbManager.retrieveUsername(email);
             System.out.println(rt);
 
+            setup(this);   
             switchPanel(this, landingPanel);
+            
+            fullNameHolder.setText(dbManager.retrieveUsername(email));
+            emailHolder.setText(dbManager.retrieveEmail(email));
+            passwordHolder.setText("*************");
+
         } else {
             switchPanel(this, landingPanel);
         }
 
-        hideAllPanels();
-        setPanelSizes();
-        landingPanel.setVisible(true);
+        DatabaseManager.loadProductsFromDB();
 
         DatabaseManager.loadProductsFromDB();
+        
     }
 
+    public static boolean registerLabelClicked = false;
+    
+    private void setup(DashboardFrame frame) {
+
+    frame.radioButtonPanel.setVisible(false); // hide first
+
+    gotoRegisterImage.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent e) {
+            registerLabelClicked = true;
+            frame.radioButtonPanel.setVisible(true);
+            System.out.println("REGISTER LABEL CLICKED");
+        }
+    });
+}
+    
     public static void switchPanel(DashboardFrame frame, JPanel panelToShow) {
-        frame.hideAllPanels();         // hide all panels in the instance
-        panelToShow.setVisible(true);  // show only the target panel
+        frame.hideAllPanels();
+        panelToShow.setVisible(true);
         panelToShow.revalidate();
         panelToShow.repaint();
         System.out.println("DEBUGGER: Showing panel " + panelToShow.getName());
@@ -327,10 +352,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jSplitPane1 = new javax.swing.JSplitPane();
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         gotoLoginImage = new javax.swing.JLabel();
@@ -941,9 +965,15 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        passwordHolder = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        fullNameHolder = new javax.swing.JLabel();
+        emailHolder = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        radioButtonPanel = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
+        saveButton = new javax.swing.JButton();
         cartPanel = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jPanel92 = new javax.swing.JPanel();
@@ -3595,17 +3625,58 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel26.setText("Address");
         accountPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, -1, -1));
 
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel27.setText("Full Name");
-        accountPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+        passwordHolder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        accountPanel.add(passwordHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 330, 30));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel28.setText("Full Name");
         accountPanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
 
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel30.setText("Full Name");
+        accountPanel.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+
+        fullNameHolder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        accountPanel.add(fullNameHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 330, 30));
+
+        emailHolder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        accountPanel.add(emailHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 330, 30));
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel33.setText("Gender");
+        accountPanel.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
+
+        radioButtonPanel.setBackground(new java.awt.Color(243, 243, 243));
+
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel29.setText("Gender");
-        accountPanel.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
+        jLabel29.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel29.setText("Add+");
+
+        saveButton.setText("Save");
+
+        javax.swing.GroupLayout radioButtonPanelLayout = new javax.swing.GroupLayout(radioButtonPanel);
+        radioButtonPanel.setLayout(radioButtonPanelLayout);
+        radioButtonPanelLayout.setHorizontalGroup(
+            radioButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(radioButtonPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel29)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, radioButtonPanelLayout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(saveButton)
+                .addGap(66, 66, 66))
+        );
+        radioButtonPanelLayout.setVerticalGroup(
+            radioButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(radioButtonPanelLayout.createSequentialGroup()
+                .addContainerGap(111, Short.MAX_VALUE)
+                .addComponent(jLabel29)
+                .addGap(36, 36, 36)
+                .addComponent(saveButton))
+        );
+
+        accountPanel.add(radioButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 210, 190));
 
         jLayeredPane1.add(accountPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
 
@@ -4104,7 +4175,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel butcheryStock7;
     private javax.swing.JLabel butcheryStock8;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel cartCount;
     private javax.swing.JPanel cartPanel;
     public static javax.swing.JLabel dessertsLabel1;
@@ -4141,6 +4211,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel dessertsStock6;
     private javax.swing.JLabel dessertsStock7;
     private javax.swing.JLabel dessertsStock8;
+    private javax.swing.JLabel emailHolder;
     private javax.swing.JButton fruitsButton;
     public static javax.swing.JLabel fruitsLabel1;
     public static javax.swing.JLabel fruitsLabel2;
@@ -4176,6 +4247,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel fruitsStock6;
     private javax.swing.JLabel fruitsStock7;
     private javax.swing.JLabel fruitsStock8;
+    private javax.swing.JLabel fullNameHolder;
     private javax.swing.JLabel gotoLandingPanelLogo;
     private javax.swing.JLabel gotoLoginButton;
     public javax.swing.JLabel gotoLoginImage;
@@ -4238,10 +4310,11 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -4468,8 +4541,10 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel newProductsStockLabel6;
     private javax.swing.JLabel newProductsStockLabel7;
     private javax.swing.JLabel newProductsStockLabel8;
+    private javax.swing.JLabel passwordHolder;
     private javax.swing.JLabel paymentOptionsLabel;
     private javax.swing.JLabel privacyPolicyLabel;
+    private javax.swing.JPanel radioButtonPanel;
     private javax.swing.JButton readyMealsButton;
     public static javax.swing.JLabel readyMealsLabel1;
     public static javax.swing.JLabel readyMealsLabel2;
@@ -4505,6 +4580,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel readyMealsStock6;
     private javax.swing.JLabel readyMealsStock7;
     private javax.swing.JLabel readyMealsStock8;
+    private javax.swing.JButton saveButton;
     private javax.swing.JPanel seaFoodsPanel;
     private javax.swing.JButton seafoodsButton;
     public static javax.swing.JLabel seafoodsLabel1;
