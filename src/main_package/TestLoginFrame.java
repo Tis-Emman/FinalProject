@@ -24,7 +24,11 @@ public class TestLoginFrame extends javax.swing.JFrame {
         togglePasswordVisibility(loginPasswordTextField, eyeIcon);
         togglePasswordVisibility(signUpPasswordTextField, registerPasswordEye);
         togglePasswordVisibility(passConfirmationField, registerConfirmationPasswordEye);
+        
+        
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,7 +39,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         gotoRegisterButton = new javax.swing.JButton();
         gotoLoginButton = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
+        gotoDashboardLogo = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         registerPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -140,8 +144,8 @@ public class TestLoginFrame extends javax.swing.JFrame {
         });
         jPanel1.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 50));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo - loginXregister.png"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 350));
+        gotoDashboardLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo - loginXregister.png"))); // NOI18N
+        jPanel1.add(gotoDashboardLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 350));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 730));
 
@@ -658,13 +662,13 @@ public class TestLoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel emailWarningLabel;
     private javax.swing.JLabel eyeIcon;
     private javax.swing.JTextField fullNameTextField;
+    private javax.swing.JLabel gotoDashboardLogo;
     public static javax.swing.JButton gotoLoginButton;
     public static javax.swing.JButton gotoRegisterButton;
     private javax.swing.JLabel iconPlatforms;
     private javax.swing.JLabel iconPlatformsWarning;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

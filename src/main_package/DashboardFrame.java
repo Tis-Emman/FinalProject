@@ -93,7 +93,9 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         initComponents();
         gotoLandingPanelLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); 
-        
+        gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gotoLoginImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        myCartImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         
         category1Slots = new JLabel[]{newProductsSlot1, newProductsSlot2, newProductsSlot3, newProductsSlot4, newProductsSlot5, newProductsSlot6, newProductsSlot7, newProductsSlot8};
         category2Slots = new JLabel[]{bakerySlot1, bakerySlot2, bakerySlot3, bakerySlot4, bakerySlot5, bakerySlot6, bakerySlot7, bakerySlot8};
@@ -1021,6 +1023,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         gotoLoginImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login icon - test.png"))); // NOI18N
+        gotoLoginImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                gotoLoginImageMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                gotoLoginImageMouseExited(evt);
+            }
+        });
         jPanel6.add(gotoLoginImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 20, -1, -1));
 
         gotoLoginButton.setBackground(new java.awt.Color(25, 145, 77));
@@ -1033,6 +1043,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         gotoRegisterImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         gotoRegisterImage.setForeground(new java.awt.Color(153, 153, 153));
         gotoRegisterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/register icon - test.png"))); // NOI18N
+        gotoRegisterImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                gotoRegisterImageMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                gotoRegisterImageMouseExited(evt);
+            }
+        });
         jPanel6.add(gotoRegisterImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 20, -1, -1));
 
         gotoRegisterButton.setBackground(new java.awt.Color(25, 145, 77));
@@ -1046,6 +1064,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         myCartImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         myCartImage.setForeground(new java.awt.Color(153, 153, 153));
         myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon - test.png"))); // NOI18N
+        myCartImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                myCartImageMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                myCartImageMouseExited(evt);
+            }
+        });
         jPanel6.add(myCartImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 30, -1, 37));
 
         myCartButton.setBackground(new java.awt.Color(25, 145, 77));
@@ -4063,6 +4089,30 @@ public class DashboardFrame extends javax.swing.JFrame {
     private void shopNowButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shopNowButtonMouseEntered
         shopNowButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     }//GEN-LAST:event_shopNowButtonMouseEntered
+
+    private void gotoLoginImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoLoginImageMouseEntered
+       gotoLoginButton.setForeground(new Color(101,13,2));
+    }//GEN-LAST:event_gotoLoginImageMouseEntered
+
+    private void gotoLoginImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoLoginImageMouseExited
+        gotoLoginButton.setForeground(new Color(153,153,153));
+    }//GEN-LAST:event_gotoLoginImageMouseExited
+
+    private void gotoRegisterImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseEntered
+       gotoRegisterButton.setForeground(new Color(101,13,2));
+    }//GEN-LAST:event_gotoRegisterImageMouseEntered
+
+    private void gotoRegisterImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseExited
+       gotoRegisterButton.setForeground(new Color(153,153,153));
+    }//GEN-LAST:event_gotoRegisterImageMouseExited
+
+    private void myCartImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseEntered
+       myCartButton.setForeground(new Color(101,13,2));
+    }//GEN-LAST:event_myCartImageMouseEntered
+
+    private void myCartImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseExited
+       myCartButton.setForeground(new Color(153,153,153));
+    }//GEN-LAST:event_myCartImageMouseExited
 
     public void selectButton(JButton btn) {
         if (selectedButton != null) {
