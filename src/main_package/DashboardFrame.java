@@ -2,13 +2,16 @@ package main_package;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -23,6 +26,8 @@ public class DashboardFrame extends javax.swing.JFrame {
     static boolean isLoggedIn;
     DatabaseManager dbManager = new DatabaseManager();
     TestLoginFrame tFrame = new TestLoginFrame();
+    CartFrame cFrame = new CartFrame();
+    
 
     public static JLabel[] category1Slots;
     public static JLabel[] category2Slots;
@@ -92,11 +97,15 @@ public class DashboardFrame extends javax.swing.JFrame {
         setBackground(new Color(251, 239, 215));
 
         initComponents();
-        gotoLandingPanelLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); 
+        
+        String rememberedEmail = dbManager.getRememberedUser();
+        System.out.println(rememberedEmail);
+        
+        gotoLandingPanelLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gotoLoginImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        myCartImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        
+        paymentOptionsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         category1Slots = new JLabel[]{newProductsSlot1, newProductsSlot2, newProductsSlot3, newProductsSlot4, newProductsSlot5, newProductsSlot6, newProductsSlot7, newProductsSlot8};
         category2Slots = new JLabel[]{bakerySlot1, bakerySlot2, bakerySlot3, bakerySlot4, bakerySlot5, bakerySlot6, bakerySlot7, bakerySlot8};
         category3Slots = new JLabel[]{butcherySlot1, butcherySlot2, butcherySlot3, butcherySlot4, butcherySlot5, butcherySlot6, butcherySlot7, butcherySlot8};
@@ -171,6 +180,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         add(newPanel);
         add(bottomFrame);
+        
+        dateChooser.setForeground(Color.GRAY);
+        monthChooser.setForeground(Color.GRAY);
+        yearChooser.setForeground(Color.GRAY);
 
         DashboardFrame.isLoggedIn = true;
 
@@ -181,46 +194,86 @@ public class DashboardFrame extends javax.swing.JFrame {
             gotoRegisterButton.setText("MY ACCOUNT");
 
             showPanel(gotoRegisterImage, accountPanel, this);
-            showPanel(myCartImage, cartPanel, this);
-            
-            gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)); 
-            
+            Listener.addLabelListenerDontClose(myCartImage, this, cFrame);
+
+            gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
             String rt = dbManager.retrieveUsername(email);
             System.out.println(rt);
 
-            setup(this);   
+            setup(this);
             switchPanel(this, landingPanel);
-            
+
             fullNameHolder.setText(dbManager.retrieveUsername(email));
             emailHolder.setText(dbManager.retrieveEmail(email));
-            passwordHolder.setText("*************");
 
         } else {
             switchPanel(this, landingPanel);
+            clickCartNotLoggedIn(myCartImage);
         }
 
         DatabaseManager.loadProductsFromDB();
 
         DatabaseManager.loadProductsFromDB();
-        
+
+        getOrder(newProductsAddToCart1, newProductsLabel1, newProductsPrice1);
+        showPanel(paymentOptionsLabel, paymentOptionsPanel, this);
+        showPanel(privacyPolicyLabel, privacyPolicyPanel, this);
+        showPanel(FAQsLabel, faqsPanel, this);
+        showPanel(aboutUsLabel, aboutUsPanel, this);
+    }
+
+    public void getOrder(JLabel label, JLabel name, JLabel price) {
+
+        label.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+
+                String productName = name.getText();
+                String priceText = price.getText().replace("P", "").trim();
+                float productPrice = Float.parseFloat(priceText);
+
+                System.out.println(productName);
+                System.out.println(productPrice);
+
+                // Pass the CartFrame labels to display in cart
+                dbManager.displayItemByName(
+                        productName,
+                        cFrame.cartSlot1, // JLabel for image
+                        cFrame.cartNameLabel1, // JLabel for name
+                        cFrame.cartPriceLabel1 // JLabel for price
+                );
+
+                JOptionPane.showMessageDialog(rootPane, "Added to cart succesfully!");
+
+            }
+        });
     }
 
     public static boolean registerLabelClicked = false;
-    
+
     private void setup(DashboardFrame frame) {
 
-    frame.radioButtonPanel.setVisible(false); // hide first
+        gotoRegisterImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                registerLabelClicked = true;
+                System.out.println("REGISTER LABEL CLICKED");
+            }
+        });
+    }
 
-    gotoRegisterImage.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent e) {
-            registerLabelClicked = true;
-            frame.radioButtonPanel.setVisible(true);
-            System.out.println("REGISTER LABEL CLICKED");
-        }
-    });
-}
-    
+    private void clickCartNotLoggedIn(JLabel label) {
+
+        label.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                JOptionPane.showMessageDialog(rootPane, "Please log in first");
+            }
+        });
+    }
+
     public static void switchPanel(DashboardFrame frame, JPanel panelToShow) {
         frame.hideAllPanels();
         panelToShow.setVisible(true);
@@ -236,9 +289,20 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
 
         label.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 switchPanel(frame, panelToShow);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                label.setForeground(Color.WHITE);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                label.setForeground(new Color(101, 13, 2));
             }
         });
     }
@@ -249,6 +313,7 @@ public class DashboardFrame extends javax.swing.JFrame {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 panelToShow.setVisible(true);
+                accountPanel.setVisible(false);
             }
         });
     }
@@ -347,6 +412,12 @@ public class DashboardFrame extends javax.swing.JFrame {
         snacksPanel.setVisible(false);
         winesPanel.setVisible(false);
         landingPanel.setVisible(false);
+        cartPanel.setVisible(false);
+        accountPanel.setVisible(false);
+        paymentOptionsPanel.setVisible(false);
+        privacyPolicyPanel.setVisible(false);
+        faqsPanel.setVisible(false);
+        aboutUsPanel.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -357,6 +428,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         gotoLoginImage = new javax.swing.JLabel();
@@ -961,23 +1033,40 @@ public class DashboardFrame extends javax.swing.JFrame {
         seafoodsSlot6 = new javax.swing.JLabel();
         seafoodsSlot7 = new javax.swing.JLabel();
         seafoodsSlot8 = new javax.swing.JLabel();
+        cartPanel = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        paymentOptionsPanel = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        privacyPolicyPanel = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        faqsPanel = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        aboutUsPanel = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
         accountPanel = new javax.swing.JPanel();
+        accountContainerPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        passwordHolder = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        fullNameHolder = new javax.swing.JLabel();
-        emailHolder = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        radioButtonPanel = new javax.swing.JPanel();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jLabel27 = new javax.swing.JLabel();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+        fullNameHolder = new javax.swing.JTextField();
+        emailHolder = new javax.swing.JTextField();
+        logoutButton = new javax.swing.JButton();
+        lblImagePreview = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
-        cartPanel = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
+        yearChooser = new javax.swing.JComboBox<>();
+        dateChooser = new javax.swing.JComboBox<>();
+        monthChooser = new javax.swing.JComboBox<>();
+        jLabel17 = new javax.swing.JLabel();
         jPanel92 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -1064,6 +1153,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         myCartImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         myCartImage.setForeground(new java.awt.Color(153, 153, 153));
         myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon - test.png"))); // NOI18N
+        myCartImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         myCartImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 myCartImageMouseEntered(evt);
@@ -1443,6 +1533,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(newProductsAddToCart4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel1.add(newProductsStockLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1464,6 +1555,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel4.add(newProductsPrice8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 120, -1));
 
         newProductsAddToCart8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel4.add(newProductsAddToCart8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel4.add(newProductsStockLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1485,6 +1577,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel5.add(newProductsPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
         newProductsAddToCart2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(newProductsAddToCart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel5.add(newProductsStockLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1506,6 +1599,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel7.add(newProductsPrice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
         newProductsAddToCart3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel7.add(newProductsAddToCart3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel7.add(newProductsStockLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1528,6 +1622,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel8.add(newProductsStockLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
         newProductsAddToCart1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel8.add(newProductsAddToCart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         newProductsPanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 150, 90));
@@ -1548,6 +1643,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel9.add(newProductsPrice5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
         newProductsAddToCart5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel9.add(newProductsAddToCart5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel9.add(newProductsStockLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1569,6 +1665,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel10.add(newProductsPrice6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
         newProductsAddToCart6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel10.add(newProductsAddToCart6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel10.add(newProductsStockLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1590,6 +1687,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel11.add(newProductsPrice7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
 
         newProductsAddToCart7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel11.add(newProductsAddToCart7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel11.add(newProductsStockLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3626,86 +3724,6 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLayeredPane1.add(seaFoodsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, -1, 1250, 550));
 
-        accountPanel.setBackground(new java.awt.Color(243, 243, 243));
-        accountPanel.setForeground(new java.awt.Color(59, 59, 59));
-        accountPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(48, 48, 48));
-        jLabel19.setText("MY PROFILE");
-        accountPanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 50));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel17.setText("Password");
-        accountPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
-
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel22.setText("Email");
-        accountPanel.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
-
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        jLabel25.setText("Manage your very cozy account");
-        accountPanel.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel26.setText("Address");
-        accountPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, -1, -1));
-
-        passwordHolder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        accountPanel.add(passwordHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 330, 30));
-
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel28.setText("Full Name");
-        accountPanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
-
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel30.setText("Full Name");
-        accountPanel.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
-
-        fullNameHolder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        accountPanel.add(fullNameHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 330, 30));
-
-        emailHolder.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        accountPanel.add(emailHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 330, 30));
-
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel33.setText("Gender");
-        accountPanel.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, -1, -1));
-
-        radioButtonPanel.setBackground(new java.awt.Color(243, 243, 243));
-
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel29.setText("Add+");
-
-        saveButton.setText("Save");
-
-        javax.swing.GroupLayout radioButtonPanelLayout = new javax.swing.GroupLayout(radioButtonPanel);
-        radioButtonPanel.setLayout(radioButtonPanelLayout);
-        radioButtonPanelLayout.setHorizontalGroup(
-            radioButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(radioButtonPanelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel29)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, radioButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addComponent(saveButton)
-                .addGap(66, 66, 66))
-        );
-        radioButtonPanelLayout.setVerticalGroup(
-            radioButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(radioButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(111, Short.MAX_VALUE)
-                .addComponent(jLabel29)
-                .addGap(36, 36, 36)
-                .addComponent(saveButton))
-        );
-
-        accountPanel.add(radioButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 210, 190));
-
-        jLayeredPane1.add(accountPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
-
         cartPanel.setBackground(new java.awt.Color(243, 243, 243));
         cartPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -3713,6 +3731,248 @@ public class DashboardFrame extends javax.swing.JFrame {
         cartPanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         jLayeredPane1.add(cartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
+
+        paymentOptionsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setText("Payment Options Panel");
+        paymentOptionsPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLayeredPane1.add(paymentOptionsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 1260, 550));
+
+        jLabel23.setText("Privacy and Policy Panel");
+
+        javax.swing.GroupLayout privacyPolicyPanelLayout = new javax.swing.GroupLayout(privacyPolicyPanel);
+        privacyPolicyPanel.setLayout(privacyPolicyPanelLayout);
+        privacyPolicyPanelLayout.setHorizontalGroup(
+            privacyPolicyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(privacyPolicyPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel23)
+                .addContainerGap(1126, Short.MAX_VALUE))
+        );
+        privacyPolicyPanelLayout.setVerticalGroup(
+            privacyPolicyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(privacyPolicyPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel23)
+                .addContainerGap(518, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.add(privacyPolicyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 540));
+
+        jLabel24.setText("HOLLA");
+
+        javax.swing.GroupLayout faqsPanelLayout = new javax.swing.GroupLayout(faqsPanel);
+        faqsPanel.setLayout(faqsPanelLayout);
+        faqsPanelLayout.setHorizontalGroup(
+            faqsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(faqsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24)
+                .addContainerGap(1096, Short.MAX_VALUE))
+        );
+        faqsPanelLayout.setVerticalGroup(
+            faqsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(faqsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel24)
+                .addContainerGap(528, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.add(faqsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 550));
+
+        jLabel31.setText("About us Panel");
+
+        javax.swing.GroupLayout aboutUsPanelLayout = new javax.swing.GroupLayout(aboutUsPanel);
+        aboutUsPanel.setLayout(aboutUsPanelLayout);
+        aboutUsPanelLayout.setHorizontalGroup(
+            aboutUsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(aboutUsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31)
+                .addContainerGap(1054, Short.MAX_VALUE))
+        );
+        aboutUsPanelLayout.setVerticalGroup(
+            aboutUsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(aboutUsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31)
+                .addContainerGap(528, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.add(aboutUsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 550));
+
+        accountPanel.setBackground(new java.awt.Color(243, 243, 243));
+        accountPanel.setForeground(new java.awt.Color(102, 102, 102));
+        accountPanel.setOpaque(false);
+        accountPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        accountContainerPanel.setBackground(new java.awt.Color(243, 243, 243));
+        accountContainerPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(48, 48, 48));
+        jLabel19.setText("MY PROFILE");
+        accountContainerPanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 50));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel22.setText("Email");
+        accountContainerPanel.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
+
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel25.setText("Manage your very cozy account");
+        accountContainerPanel.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel26.setText("Date of Birth");
+        accountContainerPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel28.setText("Full Name");
+        accountContainerPanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel30.setText("Full Name");
+        accountContainerPanel.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel33.setText("Gender");
+        accountContainerPanel.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, 30));
+
+        jRadioButton2.setBackground(new java.awt.Color(243, 243, 243));
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Male");
+        jRadioButton2.setBorder(null);
+        jRadioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButton2.setFocusable(false);
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 50, 20));
+
+        jRadioButton1.setBackground(new java.awt.Color(243, 243, 243));
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Other");
+        jRadioButton1.setBorder(null);
+        jRadioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButton1.setFocusable(false);
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 60, 20));
+
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel27.setText("Address");
+        accountContainerPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
+
+        jRadioButton3.setBackground(new java.awt.Color(243, 243, 243));
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Female");
+        jRadioButton3.setBorder(null);
+        jRadioButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jRadioButton3.setFocusable(false);
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 60, 20));
+
+        jButton1.setBackground(new java.awt.Color(243, 243, 243));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(51, 51, 51));
+        jButton1.setText("Select Image");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 270, 150, 40));
+
+        fullNameHolder.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        accountContainerPanel.add(fullNameHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 340, 40));
+
+        emailHolder.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        emailHolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailHolderActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(emailHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 340, 40));
+
+        logoutButton.setBackground(new java.awt.Color(159, 133, 85));
+        logoutButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        logoutButton.setForeground(new java.awt.Color(255, 255, 255));
+        logoutButton.setText("Log out");
+        logoutButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutButton.setFocusable(false);
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 500, 106, 38));
+        accountContainerPanel.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 110, 150, 140));
+
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel29.setText("Add+");
+        jLabel29.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        accountContainerPanel.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
+
+        saveButton.setBackground(new java.awt.Color(159, 133, 85));
+        saveButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        saveButton.setForeground(new java.awt.Color(255, 255, 255));
+        saveButton.setText("Save");
+        saveButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        saveButton.setFocusable(false);
+        accountContainerPanel.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 106, 38));
+
+        yearChooser.setBackground(new java.awt.Color(255, 255, 254));
+        yearChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913", "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905", "1904", "1903", "1902", "1901", "1900" }));
+        yearChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        yearChooser.setFocusable(false);
+        yearChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yearChooserActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(yearChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, 110, 40));
+
+        dateChooser.setBackground(new java.awt.Color(255, 255, 254));
+        dateChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
+        dateChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dateChooser.setFocusable(false);
+        dateChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateChooserActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(dateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 400, 110, 40));
+
+        monthChooser.setBackground(new java.awt.Color(255, 255, 254));
+        monthChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", " " }));
+        monthChooser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        monthChooser.setFocusable(false);
+        monthChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monthChooserActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(monthChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 110, 40));
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line seperator 1.png"))); // NOI18N
+        accountContainerPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, -1, -1));
+
+        accountPanel.add(accountContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 550));
+
+        jLayeredPane1.add(accountPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
 
         jPanel92.setBackground(new java.awt.Color(228, 166, 107));
         jPanel92.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -3755,6 +4015,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         aboutUsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         aboutUsLabel.setForeground(new java.awt.Color(101, 13, 2));
         aboutUsLabel.setText("About Us");
+        aboutUsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aboutUsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 aboutUsMouseEntered(evt);
@@ -3769,6 +4030,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         FAQsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         FAQsLabel.setForeground(new java.awt.Color(101, 13, 2));
         FAQsLabel.setText("FAQs");
+        FAQsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         FAQsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 FAQsMouseEntered(evt);
@@ -3783,6 +4045,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         privacyPolicyLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         privacyPolicyLabel.setForeground(new java.awt.Color(101, 13, 2));
         privacyPolicyLabel.setText("Privacy & Policy");
+        privacyPolicyLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         privacyPolicyLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 privacyPolicyMouseEntered(evt);
@@ -4091,28 +4354,104 @@ public class DashboardFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_shopNowButtonMouseEntered
 
     private void gotoLoginImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoLoginImageMouseEntered
-       gotoLoginButton.setForeground(new Color(101,13,2));
+        gotoLoginButton.setForeground(new Color(101, 13, 2));
     }//GEN-LAST:event_gotoLoginImageMouseEntered
 
     private void gotoLoginImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoLoginImageMouseExited
-        gotoLoginButton.setForeground(new Color(153,153,153));
+        gotoLoginButton.setForeground(new Color(153, 153, 153));
     }//GEN-LAST:event_gotoLoginImageMouseExited
 
     private void gotoRegisterImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseEntered
-       gotoRegisterButton.setForeground(new Color(101,13,2));
+        gotoRegisterButton.setForeground(new Color(101, 13, 2));
     }//GEN-LAST:event_gotoRegisterImageMouseEntered
 
     private void gotoRegisterImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseExited
-       gotoRegisterButton.setForeground(new Color(153,153,153));
+        gotoRegisterButton.setForeground(new Color(153, 153, 153));
     }//GEN-LAST:event_gotoRegisterImageMouseExited
 
     private void myCartImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseEntered
-       myCartButton.setForeground(new Color(101,13,2));
+        myCartButton.setForeground(new Color(101, 13, 2));
     }//GEN-LAST:event_myCartImageMouseEntered
 
     private void myCartImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseExited
-       myCartButton.setForeground(new Color(153,153,153));
+        myCartButton.setForeground(new Color(153, 153, 153));
     }//GEN-LAST:event_myCartImageMouseExited
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void emailHolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailHolderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailHolderActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private File selectedFile;
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        JFileChooser imgSelector = new JFileChooser();
+        imgSelector.setDialogTitle("Select Product Image");
+
+        imgSelector.setAcceptAllFileFilterUsed(false);
+        imgSelector.addChoosableFileFilter(
+                new javax.swing.filechooser.FileNameExtensionFilter("Image Files (.png, .jpg)", "png", "jpg")
+        );
+
+        int result = imgSelector.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = imgSelector.getSelectedFile();
+
+            String fileName = selectedFile.getName().toLowerCase();
+            if (!fileName.endsWith(".png") && !fileName.endsWith(".jpg")) { // fixed logic
+                JOptionPane.showMessageDialog(this, "Only PNG and JPG images are allowed");
+                selectedFile = null; // reset selected file
+                return;
+            }
+
+            // Show image preview immediately
+            lblImagePreview.setIcon(new ImageIcon(
+                    new ImageIcon(selectedFile.getAbsolutePath())
+                            .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
+            ));
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void dateChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateChooserActionPerformed
+        if (dateChooser.getSelectedIndex() == 0) {
+            dateChooser.setForeground(Color.GRAY);
+        } else {
+            dateChooser.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_dateChooserActionPerformed
+
+    private void monthChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthChooserActionPerformed
+        if (monthChooser.getSelectedIndex() == 0) {
+            monthChooser.setForeground(Color.GRAY);
+        } else {
+            monthChooser.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_monthChooserActionPerformed
+
+    private void yearChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearChooserActionPerformed
+        if (yearChooser.getSelectedIndex() == 0) {
+            yearChooser.setForeground(Color.GRAY);
+        } else {
+            yearChooser.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_yearChooserActionPerformed
 
     public void selectButton(JButton btn) {
         if (selectedButton != null) {
@@ -4145,7 +4484,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FAQsLabel;
     private javax.swing.JLabel aboutUsLabel;
-    private javax.swing.JPanel accountPanel;
+    private javax.swing.JPanel aboutUsPanel;
+    private javax.swing.JPanel accountContainerPanel;
+    private static javax.swing.JPanel accountPanel;
     private javax.swing.JButton bakeryButton;
     public static javax.swing.JLabel bakeryLabel1;
     public static javax.swing.JLabel bakeryLabel2;
@@ -4225,8 +4566,10 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel butcheryStock7;
     private javax.swing.JLabel butcheryStock8;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel cartCount;
     private javax.swing.JPanel cartPanel;
+    private javax.swing.JComboBox<String> dateChooser;
     public static javax.swing.JLabel dessertsLabel1;
     public static javax.swing.JLabel dessertsLabel2;
     public static javax.swing.JLabel dessertsLabel3;
@@ -4261,7 +4604,8 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel dessertsStock6;
     private javax.swing.JLabel dessertsStock7;
     private javax.swing.JLabel dessertsStock8;
-    private javax.swing.JLabel emailHolder;
+    private javax.swing.JTextField emailHolder;
+    private javax.swing.JPanel faqsPanel;
     private javax.swing.JButton fruitsButton;
     public static javax.swing.JLabel fruitsLabel1;
     public static javax.swing.JLabel fruitsLabel2;
@@ -4297,7 +4641,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel fruitsStock6;
     private javax.swing.JLabel fruitsStock7;
     private javax.swing.JLabel fruitsStock8;
-    private javax.swing.JLabel fullNameHolder;
+    private javax.swing.JTextField fullNameHolder;
     private javax.swing.JLabel gotoLandingPanelLogo;
     private javax.swing.JLabel gotoLoginButton;
     public javax.swing.JLabel gotoLoginImage;
@@ -4343,6 +4687,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel groceryStock7;
     private javax.swing.JLabel groceryStock8;
     private javax.swing.JButton iceCreamButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -4357,13 +4702,18 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -4464,8 +4814,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel90;
     private javax.swing.JPanel jPanel91;
     private javax.swing.JPanel jPanel92;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel landingPanel;
+    private javax.swing.JLabel lblImagePreview;
+    private javax.swing.JButton logoutButton;
+    private javax.swing.JComboBox<String> monthChooser;
     private javax.swing.JLabel myCartButton;
     private javax.swing.JLabel myCartImage;
     private javax.swing.JLabel newProductsAddToCart1;
@@ -4591,10 +4947,10 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel newProductsStockLabel6;
     private javax.swing.JLabel newProductsStockLabel7;
     private javax.swing.JLabel newProductsStockLabel8;
-    private javax.swing.JLabel passwordHolder;
     private javax.swing.JLabel paymentOptionsLabel;
+    private javax.swing.JPanel paymentOptionsPanel;
     private javax.swing.JLabel privacyPolicyLabel;
-    private javax.swing.JPanel radioButtonPanel;
+    private javax.swing.JPanel privacyPolicyPanel;
     private javax.swing.JButton readyMealsButton;
     public static javax.swing.JLabel readyMealsLabel1;
     public static javax.swing.JLabel readyMealsLabel2;
@@ -4779,6 +5135,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel winesStock6;
     private javax.swing.JLabel winesStock7;
     private javax.swing.JLabel winesStock8;
+    private javax.swing.JComboBox<String> yearChooser;
     // End of variables declaration//GEN-END:variables
 
 }

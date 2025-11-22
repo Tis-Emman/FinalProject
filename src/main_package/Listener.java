@@ -62,6 +62,7 @@ public class Listener {
             public void mouseClicked(java.awt.event.MouseEvent e){
                 targetedFrame.setVisible(true);
                 targetedFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                System.out.println("DEBUG");
             }
         });
     }

@@ -26,6 +26,8 @@ public class TestLoginFrame extends javax.swing.JFrame {
         togglePasswordVisibility(passConfirmationField, registerConfirmationPasswordEye);
         
         
+
+        
     }
     
     
@@ -618,6 +620,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
             //  DashboardFrame dbFrame = new DashboardFrame(true, email);
             // dbFrame.setVisible(true);
             // dashboardFrame.gotoLoginImage.setVisible(false);
+
     }//GEN-LAST:event_signUpButtonActionPerformed
     }
 
@@ -629,6 +632,13 @@ public class TestLoginFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Successfully logged in!");
 
             DashboardFrame dbFrame = new DashboardFrame(true, email);
+            
+            
+            if(rememberMe.isSelected()){
+                dbManager.rememberUser(email);
+            } else{
+                dbManager.unrememberUser();
+            }
 
             // System.out.println(getEmail());
             dbFrame.setVisible(true);
