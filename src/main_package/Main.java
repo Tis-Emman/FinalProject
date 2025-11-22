@@ -6,21 +6,20 @@ import java.util.Scanner;
 public class Main {
    
     public static void main(String[] args) {
-        
-       DatabaseManager dbManager = new DatabaseManager();   
-        //new SignUpFrame().setVisible(true);
-        //new LoginFrame(null).setVisible(true);
-       //  new TestLoginFrame().setVisible(true);
-       new DashboardFrame(false, null).setVisible(true);
-       String username = dbManager.retrieveUsername("emman123@gmail.com");
-       
-       if(username != null){
-             System.out.println(username);
-       }else{
-           System.out.println("WADAPAK");
-       }
-       
-       //new AdminPage().setVisible(true);
+        DatabaseManager dbManager = new DatabaseManager();
+    
+    String rememberedEmail = dbManager.getRememberedUser();
+
+    if (rememberedEmail != null) {
+        // Auto-login remembered user
+        DashboardFrame dashboard = new DashboardFrame(true, rememberedEmail);
+        dashboard.setVisible(true);
+    } else {
+        // No remembered user → show login frame
+        DashboardFrame dbFrame = new DashboardFrame(false, "");
+        dbFrame.setVisible(true);
+    }
+    
     }
     
     public static void displayItemsId(){

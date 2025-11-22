@@ -78,7 +78,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category11Stock;
 
     public DashboardFrame(boolean isLoggedIn, String email) {
-
+        
+        DashboardFrame.isLoggedIn = isLoggedIn;
+        
         JPanel newPanel = new JPanel();
         JPanel topFrame = new JPanel();
         JPanel bottomFrame = new JPanel();
@@ -185,7 +187,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         monthChooser.setForeground(Color.GRAY);
         yearChooser.setForeground(Color.GRAY);
 
-        DashboardFrame.isLoggedIn = true;
+        
 
         if (isLoggedIn) {
             gotoLoginImage.setVisible(false);
@@ -4394,7 +4396,16 @@ public class DashboardFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_emailHolderActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        this.dispose();
+        String email = emailHolder.getText(); // or keep track of logged-in email
+        dbManager.logoutUser(email);         // sets is_logged_in = 0 in DB
+
+    // Close current DashboardFrame
+    this.dispose();
+
+    // Show LoginFrame again
+    TestLoginFrame login = new TestLoginFrame();
+    login.setVisible(true);
+    
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private File selectedFile;

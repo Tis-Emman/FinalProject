@@ -80,6 +80,20 @@ public class DatabaseManager {
     return null; 
 }
     
+    public void logoutUser(String email) {
+    String sql = "UPDATE users SET is_logged_in = 0 WHERE email = ?";
+
+    try (Connection conn = DriverManager.getConnection(URL);
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setString(1, email);
+        stmt.executeUpdate();
+
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+}
+    
     
 
     public void insertUserInfo(String fullName, String email, String password) {
