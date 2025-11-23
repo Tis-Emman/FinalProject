@@ -75,12 +75,12 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 selectImageButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
+        jPanel1.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 130, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(110, 66, 41));
         jLabel4.setText("IMAGE:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 50, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 50, -1));
 
         submitButton.setText("Submit");
         submitButton.setFocusable(false);
@@ -89,8 +89,8 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 submitButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, -1, -1));
-        jPanel1.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 500, 184, 158));
+        jPanel1.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, -1, -1));
+        jPanel1.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 510, 184, 158));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(110, 66, 41));

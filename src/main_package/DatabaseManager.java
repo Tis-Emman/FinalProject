@@ -38,7 +38,7 @@ public class DatabaseManager {
 
         String updateSql = "UPDATE users SET is_logged_in = 1 WHERE email = ?";
 
-        try (Connection conn = DriverManager.getConnection(URL);PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
 
             // Remember this user
             updateStmt.setString(1, email);
@@ -48,53 +48,192 @@ public class DatabaseManager {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void unrememberUser(){
+
+    public void unrememberUser() {
         String updateSql = "UPDATE users SET is_logged_in = 0";
-        
-         try (Connection conn = DriverManager.getConnection(URL);PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
 
             updateStmt.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-         
+
     }
-    
+
     public String getRememberedUser() {
-    String sql = "SELECT email FROM users WHERE is_logged_in = 1 LIMIT 1";
+        String sql = "SELECT email FROM users WHERE is_logged_in = 1 LIMIT 1";
 
-    try (Connection conn = DriverManager.getConnection(URL);
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
-        if (rs.next()) {
-            return rs.getString("email"); // user to auto-login
+            if (rs.next()) {
+                return rs.getString("email"); // user to auto-login
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
+        return null;
     }
 
-    return null; 
-}
-    
     public void logoutUser(String email) {
-    String sql = "UPDATE users SET is_logged_in = 0 WHERE email = ?";
+        String sql = "UPDATE users SET is_logged_in = 0 WHERE email = ?";
 
-    try (Connection conn = DriverManager.getConnection(URL);
-         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        stmt.setString(1, email);
-        stmt.executeUpdate();
+            stmt.setString(1, email);
+            stmt.executeUpdate();
 
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
-}
-    
-    
+
+    public void setGender(String gender, String email) {
+
+        String sql = "UPDATE users SET gender = ? WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement ptsmt = conn.prepareStatement(sql)) {
+
+            ptsmt.setString(1, gender);
+            ptsmt.setString(2, email);
+            ptsmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public String readGender(String email) {
+
+        String sql = "SELECT gender FROM users WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement ptsmt = conn.prepareStatement(sql);) {
+
+            ptsmt.setString(1, email);
+            ResultSet rs = ptsmt.executeQuery();
+            
+            if(rs.next()){
+                return rs.getString("gender");
+            }else{
+                return null;
+            }
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public void insertBirthdate(String birthdate, String email) {
+
+        String sql = "UPDATE users SET birthdate = ? WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, birthdate);
+            pstmt.setString(2, email);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void updateAddress(String addressStreet, String barangay, String city, String province, String zip, String houseNumber, String email) {
+
+        String sql = "UPDATE users SET address_street = ?, address_barangay = ?, address_city = ?, address_province = ?, address_zip = ?, address_house_number = ? WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+
+            pstmt.setString(1, addressStreet);
+            pstmt.setString(2, barangay);
+            pstmt.setString(3, city);
+            pstmt.setString(4, province);
+            pstmt.setString(5, zip);
+            pstmt.setString(6, houseNumber);
+            pstmt.setString(7, email);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public String readFullAddress(String email) {
+        String sql = "SELECT address_house_number, address_street, address_barangay, address_city, address_province, address_zip FROM users WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String houseNumber = rs.getString("address_house_number");
+                String street = rs.getString("address_street");
+                String barangay = rs.getString("address_barangay");
+                String city = rs.getString("address_city");
+                String province = rs.getString("address_province");
+                String zip = rs.getString("address_zip");
+
+                // Replace null with empty string
+                houseNumber = houseNumber != null ? houseNumber.trim() : "";
+                street = street != null ? street.trim() : "";
+                barangay = barangay != null ? barangay.trim() : "";
+                city = city != null ? city.trim() : "";
+                province = province != null ? province.trim() : "";
+                zip = zip != null ? zip.trim() : "";
+
+                // Build address only from non-empty parts
+                StringBuilder fullAddress = new StringBuilder();
+
+                if (!houseNumber.isEmpty() || !street.isEmpty()) {
+                    fullAddress.append("").append(houseNumber).append(" ").append(street);
+                }
+
+                if (!barangay.isEmpty()) {
+                    if (fullAddress.length() > 0) {
+                        fullAddress.append(", ");
+                    }
+                    fullAddress.append("Brgy. ").append(barangay);
+                }
+
+                if (!city.isEmpty()) {
+                    if (fullAddress.length() > 0) {
+                        fullAddress.append(", ");
+                    }
+                    fullAddress.append(city);
+                }
+
+                if (!province.isEmpty()) {
+                    if (fullAddress.length() > 0) {
+                        fullAddress.append(", ");
+                    }
+                    fullAddress.append(province);
+                }
+
+                if (!zip.isEmpty()) {
+                    if (fullAddress.length() > 0) {
+                        fullAddress.append(" ");
+                    }
+                    fullAddress.append(zip);
+                }
+
+                return fullAddress.toString();
+
+            } else {
+                return ""; // no record found
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return "";
+        }
+    }
 
     public void insertUserInfo(String fullName, String email, String password) {
 

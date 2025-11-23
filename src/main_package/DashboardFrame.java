@@ -2,6 +2,7 @@ package main_package;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
@@ -17,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
@@ -27,7 +30,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     DatabaseManager dbManager = new DatabaseManager();
     TestLoginFrame tFrame = new TestLoginFrame();
     CartFrame cFrame = new CartFrame();
-    
 
     public static JLabel[] category1Slots;
     public static JLabel[] category2Slots;
@@ -78,9 +80,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category11Stock;
 
     public DashboardFrame(boolean isLoggedIn, String email) {
-        
+
         DashboardFrame.isLoggedIn = isLoggedIn;
-        
+
         JPanel newPanel = new JPanel();
         JPanel topFrame = new JPanel();
         JPanel bottomFrame = new JPanel();
@@ -99,10 +101,10 @@ public class DashboardFrame extends javax.swing.JFrame {
         setBackground(new Color(251, 239, 215));
 
         initComponents();
-        
+
         String rememberedEmail = dbManager.getRememberedUser();
         System.out.println(rememberedEmail);
-        
+
         gotoLandingPanelLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gotoLoginImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -182,12 +184,10 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         add(newPanel);
         add(bottomFrame);
-        
+
         dateChooser.setForeground(Color.GRAY);
         monthChooser.setForeground(Color.GRAY);
         yearChooser.setForeground(Color.GRAY);
-
-        
 
         if (isLoggedIn) {
             gotoLoginImage.setVisible(false);
@@ -196,6 +196,8 @@ public class DashboardFrame extends javax.swing.JFrame {
             gotoRegisterButton.setText("MY ACCOUNT");
 
             showPanel(gotoRegisterImage, accountPanel, this);
+            showPanel(gotoRegisterButton, accountPanel, this);
+
             Listener.addLabelListenerDontClose(myCartImage, this, cFrame);
 
             gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -208,6 +210,20 @@ public class DashboardFrame extends javax.swing.JFrame {
 
             fullNameHolder.setText(dbManager.retrieveUsername(email));
             emailHolder.setText(dbManager.retrieveEmail(email));
+
+            String fullAddress = dbManager.readFullAddress(email);
+
+            String gender = dbManager.readGender(email);
+            
+            setGenderRadioButton(gender, maleGenderButton, femaleGenderButton, otherGenderButton);
+
+            if (fullAddress == null || fullAddress.isEmpty()) {
+                addressReader.setText("");
+                addAddressLabel.setText("Add"); // default text
+            } else {
+                addressReader.setText(fullAddress);
+                addAddressLabel.setText("Change");
+            }
 
         } else {
             switchPanel(this, landingPanel);
@@ -223,6 +239,31 @@ public class DashboardFrame extends javax.swing.JFrame {
         showPanel(privacyPolicyLabel, privacyPolicyPanel, this);
         showPanel(FAQsLabel, faqsPanel, this);
         showPanel(aboutUsLabel, aboutUsPanel, this);
+    }
+
+    public void setGenderRadioButton(String gender, JRadioButton maleButton, JRadioButton femaleButton, JRadioButton othersButton) {
+        maleButton.setSelected(false);
+        femaleButton.setSelected(false);
+        othersButton.setSelected(false);
+
+        if (gender == null) {
+            return; // nothing to select
+        }
+        // select the right button
+        switch (gender.toLowerCase()) {
+            case "m":
+                maleButton.setSelected(true);
+                break;
+            case "f":
+                femaleButton.setSelected(true);
+                break;
+            case "o":
+                othersButton.setSelected(true);
+                break;
+            default:
+                // no button selected
+                break;
+        }
     }
 
     public void getOrder(JLabel label, JLabel name, JLabel price) {
@@ -1054,21 +1095,22 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        maleGenderButton = new javax.swing.JRadioButton();
+        otherGenderButton = new javax.swing.JRadioButton();
         jLabel27 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        femaleGenderButton = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         fullNameHolder = new javax.swing.JTextField();
         emailHolder = new javax.swing.JTextField();
         logoutButton = new javax.swing.JButton();
         lblImagePreview = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        addAddressLabel = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         yearChooser = new javax.swing.JComboBox<>();
         dateChooser = new javax.swing.JComboBox<>();
         monthChooser = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
+        addressReader = new javax.swing.JLabel();
         jPanel92 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -1489,6 +1531,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLayeredPane1.add(landingPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 553));
 
         newProductsPanel.setBackground(new java.awt.Color(238, 238, 238));
+        newProductsPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         newProductsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setBackground(new java.awt.Color(243, 243, 243));
@@ -1721,6 +1764,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel12.add(bakeryStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
         newProductsAddToCart9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel12.add(newProductsAddToCart9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         bakeryPanel.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 150, 90));
@@ -1729,6 +1773,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel13.add(newProductsAddToCart10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel13.add(bakeryStock2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1750,6 +1795,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel14.add(newProductsAddToCart11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel14.add(bakeryStock3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1771,6 +1817,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel15.add(newProductsAddToCart12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel15.add(bakeryStock4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1792,6 +1839,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel16.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel16.add(newProductsAddToCart13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel16.add(bakeryStock5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1813,6 +1861,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel17.add(newProductsAddToCart14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel17.add(bakeryStock6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1834,6 +1883,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel18.add(newProductsAddToCart15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel18.add(bakeryStock7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1855,6 +1905,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart16.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel19.add(newProductsAddToCart16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel19.add(bakeryStock8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1928,6 +1979,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel20.add(butcheryStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
         newProductsAddToCart17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel20.add(newProductsAddToCart17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         butcheryPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -1942,6 +1994,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart18.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel21.add(newProductsAddToCart18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel21.add(butcheryStock2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1963,6 +2016,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel22.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart19.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel22.add(newProductsAddToCart19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel22.add(butcheryStock3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -1984,6 +2038,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel23.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart20.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel23.add(newProductsAddToCart20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel23.add(butcheryStock4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2005,6 +2060,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel24.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel24.add(newProductsAddToCart21, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel24.add(butcheryStock5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2026,6 +2082,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel25.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart22.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel25.add(newProductsAddToCart22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel25.add(butcheryStock6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2047,6 +2104,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel26.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart23.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel26.add(newProductsAddToCart23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel26.add(butcheryStock7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2068,6 +2126,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel27.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart24.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel27.add(newProductsAddToCart24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel27.add(butcheryStock8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2111,6 +2170,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel28.add(readyMealsStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
         newProductsAddToCart25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart25.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel28.add(newProductsAddToCart25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2131,6 +2191,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel29.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart26.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel29.add(newProductsAddToCart26, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2152,6 +2213,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel30.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart27.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel30.add(newProductsAddToCart27, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2173,6 +2235,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel31.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart28.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel31.add(newProductsAddToCart28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2194,6 +2257,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel32.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart29.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel32.add(newProductsAddToCart29, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2215,6 +2279,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel33.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart30.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel33.add(newProductsAddToCart30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2236,6 +2301,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel34.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart31.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel34.add(newProductsAddToCart31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2257,6 +2323,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel35.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart32.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel35.add(newProductsAddToCart32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         readyMealsLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2311,6 +2378,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel44.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart41.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel44.add(newProductsAddToCart41, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2332,6 +2400,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel45.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart42.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel45.add(newProductsAddToCart42, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2353,6 +2422,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel46.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart43.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel46.add(newProductsAddToCart43, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2374,6 +2444,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel47.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart44.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel47.add(newProductsAddToCart44, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2395,6 +2466,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel48.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart45.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel48.add(newProductsAddToCart45, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2416,6 +2488,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel49.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart46.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel49.add(newProductsAddToCart46, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2437,6 +2510,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel50.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart47.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel50.add(newProductsAddToCart47, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2458,6 +2532,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel51.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart48.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel51.add(newProductsAddToCart48, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         vegetablesLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2512,6 +2587,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel52.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart49.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart49.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel52.add(newProductsAddToCart49, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -2533,6 +2609,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel53.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart50.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart50.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel53.add(newProductsAddToCart50, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2554,6 +2631,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel54.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart51.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel54.add(newProductsAddToCart51, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2575,6 +2653,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel55.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart52.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel55.add(newProductsAddToCart52, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2596,6 +2675,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel56.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart53.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart53.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel56.add(newProductsAddToCart53, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2617,6 +2697,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel57.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart54.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel57.add(newProductsAddToCart54, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2638,6 +2719,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel58.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart55.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart55.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel58.add(newProductsAddToCart55, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2659,6 +2741,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel59.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart56.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart56.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel59.add(newProductsAddToCart56, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         fruitsLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2712,6 +2795,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel60.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart57.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart57.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel60.add(newProductsAddToCart57, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         groceryLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2733,6 +2817,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel61.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart58.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart58.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel61.add(newProductsAddToCart58, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         groceryLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2754,6 +2839,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel62.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart59.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart59.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel62.add(newProductsAddToCart59, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel62.add(vegetablesStock11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2776,6 +2862,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel63.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart60.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel63.add(newProductsAddToCart60, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel63.add(vegetablesStock12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2798,6 +2885,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel64.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart61.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel64.add(newProductsAddToCart61, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel64.add(vegetablesStock13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2820,6 +2908,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel65.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart62.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel65.add(newProductsAddToCart62, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel65.add(vegetablesStock14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2842,6 +2931,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel66.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart63.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel66.add(newProductsAddToCart63, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel66.add(vegetablesStock15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2864,6 +2954,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel67.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart64.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart64.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel67.add(newProductsAddToCart64, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel67.add(vegetablesStock16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -2923,6 +3014,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel84.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart81.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel84.add(newProductsAddToCart81, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -2944,6 +3036,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel85.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart82.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel85.add(newProductsAddToCart82, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2965,6 +3058,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel86.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart83.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart83.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel86.add(newProductsAddToCart83, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -2986,6 +3080,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel87.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart84.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel87.add(newProductsAddToCart84, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3007,6 +3102,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel88.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart85.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart85.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel88.add(newProductsAddToCart85, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3028,6 +3124,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel89.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart86.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart86.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel89.add(newProductsAddToCart86, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3049,6 +3146,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel90.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart87.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart87.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel90.add(newProductsAddToCart87, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3070,6 +3168,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel91.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart88.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart88.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel91.add(newProductsAddToCart88, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3124,6 +3223,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel68.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart65.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart65.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel68.add(newProductsAddToCart65, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         dessertsLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3145,6 +3245,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel69.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart66.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel69.add(newProductsAddToCart66, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         dessertsLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3166,6 +3267,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel70.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart67.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart67.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel70.add(newProductsAddToCart67, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel70.add(groceryStock11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3188,6 +3290,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel71.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart68.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart68.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel71.add(newProductsAddToCart68, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel71.add(groceryStock12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3210,6 +3313,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel72.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart69.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart69.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel72.add(newProductsAddToCart69, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel72.add(groceryStock13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3232,6 +3336,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel73.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart70.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart70.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel73.add(newProductsAddToCart70, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel73.add(groceryStock14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3254,6 +3359,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel74.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart71.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel74.add(newProductsAddToCart71, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel74.add(groceryStock15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3276,6 +3382,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel75.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart72.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel75.add(newProductsAddToCart72, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel75.add(groceryStock16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3330,6 +3437,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel76.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart73.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart73.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel76.add(newProductsAddToCart73, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3351,6 +3459,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel77.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart74.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart74.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel77.add(newProductsAddToCart74, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3372,6 +3481,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel78.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart75.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart75.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel78.add(newProductsAddToCart75, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3393,6 +3503,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel79.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart76.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart76.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel79.add(newProductsAddToCart76, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3414,6 +3525,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel80.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart77.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart77.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel80.add(newProductsAddToCart77, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3435,6 +3547,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel81.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart78.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart78.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel81.add(newProductsAddToCart78, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3456,6 +3569,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel82.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart79.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart79.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel82.add(newProductsAddToCart79, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3477,6 +3591,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel83.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart80.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart80.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel83.add(newProductsAddToCart80, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         winesLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3533,6 +3648,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel36.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart33.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel36.add(newProductsAddToCart33, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         seafoodsLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3554,6 +3670,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel37.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart34.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel37.add(newProductsAddToCart34, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         seafoodsLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3575,6 +3692,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel38.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart35.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel38.add(newProductsAddToCart35, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel38.add(butcheryStock10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3597,6 +3715,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel39.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart36.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel39.add(newProductsAddToCart36, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel39.add(butcheryStock11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3619,6 +3738,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel40.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart37.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel40.add(newProductsAddToCart37, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel40.add(butcheryStock12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3641,6 +3761,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel41.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart38.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel41.add(newProductsAddToCart38, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel41.add(bakeryStock9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3663,6 +3784,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel42.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart39.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel42.add(newProductsAddToCart39, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel42.add(butcheryStock13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3685,6 +3807,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel43.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         newProductsAddToCart40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        newProductsAddToCart40.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel43.add(newProductsAddToCart40, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
         jPanel43.add(butcheryStock14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
@@ -3827,7 +3950,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel26.setText("Date of Birth");
-        accountContainerPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, -1, -1));
+        accountContainerPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel28.setText("Full Name");
@@ -3841,48 +3964,48 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel33.setText("Gender");
         accountContainerPanel.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, 30));
 
-        jRadioButton2.setBackground(new java.awt.Color(243, 243, 243));
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Male");
-        jRadioButton2.setBorder(null);
-        jRadioButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jRadioButton2.setFocusable(false);
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        maleGenderButton.setBackground(new java.awt.Color(243, 243, 243));
+        buttonGroup1.add(maleGenderButton);
+        maleGenderButton.setText("Male");
+        maleGenderButton.setBorder(null);
+        maleGenderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        maleGenderButton.setFocusable(false);
+        maleGenderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                maleGenderButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 50, 20));
+        accountContainerPanel.add(maleGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 50, 20));
 
-        jRadioButton1.setBackground(new java.awt.Color(243, 243, 243));
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Other");
-        jRadioButton1.setBorder(null);
-        jRadioButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jRadioButton1.setFocusable(false);
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        otherGenderButton.setBackground(new java.awt.Color(243, 243, 243));
+        buttonGroup1.add(otherGenderButton);
+        otherGenderButton.setText("Other");
+        otherGenderButton.setBorder(null);
+        otherGenderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        otherGenderButton.setFocusable(false);
+        otherGenderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                otherGenderButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 60, 20));
+        accountContainerPanel.add(otherGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 60, 20));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel27.setText("Address");
-        accountContainerPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, -1));
+        accountContainerPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
 
-        jRadioButton3.setBackground(new java.awt.Color(243, 243, 243));
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Female");
-        jRadioButton3.setBorder(null);
-        jRadioButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jRadioButton3.setFocusable(false);
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        femaleGenderButton.setBackground(new java.awt.Color(243, 243, 243));
+        buttonGroup1.add(femaleGenderButton);
+        femaleGenderButton.setText("Female");
+        femaleGenderButton.setBorder(null);
+        femaleGenderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        femaleGenderButton.setFocusable(false);
+        femaleGenderButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                femaleGenderButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 60, 20));
+        accountContainerPanel.add(femaleGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 60, 20));
 
         jButton1.setBackground(new java.awt.Color(243, 243, 243));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -3920,13 +4043,20 @@ public class DashboardFrame extends javax.swing.JFrame {
             }
         });
         accountContainerPanel.add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 500, 106, 38));
+
+        lblImagePreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         accountContainerPanel.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 110, 150, 140));
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel29.setText("Add+");
-        jLabel29.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        accountContainerPanel.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
+        addAddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        addAddressLabel.setForeground(new java.awt.Color(51, 51, 255));
+        addAddressLabel.setText("Add+");
+        addAddressLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addAddressLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addAddressLabelMouseClicked(evt);
+            }
+        });
+        accountContainerPanel.add(addAddressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, 30));
 
         saveButton.setBackground(new java.awt.Color(159, 133, 85));
         saveButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -3934,7 +4064,12 @@ public class DashboardFrame extends javax.swing.JFrame {
         saveButton.setText("Save");
         saveButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         saveButton.setFocusable(false);
-        accountContainerPanel.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 106, 38));
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 106, 38));
 
         yearChooser.setBackground(new java.awt.Color(255, 255, 254));
         yearChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913", "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905", "1904", "1903", "1902", "1901", "1900" }));
@@ -3945,7 +4080,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 yearChooserActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(yearChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 400, 110, 40));
+        accountContainerPanel.add(yearChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, 110, 40));
 
         dateChooser.setBackground(new java.awt.Color(255, 255, 254));
         dateChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
@@ -3956,7 +4091,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 dateChooserActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(dateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 400, 110, 40));
+        accountContainerPanel.add(dateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 110, 40));
 
         monthChooser.setBackground(new java.awt.Color(255, 255, 254));
         monthChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", " " }));
@@ -3967,10 +4102,11 @@ public class DashboardFrame extends javax.swing.JFrame {
                 monthChooserActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(monthChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 110, 40));
+        accountContainerPanel.add(monthChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, 110, 40));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line seperator 1.png"))); // NOI18N
-        accountContainerPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, -1, -1));
+        accountContainerPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, -1, -1));
+        accountContainerPanel.add(addressReader, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 540, 20));
 
         accountPanel.add(accountContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 550));
 
@@ -4379,17 +4515,17 @@ public class DashboardFrame extends javax.swing.JFrame {
         myCartButton.setForeground(new Color(153, 153, 153));
     }//GEN-LAST:event_myCartImageMouseExited
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void otherGenderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherGenderButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_otherGenderButtonActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void maleGenderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleGenderButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_maleGenderButtonActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void femaleGenderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femaleGenderButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_femaleGenderButtonActionPerformed
 
     private void emailHolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailHolderActionPerformed
         // TODO add your handling code here:
@@ -4399,13 +4535,13 @@ public class DashboardFrame extends javax.swing.JFrame {
         String email = emailHolder.getText(); // or keep track of logged-in email
         dbManager.logoutUser(email);         // sets is_logged_in = 0 in DB
 
-    // Close current DashboardFrame
-    this.dispose();
+        // Close current DashboardFrame
+        this.dispose();
 
-    // Show LoginFrame again
-    TestLoginFrame login = new TestLoginFrame();
-    login.setVisible(true);
-    
+        // Show LoginFrame again
+        TestLoginFrame login = new TestLoginFrame();
+        login.setVisible(true);
+
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private File selectedFile;
@@ -4464,6 +4600,65 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_yearChooserActionPerformed
 
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        String fullName = fullNameHolder.getText().toString().trim();
+        String email = emailHolder.getText().toString().trim();
+
+        String day = dateChooser.getSelectedItem().toString();
+        String month = monthChooser.getSelectedItem().toString();
+        String year = yearChooser.getSelectedItem().toString();
+
+        if (maleGenderButton.isSelected()) {
+            dbManager.setGender("m", email);
+        } else if (femaleGenderButton.isSelected()) {
+            dbManager.setGender("f", email);
+        } else if (otherGenderButton.isSelected()) {
+            dbManager.setGender("o", email);
+        }
+
+        String monthNumber = switch (month) {
+            case "January" ->
+                "01";
+            case "February" ->
+                "02";
+            case "March" ->
+                "03";
+            case "April" ->
+                "04";
+            case "May" ->
+                "05";
+            case "June" ->
+                "06";
+            case "July" ->
+                "07";
+            case "August" ->
+                "08";
+            case "September" ->
+                "09";
+            case "October" ->
+                "10";
+            case "November" ->
+                "11";
+            case "December" ->
+                "12";
+            default ->
+                "01";
+        };
+
+        if (day.length() == 1) {
+            day = "0" + day;
+        }
+
+        String birthdate = year + "-" + monthNumber + "-" + day;
+        dbManager.insertBirthdate(birthdate, email);
+
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void addAddressLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAddressLabelMouseClicked
+        AddressDialog s = new AddressDialog(this, true);
+        s.setVisible(true);
+    }//GEN-LAST:event_addAddressLabelMouseClicked
+
     public void selectButton(JButton btn) {
         if (selectedButton != null) {
             selectedButton.setBackground(Color.WHITE);
@@ -4498,6 +4693,8 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel aboutUsPanel;
     private javax.swing.JPanel accountContainerPanel;
     private static javax.swing.JPanel accountPanel;
+    private javax.swing.JLabel addAddressLabel;
+    public static javax.swing.JLabel addressReader;
     private javax.swing.JButton bakeryButton;
     public static javax.swing.JLabel bakeryLabel1;
     public static javax.swing.JLabel bakeryLabel2;
@@ -4615,8 +4812,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel dessertsStock6;
     private javax.swing.JLabel dessertsStock7;
     private javax.swing.JLabel dessertsStock8;
-    private javax.swing.JTextField emailHolder;
+    public static javax.swing.JTextField emailHolder;
     private javax.swing.JPanel faqsPanel;
+    private javax.swing.JRadioButton femaleGenderButton;
     private javax.swing.JButton fruitsButton;
     public static javax.swing.JLabel fruitsLabel1;
     public static javax.swing.JLabel fruitsLabel2;
@@ -4721,7 +4919,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -4825,13 +5022,11 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel90;
     private javax.swing.JPanel jPanel91;
     private javax.swing.JPanel jPanel92;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel landingPanel;
     private javax.swing.JLabel lblImagePreview;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JRadioButton maleGenderButton;
     private javax.swing.JComboBox<String> monthChooser;
     private javax.swing.JLabel myCartButton;
     private javax.swing.JLabel myCartImage;
@@ -4958,6 +5153,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel newProductsStockLabel6;
     private javax.swing.JLabel newProductsStockLabel7;
     private javax.swing.JLabel newProductsStockLabel8;
+    private javax.swing.JRadioButton otherGenderButton;
     private javax.swing.JLabel paymentOptionsLabel;
     private javax.swing.JPanel paymentOptionsPanel;
     private javax.swing.JLabel privacyPolicyLabel;

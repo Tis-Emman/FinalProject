@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/DashboardFrame.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/DatabaseManager.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/CartFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/CartItem.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/AddProductsFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/AddressDialog.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/TestLoginFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/Listener.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/Main.java</file>
         </group>
     </open-files>
 </project-private>

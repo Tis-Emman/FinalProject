@@ -383,7 +383,6 @@ public class TestLoginFrame extends javax.swing.JFrame {
         rememberMe.setBackground(new java.awt.Color(182, 145, 77));
         rememberMe.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         rememberMe.setForeground(new java.awt.Color(30, 30, 30));
-        rememberMe.setSelected(true);
         rememberMe.setText("Remember Me");
         rememberMe.setFocusable(false);
         rememberMe.addActionListener(new java.awt.event.ActionListener() {
