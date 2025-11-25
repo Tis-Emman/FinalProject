@@ -125,6 +125,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         gotoRegisterButton.setForeground(new java.awt.Color(30, 30, 30));
         gotoRegisterButton.setText("Register");
         gotoRegisterButton.setBorder(null);
+        gotoRegisterButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gotoRegisterButton.setFocusable(false);
         gotoRegisterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +139,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         gotoLoginButton.setForeground(new java.awt.Color(30, 30, 30));
         gotoLoginButton.setText("Login");
         gotoLoginButton.setBorder(null);
+        gotoLoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         gotoLoginButton.setFocusable(false);
         gotoLoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +163,11 @@ public class TestLoginFrame extends javax.swing.JFrame {
 
         fullNameTextField.setBackground(new java.awt.Color(211, 189, 148));
         fullNameTextField.setBorder(null);
+        fullNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fullNameTextFieldActionPerformed(evt);
+            }
+        });
         registerPanel.add(fullNameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 330, 40));
 
         jLabel5.setFont(new java.awt.Font("MS UI Gothic", 1, 18)); // NOI18N
@@ -170,6 +177,11 @@ public class TestLoginFrame extends javax.swing.JFrame {
 
         emailTextField.setBackground(new java.awt.Color(211, 189, 148));
         emailTextField.setBorder(null);
+        emailTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailTextFieldActionPerformed(evt);
+            }
+        });
         registerPanel.add(emailTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 330, 40));
 
         jLabel6.setFont(new java.awt.Font("MS UI Gothic", 1, 48)); // NOI18N
@@ -193,6 +205,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         signUpButton.setForeground(new java.awt.Color(30, 30, 30));
         signUpButton.setText("Register");
         signUpButton.setBorder(null);
+        signUpButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         signUpButton.setFocusable(false);
         signUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,10 +229,20 @@ public class TestLoginFrame extends javax.swing.JFrame {
 
         passConfirmationField.setBackground(new java.awt.Color(211, 189, 148));
         passConfirmationField.setBorder(null);
+        passConfirmationField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passConfirmationFieldActionPerformed(evt);
+            }
+        });
         registerPanel.add(passConfirmationField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, 280, 40));
 
         signUpPasswordTextField.setBackground(new java.awt.Color(211, 189, 148));
         signUpPasswordTextField.setBorder(null);
+        signUpPasswordTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signUpPasswordTextFieldActionPerformed(evt);
+            }
+        });
         registerPanel.add(signUpPasswordTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 280, 40));
 
         jPanel6.setBackground(new java.awt.Color(211, 189, 148));
@@ -378,12 +401,18 @@ public class TestLoginFrame extends javax.swing.JFrame {
 
         loginEmailTextField.setBackground(new java.awt.Color(211, 189, 148));
         loginEmailTextField.setBorder(null);
+        loginEmailTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginEmailTextFieldActionPerformed(evt);
+            }
+        });
         loginPanel.add(loginEmailTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 320, 40));
 
         rememberMe.setBackground(new java.awt.Color(182, 145, 77));
         rememberMe.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
         rememberMe.setForeground(new java.awt.Color(30, 30, 30));
         rememberMe.setText("Remember Me");
+        rememberMe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rememberMe.setFocusable(false);
         rememberMe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,6 +426,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         loginButton.setForeground(new java.awt.Color(30, 30, 30));
         loginButton.setText("Login");
         loginButton.setBorder(null);
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.setFocusable(false);
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -412,6 +442,11 @@ public class TestLoginFrame extends javax.swing.JFrame {
 
         loginPasswordTextField.setBackground(new java.awt.Color(211, 189, 148));
         loginPasswordTextField.setBorder(null);
+        loginPasswordTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginPasswordTextFieldActionPerformed(evt);
+            }
+        });
         loginPanel.add(loginPasswordTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 270, 40));
 
         jLabel9.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
@@ -656,6 +691,30 @@ public class TestLoginFrame extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void loginEmailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginEmailTextFieldActionPerformed
+       loginPasswordTextField.requestFocusInWindow();
+    }//GEN-LAST:event_loginEmailTextFieldActionPerformed
+
+    private void loginPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginPasswordTextFieldActionPerformed
+      loginButton.doClick();
+    }//GEN-LAST:event_loginPasswordTextFieldActionPerformed
+
+    private void fullNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullNameTextFieldActionPerformed
+        fullNameTextField.transferFocus();
+    }//GEN-LAST:event_fullNameTextFieldActionPerformed
+
+    private void emailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextFieldActionPerformed
+      emailTextField.transferFocus();
+    }//GEN-LAST:event_emailTextFieldActionPerformed
+
+    private void signUpPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpPasswordTextFieldActionPerformed
+      signUpPasswordTextField.transferFocus();
+    }//GEN-LAST:event_signUpPasswordTextFieldActionPerformed
+
+    private void passConfirmationFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passConfirmationFieldActionPerformed
+      signUpButton.doClick();
+    }//GEN-LAST:event_passConfirmationFieldActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
