@@ -10,6 +10,7 @@ public class Main {
     
     String rememberedEmail = dbManager.getRememberedUser();
         System.out.println("TEST TEST!");
+        System.out.println("Another Test");
 
     if (rememberedEmail != null) {
         // Auto-login remembered user

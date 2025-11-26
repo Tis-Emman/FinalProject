@@ -149,7 +149,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         jPanel1.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 50));
 
         gotoDashboardLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo - loginXregister.png"))); // NOI18N
-        jPanel1.add(gotoDashboardLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 270, 350));
+        jPanel1.add(gotoDashboardLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 270, 360));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 730));
 
