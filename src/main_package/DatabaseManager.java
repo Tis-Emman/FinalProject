@@ -114,14 +114,13 @@ public class DatabaseManager {
 
             ptsmt.setString(1, email);
             ResultSet rs = ptsmt.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 return rs.getString("gender");
-            }else{
+            } else {
                 return null;
             }
-            
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -474,6 +473,41 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public String getProfileImage(String email) {
+        String query = "SELECT profile_image FROM users WHERE email = ?";
+        String imagePath = null;
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                imagePath = rs.getString("profile_image");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error fetching profile image: " + e.getMessage());
+        }
+
+        return imagePath;
+    }
+
+    public void setProfileImage(String imagePath, String email) {
+        String query = "UPDATE users SET profile_image = ? WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(query);) {
+            pstmt.setString(1, imagePath);
+            pstmt.setString(2, email);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public static void loadProductsFromDB() {

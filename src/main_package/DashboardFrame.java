@@ -9,6 +9,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -214,7 +217,7 @@ public class DashboardFrame extends javax.swing.JFrame {
             String fullAddress = dbManager.readFullAddress(email);
 
             String gender = dbManager.readGender(email);
-            
+
             setGenderRadioButton(gender, maleGenderButton, femaleGenderButton, otherGenderButton);
 
             if (fullAddress == null || fullAddress.isEmpty()) {
@@ -223,6 +226,15 @@ public class DashboardFrame extends javax.swing.JFrame {
             } else {
                 addressReader.setText(fullAddress);
                 addAddressLabel.setText("Change");
+            }
+
+            String imagePath = dbManager.getProfileImage(email);
+            if (imagePath != null && !imagePath.isEmpty()) {
+                ImageIcon icon = new ImageIcon(
+                        new ImageIcon(imagePath)
+                                .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
+                );
+                imageProfileHolder.setIcon(icon);
             }
 
         } else {
@@ -1099,11 +1111,11 @@ public class DashboardFrame extends javax.swing.JFrame {
         otherGenderButton = new javax.swing.JRadioButton();
         jLabel27 = new javax.swing.JLabel();
         femaleGenderButton = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        selectImageButton = new javax.swing.JButton();
         fullNameHolder = new javax.swing.JTextField();
         emailHolder = new javax.swing.JTextField();
         logoutButton = new javax.swing.JButton();
-        lblImagePreview = new javax.swing.JLabel();
+        imageProfileHolder = new javax.swing.JLabel();
         addAddressLabel = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         yearChooser = new javax.swing.JComboBox<>();
@@ -4007,18 +4019,18 @@ public class DashboardFrame extends javax.swing.JFrame {
         });
         accountContainerPanel.add(femaleGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 60, 20));
 
-        jButton1.setBackground(new java.awt.Color(243, 243, 243));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("Select Image");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        selectImageButton.setBackground(new java.awt.Color(243, 243, 243));
+        selectImageButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        selectImageButton.setForeground(new java.awt.Color(51, 51, 51));
+        selectImageButton.setText("Select Image");
+        selectImageButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        selectImageButton.setFocusable(false);
+        selectImageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                selectImageButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 270, 150, 40));
+        accountContainerPanel.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 270, 150, 40));
 
         fullNameHolder.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         accountContainerPanel.add(fullNameHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 340, 40));
@@ -4044,8 +4056,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         });
         accountContainerPanel.add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 500, 106, 38));
 
-        lblImagePreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        accountContainerPanel.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 110, 150, 140));
+        imageProfileHolder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        accountContainerPanel.add(imageProfileHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 110, 150, 140));
 
         addAddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         addAddressLabel.setForeground(new java.awt.Color(51, 51, 255));
@@ -4546,8 +4558,9 @@ public class DashboardFrame extends javax.swing.JFrame {
 
     private File selectedFile;
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void selectImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectImageButtonActionPerformed
 
+        String email = emailHolder.getText().trim();
         JFileChooser imgSelector = new JFileChooser();
         imgSelector.setDialogTitle("Select Product Image");
 
@@ -4559,22 +4572,41 @@ public class DashboardFrame extends javax.swing.JFrame {
         int result = imgSelector.showOpenDialog(this);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = imgSelector.getSelectedFile();
-
+            File selectedFile = imgSelector.getSelectedFile();
             String fileName = selectedFile.getName().toLowerCase();
-            if (!fileName.endsWith(".png") && !fileName.endsWith(".jpg")) { // fixed logic
+
+            if (!fileName.endsWith(".png") && !fileName.endsWith(".jpg")) {
                 JOptionPane.showMessageDialog(this, "Only PNG and JPG images are allowed");
-                selectedFile = null; // reset selected file
                 return;
             }
 
-            // Show image preview immediately
-            lblImagePreview.setIcon(new ImageIcon(
+            // 1️⃣ Show preview immediately
+            ImageIcon previewIcon = new ImageIcon(
                     new ImageIcon(selectedFile.getAbsolutePath())
                             .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
-            ));
+            );
+            imageProfileHolder.setIcon(previewIcon);
+
+            try {
+                // 2️⃣ Ensure folder exists
+                File imagesDir = new File("profile images");
+                if (!imagesDir.exists()) {
+                    imagesDir.mkdir();
+                }
+
+                // 3️⃣ Copy file to "profile images" folder
+                File destFile = new File(imagesDir, selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                // 4️⃣ Save the **absolute path** in DB
+                dbManager.setProfileImage(destFile.getAbsolutePath(), email);
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error saving image: " + e.getMessage());
+            }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_selectImageButtonActionPerformed
 
     private void dateChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateChooserActionPerformed
         if (dateChooser.getSelectedIndex() == 0) {
@@ -4896,7 +4928,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel groceryStock7;
     private javax.swing.JLabel groceryStock8;
     private javax.swing.JButton iceCreamButton;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel imageProfileHolder;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -5024,7 +5056,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel92;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel landingPanel;
-    private javax.swing.JLabel lblImagePreview;
     private javax.swing.JButton logoutButton;
     private javax.swing.JRadioButton maleGenderButton;
     private javax.swing.JComboBox<String> monthChooser;
@@ -5230,6 +5261,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel seafoodsStock7;
     private javax.swing.JLabel seafoodsStock8;
     private javax.swing.JLabel seafoodsTitle;
+    private javax.swing.JButton selectImageButton;
     private javax.swing.JLabel shopNowButton;
     private javax.swing.JPanel sidebarPanel;
     private javax.swing.JButton snacksButton;
