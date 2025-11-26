@@ -18,11 +18,13 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class AddProductsFrame extends javax.swing.JFrame {
-
+  private ViewProductsFrame parentTableFrame;
+  
     /**
      * Creates new form AddProductsFrame
      */
-    public AddProductsFrame() {
+    public AddProductsFrame(ViewProductsFrame parentFrame) {
+         this.parentTableFrame = parentFrame;
         initComponents();
         setResizable(false);
         setLocation(943, 145);
@@ -239,7 +241,9 @@ public class AddProductsFrame extends javax.swing.JFrame {
         
         DashboardFrame.addProductToCategory(category, scaledIcon, productName, prdctPrice);
         DatabaseManager.addAll(productName, category, productPrice, productQuantity, destFile.getAbsolutePath());
-        
+        parentTableFrame.refreshTable();
+    
+      
     } catch (IOException e) {
         JOptionPane.showMessageDialog(this, "Error saving image: " + e.getMessage());
     }
@@ -361,7 +365,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddProductsFrame().setVisible(true);
+                new AddProductsFrame(null).setVisible(true);
             }
         });
     }

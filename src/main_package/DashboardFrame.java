@@ -4140,7 +4140,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel92.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(1420, 10, -1, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/motto icon.png"))); // NOI18N
-        jPanel92.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 70));
+        jPanel92.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 470, 70));
 
         paymentOptionsLabel.setBackground(new java.awt.Color(185, 85, 0));
         paymentOptionsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N

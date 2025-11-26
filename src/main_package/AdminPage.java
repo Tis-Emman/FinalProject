@@ -1,10 +1,12 @@
 package main_package;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author user
@@ -14,13 +16,15 @@ public class AdminPage extends javax.swing.JFrame {
     /**
      * Creates new form AdminPage
      */
-    
+    private ViewProductsFrame productsFrame;
+
     DashboardFrame frame = new DashboardFrame(false, null);
+
     public AdminPage() {
         initComponents();
         setLocation(420, 170);
         setResizable(false);
-        
+
         Listener.addLabelListenerDontClose(cozyCrateLogo, this, frame);
     }
 
@@ -165,12 +169,20 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteProductsButtonActionPerformed
 
     private void viewProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewProductsButtonActionPerformed
-        // TODO add your handling code here:
+        if (productsFrame == null) {
+            productsFrame = new ViewProductsFrame();
+        }
+        productsFrame.setVisible(true);
     }//GEN-LAST:event_viewProductsButtonActionPerformed
 
     private void addProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductsButtonActionPerformed
-       AddProductsFrame frame = new AddProductsFrame();
-       frame.setVisible(true);
+        if (productsFrame == null) {
+            JOptionPane.showMessageDialog(this, "Please open the products table first!");
+            return;
+        }
+        AddProductsFrame addFrame = new AddProductsFrame(productsFrame);
+        addFrame.setVisible(true);
+        addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_addProductsButtonActionPerformed
 
     /**

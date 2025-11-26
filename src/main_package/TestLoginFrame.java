@@ -42,6 +42,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         gotoRegisterButton = new javax.swing.JButton();
         gotoLoginButton = new javax.swing.JButton();
         gotoDashboardLogo = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         registerPanel = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -148,8 +149,13 @@ public class TestLoginFrame extends javax.swing.JFrame {
         });
         jPanel1.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 50));
 
-        gotoDashboardLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo - loginXregister.png"))); // NOI18N
-        jPanel1.add(gotoDashboardLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 270, 360));
+        gotoDashboardLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo - loginXregister (2).png"))); // NOI18N
+        jPanel1.add(gotoDashboardLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 160, 220));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel20.setText("@Group4FinalProject - All rights reserved");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 250, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 730));
 
@@ -745,6 +751,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -10,6 +10,9 @@ import java.util.Scanner;
 import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -570,5 +573,66 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
+
+    public void loadProducts(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+
+        String query = "SELECT id, name, category, price, quantity FROM products";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery();) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int category = rs.getInt("category");
+                float price = rs.getFloat("price");
+                int quantity = rs.getInt("quantity");
+
+                model.addRow(new Object[]{
+                    id,
+                    name,
+                    category,
+                    price,
+                    quantity
+                });
+            }
+
+            while (model.getRowCount() < 18) {
+                model.addRow(new Object[]{
+                    null, // id
+                    "", // name
+                    "", // category or maybe 0 if int
+                    null, // price (IMPORTANT)
+                    null // quantity (IMPORTANT)
+                });
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    
+    public void deleteProduct(int id) {
+    String sql = "DELETE FROM products WHERE id = ?";
+
+    try (Connection conn = DriverManager.getConnection(URL);
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, id);
+
+        int rowsAffected = pstmt.executeUpdate();
+
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Product deleted successfully!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Product not found or already deleted!");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error deleting product: " + e.getMessage());
+    }
+}
 
 }
