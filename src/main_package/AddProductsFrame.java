@@ -77,13 +77,15 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 selectImageButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 130, 40));
+        jPanel1.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 610, 170, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(110, 66, 41));
         jLabel4.setText("IMAGE:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 50, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 50, -1));
 
+        submitButton.setBackground(new java.awt.Color(161, 134, 5));
+        submitButton.setForeground(new java.awt.Color(255, 255, 255));
         submitButton.setText("Submit");
         submitButton.setFocusable(false);
         submitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,8 +93,11 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 submitButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, -1, -1));
-        jPanel1.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 510, 184, 158));
+        jPanel1.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 660, 90, 30));
+
+        lblImagePreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        lblImagePreview.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 150, 150));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(110, 66, 41));
@@ -158,9 +163,9 @@ public class AddProductsFrame extends javax.swing.JFrame {
         });
         jPanel1.add(decrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
-        categoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        categoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         categoryLabel.setText("XXXXXXX");
-        jPanel1.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 380, 170, -1));
+        jPanel1.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 140, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 720));
 

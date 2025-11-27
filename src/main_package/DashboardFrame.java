@@ -516,7 +516,6 @@ public class DashboardFrame extends javax.swing.JFrame {
         fruitsLandingIcon = new javax.swing.JLabel();
         snakcsLandingIcon = new javax.swing.JLabel();
         dessertsLandingIcon = new javax.swing.JLabel();
-        beveragesLandingIcon = new javax.swing.JLabel();
         newProductsLandingIcon = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         newProductsPanel = new javax.swing.JPanel();
@@ -1097,7 +1096,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         faqsPanel = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         aboutUsPanel = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
         accountPanel = new javax.swing.JPanel();
         accountContainerPanel = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
@@ -1507,34 +1506,85 @@ public class DashboardFrame extends javax.swing.JFrame {
         landingPanel.add(shopNowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 310, -1, -1));
 
         bakeryLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bakery landing icon.png"))); // NOI18N
-        landingPanel.add(bakeryLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 427, -1, -1));
+        bakeryLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bakeryLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bakeryLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(bakeryLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, -1, -1));
 
         butcheryLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/butchery landing icon.png"))); // NOI18N
-        landingPanel.add(butcheryLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, -1, 110));
+        butcheryLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        butcheryLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                butcheryLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(butcheryLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, -1, 110));
 
         seafoodsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/seafoods landing icon.png"))); // NOI18N
-        landingPanel.add(seafoodsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, -1, 110));
+        seafoodsLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        seafoodsLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seafoodsLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(seafoodsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, -1, 110));
 
         readyMealsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/ready meals landing icon.png"))); // NOI18N
-        landingPanel.add(readyMealsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, -1, -1));
+        readyMealsLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        readyMealsLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                readyMealsLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(readyMealsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 430, -1, -1));
 
         vegetablesLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/vegetables landing icon.png"))); // NOI18N
-        landingPanel.add(vegetablesLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, -1, -1));
+        vegetablesLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        vegetablesLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                vegetablesLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(vegetablesLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 430, -1, -1));
 
         fruitsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/fruits landing icon.png"))); // NOI18N
-        landingPanel.add(fruitsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 430, -1, -1));
+        fruitsLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        fruitsLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fruitsLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(fruitsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 430, -1, -1));
 
         snakcsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/snacks landing icon.png"))); // NOI18N
-        landingPanel.add(snakcsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, -1, -1));
+        snakcsLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        snakcsLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                snakcsLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(snakcsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 430, -1, -1));
 
         dessertsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/desserts landing icon.png"))); // NOI18N
-        landingPanel.add(dessertsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 430, -1, -1));
-
-        beveragesLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/beverages landing icon.png"))); // NOI18N
-        landingPanel.add(beveragesLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 430, -1, -1));
+        dessertsLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dessertsLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dessertsLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(dessertsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 430, -1, -1));
 
         newProductsLandingIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new products landing icon.png"))); // NOI18N
-        landingPanel.add(newProductsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 430, -1, -1));
+        newProductsLandingIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        newProductsLandingIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                newProductsLandingIconMouseClicked(evt);
+            }
+        });
+        landingPanel.add(newProductsLandingIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 430, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/new (2).png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -3918,23 +3968,23 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLayeredPane1.add(faqsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 550));
 
-        jLabel31.setText("About us Panel");
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cozy crate developers.png"))); // NOI18N
 
         javax.swing.GroupLayout aboutUsPanelLayout = new javax.swing.GroupLayout(aboutUsPanel);
         aboutUsPanel.setLayout(aboutUsPanelLayout);
         aboutUsPanelLayout.setHorizontalGroup(
             aboutUsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(aboutUsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31)
-                .addContainerGap(1054, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutUsPanelLayout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
+                .addComponent(jLabel29)
+                .addGap(19, 19, 19))
         );
         aboutUsPanelLayout.setVerticalGroup(
             aboutUsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(aboutUsPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31)
-                .addContainerGap(528, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutUsPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel29)
+                .addGap(40, 40, 40))
         );
 
         jLayeredPane1.add(aboutUsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 550));
@@ -4164,7 +4214,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         aboutUsLabel.setBackground(new java.awt.Color(185, 85, 0));
         aboutUsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         aboutUsLabel.setForeground(new java.awt.Color(101, 13, 2));
-        aboutUsLabel.setText("About Us");
+        aboutUsLabel.setText("Developers");
         aboutUsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aboutUsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -4174,7 +4224,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 aboutUsMouseExited(evt);
             }
         });
-        jPanel92.add(aboutUsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, -1, -1));
+        jPanel92.add(aboutUsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, -1, -1));
 
         FAQsLabel.setBackground(new java.awt.Color(185, 85, 0));
         FAQsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
@@ -4691,6 +4741,51 @@ public class DashboardFrame extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_addAddressLabelMouseClicked
 
+    private void bakeryLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bakeryLandingIconMouseClicked
+        hideAllPanels();
+        bakeryPanel.setVisible(true);
+    }//GEN-LAST:event_bakeryLandingIconMouseClicked
+
+    private void butcheryLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butcheryLandingIconMouseClicked
+        hideAllPanels();
+        butcheryPanel.setVisible(true);
+    }//GEN-LAST:event_butcheryLandingIconMouseClicked
+
+    private void seafoodsLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seafoodsLandingIconMouseClicked
+        hideAllPanels();
+        seaFoodsPanel.setVisible(true);
+    }//GEN-LAST:event_seafoodsLandingIconMouseClicked
+
+    private void readyMealsLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readyMealsLandingIconMouseClicked
+        hideAllPanels();
+        readyMealsPanel.setVisible(true);
+    }//GEN-LAST:event_readyMealsLandingIconMouseClicked
+
+    private void vegetablesLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vegetablesLandingIconMouseClicked
+        hideAllPanels();
+        vegetablesPanel.setVisible(true);
+    }//GEN-LAST:event_vegetablesLandingIconMouseClicked
+
+    private void fruitsLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fruitsLandingIconMouseClicked
+        hideAllPanels();
+        fruitsPanel.setVisible(true);
+    }//GEN-LAST:event_fruitsLandingIconMouseClicked
+
+    private void snakcsLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_snakcsLandingIconMouseClicked
+        hideAllPanels();
+        snacksPanel.setVisible(true);
+    }//GEN-LAST:event_snakcsLandingIconMouseClicked
+
+    private void dessertsLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dessertsLandingIconMouseClicked
+        hideAllPanels();
+        dessertsPanel.setVisible(true);
+    }//GEN-LAST:event_dessertsLandingIconMouseClicked
+
+    private void newProductsLandingIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newProductsLandingIconMouseClicked
+        hideAllPanels();
+        newProductsPanel.setVisible(true);
+    }//GEN-LAST:event_newProductsLandingIconMouseClicked
+
     public void selectButton(JButton btn) {
         if (selectedButton != null) {
             selectedButton.setBackground(Color.WHITE);
@@ -4764,7 +4859,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel bakeryStock8;
     private javax.swing.JLabel bakeryStock9;
     private javax.swing.JButton beveragesButton;
-    private javax.swing.JLabel beveragesLandingIcon;
     private javax.swing.JButton butcheryButton;
     public static javax.swing.JLabel butcheryLabel1;
     public static javax.swing.JLabel butcheryLabel2;
@@ -4951,9 +5045,9 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
