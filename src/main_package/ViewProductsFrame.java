@@ -7,6 +7,7 @@ package main_package;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,6 +27,7 @@ public class ViewProductsFrame extends javax.swing.JFrame {
         dbManager.loadProducts(productsTable);
         setLocationRelativeTo(null);
         styleTableHeader();
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     /**
@@ -44,6 +46,7 @@ public class ViewProductsFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         productsTable = new javax.swing.JTable();
         btnDelete = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -92,13 +95,22 @@ public class ViewProductsFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 650, 320));
 
+        btnDelete.setBackground(new java.awt.Color(169, 122, 98));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Delete Product");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 120, 30));
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 150, 40));
+
+        jButton1.setBackground(new java.awt.Color(169, 122, 98));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Update Product");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 160, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 520));
 
@@ -190,6 +202,7 @@ public class ViewProductsFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
