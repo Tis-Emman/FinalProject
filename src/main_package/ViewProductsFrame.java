@@ -7,6 +7,8 @@ package main_package;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,6 +18,7 @@ import javax.swing.table.JTableHeader;
 public class ViewProductsFrame extends javax.swing.JFrame {
 
     DashboardFrame frame = new DashboardFrame(false, null);
+
     public ViewProductsFrame() {
         initComponents();
         dbManager.loadProducts(productsTable);
@@ -139,64 +142,71 @@ public class ViewProductsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-       
-        try{
-             int row = productsTable.getSelectedRow();
 
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a product to delete!");
-            return;
-        }
-
-        // Assuming 'id' is in column 0
-        int productId = (int) productsTable.getValueAt(row, 0);
-
-        int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Are you sure you want to delete this product?",
-                "Confirm Delete",
-                JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            DatabaseManager db = new DatabaseManager();
-            db.deleteProduct(productId);
-            db.loadProducts(productsTable);
-        }
-        }catch(NullPointerException e){
-            JOptionPane.showMessageDialog(this, "Please select a valid row to delete");
-        }
-       
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void updatePrdctsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrdctsButtonActionPerformed
-        try{
+        try {
             int row = productsTable.getSelectedRow();
 
             if (row == -1) {
-                JOptionPane.showMessageDialog(this, "Please select a product to update!");
+                JOptionPane.showMessageDialog(this, "Please select a product to delete!");
                 return;
             }
 
+            // Assuming 'id' is in column 0
             int productId = (int) productsTable.getValueAt(row, 0);
-            String name = productsTable.getValueAt(row, 1).toString();
-            float price = Float.parseFloat(productsTable.getValueAt(row, 2).toString());
-            int quantity = (int) Float.parseFloat(productsTable.getValueAt(row, 3).toString());
-            int category = Integer.parseInt(productsTable.getValueAt(row, 4).toString());
-            String imagePath = null;
 
-            UpdateProductsFrame updateFrame = new UpdateProductsFrame(
-                    this, productId, name, price, quantity, category, imagePath
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete this product?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
             );
 
-            updateFrame.setVisible(true);
-            updateFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        }catch(NullPointerException e){
-            
-             JOptionPane.showMessageDialog(rootPane, "Please select a valid row to update!");
+            if (confirm == JOptionPane.YES_OPTION) {
+                DatabaseManager db = new DatabaseManager();
+                db.deleteProduct(productId);
+                db.loadProducts(productsTable);
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Please select a valid row to delete");
         }
-        
-        
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void updatePrdctsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrdctsButtonActionPerformed
+        int row = productsTable.getSelectedRow();
+
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a product to update!");
+            return;
+        }
+
+        // Get values from table
+        int productId = (int) productsTable.getValueAt(row, 0);
+        String name = productsTable.getValueAt(row, 1).toString();
+        int category = Integer.parseInt(productsTable.getValueAt(row, 2).toString());
+        float price = Float.parseFloat(productsTable.getValueAt(row, 3).toString());
+        int quantity = Integer.parseInt(productsTable.getValueAt(row, 4).toString());
+        String imagePath = dbManager.getImagePath(productId);
+
+        // Open update frame and pass data + this table frame
+        UpdateProductsFrame updateFrame = new UpdateProductsFrame(
+                this, productId, name, category, price, quantity, imagePath
+        );
+
+        updateFrame.setVisible(true);
+        if (imagePath != null && !imagePath.isEmpty()) {
+            ImageIcon icon = new ImageIcon(imagePath);
+
+            // Optional: scale image to fit label
+            Image img = icon.getImage();
+            Image scaledImg = img.getScaledInstance(
+                    updateFrame.lblImagePreview.getWidth(),
+                    updateFrame.lblImagePreview.getHeight(),
+                    Image.SCALE_SMOOTH
+            );
+            updateFrame.lblImagePreview.setIcon(new ImageIcon(scaledImg));
+        }
+        updateFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_updatePrdctsButtonActionPerformed
 
     private void updatePrdctsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrdctsButton1ActionPerformed
@@ -220,11 +230,11 @@ public class ViewProductsFrame extends javax.swing.JFrame {
 
     public void refreshTable() {
         System.out.println("Refreshing table...");
-        dbManager.loadProducts(productsTable); 
+        dbManager.loadProducts(productsTable);
         productsTable.revalidate();
         productsTable.repaint();
     }
-    
+
     DatabaseManager dbManager = new DatabaseManager();
 
     public static void main(String args[]) {

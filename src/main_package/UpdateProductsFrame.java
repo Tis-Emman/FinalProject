@@ -1,5 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package main_package;
 
+/**
+ *
+ * @author user
+ */
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -11,43 +19,55 @@ import javax.swing.JOptionPane;
 
 public class UpdateProductsFrame extends javax.swing.JFrame {
 
+    /**
+     * Creates new form UpdateProductsFrame
+     */
+    private String imagePath;
     private ViewProductsFrame parentTableFrame;
+    static DatabaseManager dbManager = new DatabaseManager();
     private int productId;
-    private File selectedFile;
-    private String currentImagePath;
 
-    public UpdateProductsFrame(
-            ViewProductsFrame parentFrame,
+    public UpdateProductsFrame(ViewProductsFrame parentFrame,
             int productId,
             String name,
+            int category,
             float price,
             int quantity,
-            int category,
-            String imagePath
-    ) {
-        initComponents();
+            String imagePath) {
         this.parentTableFrame = parentFrame;
         this.productId = productId;
 
-        this.currentImagePath = imagePath;
+        initComponents();
 
+        // Auto-fill fields
         productNameField.setText(name);
         productPriceField.setText(String.valueOf(price));
         productQuantityField.setText(String.valueOf(quantity));
         categoryNumber.setText(String.valueOf(category));
 
-        try {
-            File projectDir = new File(System.getProperty("user.dir"));
-            File imgFile = new File(projectDir, imagePath); // convert relative to absolute
-            ImageIcon icon = new ImageIcon(
-                    new ImageIcon(imgFile.getAbsolutePath())
-                            .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
-            );
-            imagePreviewLabel.setIcon(icon);
-        } catch (Exception e) {
-            imagePreviewLabel.setText("No image available");
+         if (category == 1) {
+            categoryLabel.setText("New Products");
+        } else if (category  == 2) {
+            categoryLabel.setText("Bakery");
+        } else if (category  == 3) {
+            categoryLabel.setText("Butchery");
+        } else if (category  == 4) {
+            categoryLabel.setText("Seafoods");
+        } else if (category  == 5) {
+            categoryLabel.setText("Ready Meals");
+        } else if (category == 6) {
+            categoryLabel.setText("Vegetables");
+        } else if (category  == 7) {
+            categoryLabel.setText("Fruits");
+        } else if (category  == 8) {
+            categoryLabel.setText("Grocery");
+        } else if (category  == 9) {
+            categoryLabel.setText("Snacks");
+        } else if (category == 10) {
+            categoryLabel.setText("Desserts");
+        } else if (category == 11) {
+            categoryLabel.setText("Wines");
         }
-
         setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -62,48 +82,44 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        productNameField = new javax.swing.JTextField();
-        productQuantityField = new javax.swing.JTextField();
-        productPriceField = new javax.swing.JTextField();
-        categoryNumber = new javax.swing.JTextField();
-        imagePreviewLabel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        changeImageButton = new javax.swing.JButton();
+        selectImageButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         submitButton = new javax.swing.JButton();
+        lblImagePreview = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        productNameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        productPriceField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        productQuantityField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        categoryNumber = new javax.swing.JLabel();
+        incrementButton = new javax.swing.JButton();
+        decrementButton = new javax.swing.JButton();
+        categoryLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 222, 158));
+        jPanel1.setBackground(new java.awt.Color(246, 212, 142));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        productQuantityField.addActionListener(new java.awt.event.ActionListener() {
+        selectImageButton.setBackground(new java.awt.Color(190, 165, 49));
+        selectImageButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        selectImageButton.setForeground(new java.awt.Color(255, 255, 255));
+        selectImageButton.setText("Select an image");
+        selectImageButton.setFocusable(false);
+        selectImageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                productQuantityFieldActionPerformed(evt);
+                selectImageButtonActionPerformed(evt);
             }
         });
+        jPanel1.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 710, 170, 40));
 
-        imagePreviewLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
-        imagePreviewLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(110, 66, 41));
-        jLabel6.setText("IMAGE:");
-
-        changeImageButton.setBackground(new java.awt.Color(190, 165, 49));
-        changeImageButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        changeImageButton.setForeground(new java.awt.Color(255, 255, 255));
-        changeImageButton.setText("Select an image");
-        changeImageButton.setFocusable(false);
-        changeImageButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeImageButtonActionPerformed(evt);
-            }
-        });
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(110, 66, 41));
+        jLabel4.setText("IMAGE:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 510, 50, -1));
 
         submitButton.setBackground(new java.awt.Color(161, 134, 5));
         submitButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,127 +130,138 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
                 submitButtonActionPerformed(evt);
             }
         });
+        jPanel1.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 760, 90, 30));
+
+        lblImagePreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
+        lblImagePreview.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, 150, 150));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(110, 66, 41));
-        jLabel1.setText("PRODUCT NAME");
+        jLabel1.setText("PRODUCT NAME:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(110, 66, 41));
-        jLabel7.setText("PRODUCT QUANTITY");
+        productNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productNameFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(productNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 330, 40));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(110, 66, 41));
-        jLabel8.setText("PRODUCT PRICE");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(110, 66, 41));
+        jLabel2.setText("PRICE:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 48, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(110, 66, 41));
-        jLabel9.setText("CATEGORY:");
+        productPriceField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productPriceFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(productPriceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 330, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update product font.png"))); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(110, 66, 41));
+        jLabel3.setText("PRODUCT QUANTITY");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 150, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(productNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel8))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(productPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel7))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(productQuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(categoryNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(imagePreviewLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(changeImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+        productQuantityField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productQuantityFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(productQuantityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 330, 40));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(110, 66, 41));
+        jLabel6.setText("CATEGORY:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 82, -1));
+
+        categoryNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        categoryNumber.setForeground(new java.awt.Color(110, 66, 41));
+        categoryNumber.setText("1");
+        jPanel1.add(categoryNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 30, -1));
+
+        incrementButton.setText("+");
+        incrementButton.setFocusable(false);
+        incrementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                incrementButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(incrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, -1, -1));
+
+        decrementButton.setText("-");
+        decrementButton.setFocusable(false);
+        decrementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decrementButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(decrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
+
+        categoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        categoryLabel.setText("XXXXXXX");
+        jPanel1.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 140, 30));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update product font.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addGap(10, 10, 10)
-                .addComponent(productNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel8)
-                .addGap(10, 10, 10)
-                .addComponent(productPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel7)
-                .addGap(10, 10, 10)
-                .addComponent(productQuantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel9)
-                .addGap(10, 10, 10)
-                .addComponent(categoryNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel6)
-                .addGap(10, 10, 10)
-                .addComponent(imagePreviewLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(changeImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 387, 767));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void productQuantityFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productQuantityFieldActionPerformed
+    private File selectedFile;
 
-    }//GEN-LAST:event_productQuantityFieldActionPerformed
+    private void selectImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectImageButtonActionPerformed
+        try {
 
-    private void changeImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeImageButtonActionPerformed
+            imagePath = dbManager.getImagePath(productId); // old image
+            if (imagePath != null && !imagePath.isEmpty()) {
+                ImageIcon icon = new ImageIcon(imagePath);
+                Image img = icon.getImage().getScaledInstance(lblImagePreview.getWidth(), lblImagePreview.getHeight(), Image.SCALE_SMOOTH);
+                lblImagePreview.setIcon(new ImageIcon(img));
+            }
 
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Select New Product Image");
+            // Let user select a new image
+            JFileChooser fileChooser = new JFileChooser();
+            int result = fileChooser.showOpenDialog(this);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
 
-        int result = chooser.showOpenDialog(this);
+                File imagesDir = new File("images");
+                if (!imagesDir.exists()) {
+                    imagesDir.mkdir();
+                }
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = chooser.getSelectedFile();
+                File destFile = new File(imagesDir, System.currentTimeMillis() + "_" + selectedFile.getName());
+                Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            ImageIcon preview = new ImageIcon(
-                    new ImageIcon(selectedFile.getAbsolutePath())
-                            .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
-            );
+                // Update preview
+                ImageIcon icon = new ImageIcon(destFile.getAbsolutePath());
+                Image img = icon.getImage().getScaledInstance(lblImagePreview.getWidth(), lblImagePreview.getHeight(), Image.SCALE_SMOOTH);
+                lblImagePreview.setIcon(new ImageIcon(img));
 
-            imagePreviewLabel.setIcon(preview);
+                // **Update the frame’s imagePath field**
+                imagePath = destFile.getAbsolutePath();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error processing image file!");
         }
-    }//GEN-LAST:event_changeImageButtonActionPerformed
+    }//GEN-LAST:event_selectImageButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         String name = productNameField.getText();
@@ -242,63 +269,151 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
         int quantity = Integer.parseInt(productQuantityField.getText());
         int category = Integer.parseInt(categoryNumber.getText());
 
-        String finalImagePath = currentImagePath;
+        DatabaseManager db = new DatabaseManager();
 
-        try {
-            if (selectedFile != null) {
+        db.updateProduct(productId, name, category, price, quantity, this.imagePath);
 
-                File imagesDir = new File("images");
-                if (!imagesDir.exists()) {
-                    imagesDir.mkdir();
-                }
-
-                File destFile = new File(imagesDir, selectedFile.getName());
-                Files.copy(
-                        selectedFile.toPath(),
-                        destFile.toPath(),
-                        StandardCopyOption.REPLACE_EXISTING
-                );
-
-                finalImagePath = destFile.getAbsolutePath();
-            }
-
-            DatabaseManager db = new DatabaseManager();
-            db.updateProduct(
-                    productId,
-                    name,
-                    price,
-                    quantity,
-                    category,
-                    finalImagePath
-            );
-
-            if (parentTableFrame != null) {
-                parentTableFrame.refreshTable();
-            }
-
-            JOptionPane.showMessageDialog(this, "Product updated successfully!");
-            dispose();
-
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Image update failed: " + ex.getMessage());
-            ex.printStackTrace();
+        if (parentTableFrame != null) {
+            parentTableFrame.refreshTable();
         }
+
+        JOptionPane.showMessageDialog(this, "Product updated successfully!");
     }//GEN-LAST:event_submitButtonActionPerformed
 
+    private void productNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productNameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productNameFieldActionPerformed
+
+    private void productPriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productPriceFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productPriceFieldActionPerformed
+
+    private void productQuantityFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productQuantityFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_productQuantityFieldActionPerformed
+
+    private String getCategoryName(int number) {
+    switch (number) {
+        case 1: return "New Products";
+        case 2: return "Bakery";
+        case 3: return "Butchery";
+        case 4: return "Seafoods";
+        case 5: return "Ready Meals";
+        case 6: return "Vegetables";
+        case 7: return "Fruits";
+        case 8: return "Grocery";
+        case 9: return "Snacks";
+        case 10: return "Desserts";
+        case 11: return "Wines";
+        default: return "Unknown";
+    }
+}
+    
+    private void incrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incrementButtonActionPerformed
+        String categoryNum = categoryNumber.getText();
+        int totalCategoryNum = Integer.parseInt(categoryNum);
+
+        if (totalCategoryNum < 11) {
+            totalCategoryNum++;
+            String show = String.valueOf(totalCategoryNum);
+
+            categoryNumber.setText(show);
+        }
+
+        switch (totalCategoryNum) {
+            case 1:
+                categoryLabel.setText("New Products");
+                break;
+            case 2:
+                categoryLabel.setText("Bakery");
+                break;
+            case 3:
+                categoryLabel.setText("Butchery");
+                break;
+            case 4:
+                categoryLabel.setText("Seafoods");
+                break;
+            case 5:
+                categoryLabel.setText("Ready Meals");
+                break;
+            case 6:
+                categoryLabel.setText("Vegetables");
+                break;
+            case 7:
+                categoryLabel.setText("Fruits");
+                break;
+            case 8:
+                categoryLabel.setText("Grocery");
+                break;
+            case 9:
+                categoryLabel.setText("Snacks");
+                break;
+            case 10:
+                categoryLabel.setText("Desserts");
+                break;
+            case 11:
+                categoryLabel.setText("Wines");
+                break;
+        }
+    }//GEN-LAST:event_incrementButtonActionPerformed
+
+    private void decrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decrementButtonActionPerformed
+        String categoryNum = categoryNumber.getText();
+        int totalCategoryNum = Integer.parseInt(categoryNum);
+
+        if (totalCategoryNum > 1) {
+            totalCategoryNum--;
+            String show = String.valueOf(totalCategoryNum);
+
+            categoryNumber.setText(show);
+        }
+
+        if (totalCategoryNum == 1) {
+            categoryLabel.setText("New Products");
+        } else if (totalCategoryNum == 2) {
+            categoryLabel.setText("Bakery");
+        } else if (totalCategoryNum == 3) {
+            categoryLabel.setText("Butchery");
+        } else if (totalCategoryNum == 4) {
+            categoryLabel.setText("Seafoods");
+        } else if (totalCategoryNum == 5) {
+            categoryLabel.setText("Ready Meals");
+        } else if (totalCategoryNum == 6) {
+            categoryLabel.setText("Vegetables");
+        } else if (totalCategoryNum == 7) {
+            categoryLabel.setText("Fruits");
+        } else if (totalCategoryNum == 8) {
+            categoryLabel.setText("Grocery");
+        } else if (totalCategoryNum == 9) {
+            categoryLabel.setText("Snacks");
+        } else if (totalCategoryNum == 10) {
+            categoryLabel.setText("Desserts");
+        } else if (totalCategoryNum == 11) {
+            categoryLabel.setText("Wines");
+        }
+    }//GEN-LAST:event_decrementButtonActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField categoryNumber;
-    private javax.swing.JButton changeImageButton;
-    private javax.swing.JLabel imagePreviewLabel;
+    private javax.swing.JLabel categoryLabel;
+    private javax.swing.JLabel categoryNumber;
+    private javax.swing.JButton decrementButton;
+    private javax.swing.JButton incrementButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel lblImagePreview;
     private javax.swing.JTextField productNameField;
     private javax.swing.JTextField productPriceField;
     private javax.swing.JTextField productQuantityField;
+    private javax.swing.JButton selectImageButton;
     private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
 }

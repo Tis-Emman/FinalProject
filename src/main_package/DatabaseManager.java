@@ -20,16 +20,33 @@ public class DatabaseManager {
 
     static String URL = "jdbc:sqlite:inventory.db";
 
-    public void updateProduct(int id, String name, float price, int quantity, int category, String imagePath) {
+    public String getImagePath(int productId) {
+    String sql = "SELECT image_path FROM products WHERE id = ?";
+    try (Connection conn = DriverManager.getConnection(URL);
+         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        String sql = "UPDATE products SET name=?, price=?, quantity=?, category=?, image_path=? WHERE id=?";
+        ps.setInt(1, productId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getString("image_path");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null; // fallback if not found
+}
+    
+    public void updateProduct(int id, String name, int category, float price,  int quantity,  String imagePath) {
+
+        String sql = "UPDATE products SET name=?, category=?, price=?, quantity=?, image_path=? WHERE id=?";
 
         try (Connection conn = DriverManager.getConnection(URL); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, name);
-            ps.setFloat(2, price);
-            ps.setInt(3, quantity);
-            ps.setInt(4, category);
+            ps.setInt(2, category);
+            ps.setFloat(3, price);
+            ps.setInt(4, quantity);
             ps.setString(5, imagePath);
             ps.setInt(6, id);
 

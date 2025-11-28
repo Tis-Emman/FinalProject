@@ -18,8 +18,9 @@ import javax.swing.JOptionPane;
  * @author user
  */
 public class AddProductsFrame extends javax.swing.JFrame {
-  private ViewProductsFrame parentTableFrame;
-  
+
+    private ViewProductsFrame parentTableFrame;
+
     /**
      * Creates new form AddProductsFrame
      */
@@ -30,7 +31,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         setLocation(943, 145);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         categoryLabel.setText("New Products");
-        
+
     }
 
     /**
@@ -174,11 +175,13 @@ public class AddProductsFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -199,159 +202,178 @@ public class AddProductsFrame extends javax.swing.JFrame {
     private File selectedFile;
     private void selectImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectImageButtonActionPerformed
 
-    imgSelector.setDialogTitle("Select Product Image");
+        imgSelector.setDialogTitle("Select Product Image");
 
-    imgSelector.setAcceptAllFileFilterUsed(false);
-    imgSelector.addChoosableFileFilter(
-        new javax.swing.filechooser.FileNameExtensionFilter("Image Files (.png, .jpg)", "png", "jpg")
-    );
+        imgSelector.setAcceptAllFileFilterUsed(false);
+        imgSelector.addChoosableFileFilter(
+                new javax.swing.filechooser.FileNameExtensionFilter("Image Files (.png, .jpg)", "png", "jpg")
+        );
 
-    int result = imgSelector.showOpenDialog(this); 
+        int result = imgSelector.showOpenDialog(this);
 
-    if (result == JFileChooser.APPROVE_OPTION) {
-        selectedFile = imgSelector.getSelectedFile();
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = imgSelector.getSelectedFile();
 
-        String fileName = selectedFile.getName().toLowerCase();
-        if (!fileName.endsWith(".png") && !fileName.endsWith(".jpg")) { // fixed logic
-            JOptionPane.showMessageDialog(this, "Only PNG and JPG images are allowed");
-            selectedFile = null; // reset selected file
-            return;
-        } 
+            String fileName = selectedFile.getName().toLowerCase();
+            if (!fileName.endsWith(".png") && !fileName.endsWith(".jpg")) { // fixed logic
+                JOptionPane.showMessageDialog(this, "Only PNG and JPG images are allowed");
+                selectedFile = null; // reset selected file
+                return;
+            }
 
-        // Show image preview immediately
-        lblImagePreview.setIcon(new ImageIcon(
-            new ImageIcon(selectedFile.getAbsolutePath())
-            .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
-        ));
-    }
+            // Show image preview immediately
+            lblImagePreview.setIcon(new ImageIcon(
+                    new ImageIcon(selectedFile.getAbsolutePath())
+                            .getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)
+            ));
+        }
     }//GEN-LAST:event_selectImageButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-       String productName = productNameField.getText();
-       float productPrice = Float.parseFloat(productPriceField.getText());
-       int productQuantity = Integer.parseInt(productQuantityField.getText());
-       
-       String categoryNum = categoryNumber.getText();
-       String prdctPrice = String.valueOf(productPrice);
-       
-       int category = Integer.parseInt(categoryNum);
-            
-        if (selectedFile == null) {
-        JOptionPane.showMessageDialog(this, "Please select an image before submitting!");
-        return;
-        }
 
         try {
-        File imagesDir = new File("images");
-        if (!imagesDir.exists()) {
-            imagesDir.mkdir();
+            String productName = productNameField.getText().trim();
+            String priceText = productPriceField.getText().trim();
+            String quantityText = productQuantityField.getText().trim();
+            String categoryText = categoryNumber.getText().trim();
+
+            // Simple validation
+            if (productName.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || categoryText.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill out all fields!");
+                return;
+            }
+
+            float productPrice;
+            int productQuantity;
+            int category;
+
+            try {
+                productPrice = Float.parseFloat(priceText);
+                productQuantity = Integer.parseInt(quantityText);
+                category = Integer.parseInt(categoryText);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Invalid number input!");
+                return;
+            }
+
+            if (selectedFile == null) {
+                JOptionPane.showMessageDialog(this, "Please select an image!");
+                return;
+            }
+
+            // Create images folder if not exists
+            File imagesDir = new File("images");
+            if (!imagesDir.exists()) {
+                imagesDir.mkdir();
+            }
+
+            // Save image
+            File destFile = new File(imagesDir, System.currentTimeMillis() + "_" + selectedFile.getName());
+            Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+            ImageIcon scaledIcon = new ImageIcon(
+                    new ImageIcon(destFile.getAbsolutePath())
+                            .getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH)
+            );
+
+            DashboardFrame.addProductToCategory(category, scaledIcon, productName, String.valueOf(productPrice));
+            DatabaseManager.addAll(productName, category, productPrice, productQuantity, destFile.getAbsolutePath());
+            parentTableFrame.refreshTable();
+
+            JOptionPane.showMessageDialog(this, "Product added successfully!");
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving image.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong.");
+        }
+    }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void decrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decrementButtonActionPerformed
+        String categoryNum = categoryNumber.getText();
+        int totalCategoryNum = Integer.parseInt(categoryNum);
+
+        if (totalCategoryNum > 1) {
+            totalCategoryNum--;
+            String show = String.valueOf(totalCategoryNum);
+
+            categoryNumber.setText(show);
         }
 
-        File destFile = new File(imagesDir, selectedFile.getName());
-        Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-        
-        ImageIcon scaledIcon = new ImageIcon(
-            new ImageIcon(destFile.getAbsolutePath())
-            .getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH)
-        );
-        
-        DashboardFrame.addProductToCategory(category, scaledIcon, productName, prdctPrice);
-        DatabaseManager.addAll(productName, category, productPrice, productQuantity, destFile.getAbsolutePath());
-        parentTableFrame.refreshTable();
-    
-      
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(this, "Error saving image: " + e.getMessage());
-    }
-    }//GEN-LAST:event_submitButtonActionPerformed
-  
-    private void decrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decrementButtonActionPerformed
-       String categoryNum = categoryNumber.getText();
-       int totalCategoryNum = Integer.parseInt(categoryNum);
-
-       if(totalCategoryNum > 1){
-       totalCategoryNum--;
-       String show = String.valueOf(totalCategoryNum);
-       
-       categoryNumber.setText(show);
-       }
-       
-       if(totalCategoryNum == 1){
+        if (totalCategoryNum == 1) {
             categoryLabel.setText("New Products");
-       } else if(totalCategoryNum == 2){
+        } else if (totalCategoryNum == 2) {
             categoryLabel.setText("Bakery");
-       } else if(totalCategoryNum == 3){
+        } else if (totalCategoryNum == 3) {
             categoryLabel.setText("Butchery");
-       } else if(totalCategoryNum == 4){
+        } else if (totalCategoryNum == 4) {
             categoryLabel.setText("Seafoods");
-       } else if(totalCategoryNum == 5){
+        } else if (totalCategoryNum == 5) {
             categoryLabel.setText("Ready Meals");
-       } else if(totalCategoryNum == 6){
+        } else if (totalCategoryNum == 6) {
             categoryLabel.setText("Vegetables");
-       } else if(totalCategoryNum == 7){
+        } else if (totalCategoryNum == 7) {
             categoryLabel.setText("Fruits");
-       } else if(totalCategoryNum == 8){
+        } else if (totalCategoryNum == 8) {
             categoryLabel.setText("Grocery");
-       } else if(totalCategoryNum == 9){
+        } else if (totalCategoryNum == 9) {
             categoryLabel.setText("Snacks");
-       } else if(totalCategoryNum == 10){
+        } else if (totalCategoryNum == 10) {
             categoryLabel.setText("Desserts");
-       } else if(totalCategoryNum == 11){
+        } else if (totalCategoryNum == 11) {
             categoryLabel.setText("Wines");
-       }
+        }
     }//GEN-LAST:event_decrementButtonActionPerformed
 
     private void incrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incrementButtonActionPerformed
-       String categoryNum = categoryNumber.getText();
-       int totalCategoryNum = Integer.parseInt(categoryNum);
-       
-       if(totalCategoryNum < 11){
-        totalCategoryNum++;
-        String show = String.valueOf(totalCategoryNum);
+        String categoryNum = categoryNumber.getText();
+        int totalCategoryNum = Integer.parseInt(categoryNum);
 
-        categoryNumber.setText(show);
-       }
-       
-       switch(totalCategoryNum){
-           case 1: 
-               categoryLabel.setText("New Products");
-               break;
-           case 2:
-               categoryLabel.setText("Bakery");
-               break;
-           case 3:
-               categoryLabel.setText("Butchery");
-               break;
-           case 4:
-               categoryLabel.setText("Seafoods");
-               break;
-           case 5:
-               categoryLabel.setText("Ready Meals");
-               break; 
-           case 6:
-               categoryLabel.setText("Vegetables");
-               break;
-           case 7:
-               categoryLabel.setText("Fruits");
-               break;
-           case 8:
-               categoryLabel.setText("Grocery");
-               break;
-           case 9:
-               categoryLabel.setText("Snacks");
-               break; 
-           case 10:
-               categoryLabel.setText("Desserts");
-               break;
-           case 11:
-               categoryLabel.setText("Wines");
-               break;
-       }
-        
+        if (totalCategoryNum < 11) {
+            totalCategoryNum++;
+            String show = String.valueOf(totalCategoryNum);
+
+            categoryNumber.setText(show);
+        }
+
+        switch (totalCategoryNum) {
+            case 1:
+                categoryLabel.setText("New Products");
+                break;
+            case 2:
+                categoryLabel.setText("Bakery");
+                break;
+            case 3:
+                categoryLabel.setText("Butchery");
+                break;
+            case 4:
+                categoryLabel.setText("Seafoods");
+                break;
+            case 5:
+                categoryLabel.setText("Ready Meals");
+                break;
+            case 6:
+                categoryLabel.setText("Vegetables");
+                break;
+            case 7:
+                categoryLabel.setText("Fruits");
+                break;
+            case 8:
+                categoryLabel.setText("Grocery");
+                break;
+            case 9:
+                categoryLabel.setText("Snacks");
+                break;
+            case 10:
+                categoryLabel.setText("Desserts");
+                break;
+            case 11:
+                categoryLabel.setText("Wines");
+                break;
+        }
+
     }//GEN-LAST:event_incrementButtonActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
