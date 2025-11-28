@@ -175,9 +175,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +228,6 @@ public class AddProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_selectImageButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-
         try {
             String productName = productNameField.getText().trim();
             String priceText = productPriceField.getText().trim();
@@ -261,26 +258,59 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 return;
             }
 
-            // Create images folder if not exists
             File imagesDir = new File("images");
             if (!imagesDir.exists()) {
                 imagesDir.mkdir();
             }
 
-            // Save image
             File destFile = new File(imagesDir, System.currentTimeMillis() + "_" + selectedFile.getName());
             Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            ImageIcon scaledIcon = new ImageIcon(
-                    new ImageIcon(destFile.getAbsolutePath())
-                            .getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH)
+            // Confirmation message
+            String message = "Please confirm new product:\n\n"
+                    + "Name: " + productName + "\n"
+                    + "Category: " + category + "\n"
+                    + "Price: ₱" + productPrice + "\n"
+                    + "Quantity: " + productQuantity + "\n"
+                    + "Image: " + destFile.getAbsolutePath() + "\n\n"
+                    + "Do you want to add this product?";
+
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    message,
+                    "Confirm Add Product",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
             );
 
-            DashboardFrame.addProductToCategory(category, scaledIcon, productName, String.valueOf(productPrice));
-            DatabaseManager.addAll(productName, category, productPrice, productQuantity, destFile.getAbsolutePath());
-            parentTableFrame.refreshTable();
+            if (confirm == JOptionPane.YES_OPTION) {
 
-            JOptionPane.showMessageDialog(this, "Product added successfully!");
+                ImageIcon scaledIcon = new ImageIcon(
+                        new ImageIcon(destFile.getAbsolutePath())
+                                .getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH)
+                );
+
+                DashboardFrame.addProductToCategory(
+                        category,
+                        scaledIcon,
+                        productName,
+                        String.valueOf(productPrice)
+                );
+
+                DatabaseManager.addAll(
+                        productName,
+                        category,
+                        productPrice,
+                        productQuantity,
+                        destFile.getAbsolutePath()
+                );
+
+                parentTableFrame.refreshTable();
+
+                JOptionPane.showMessageDialog(this, "✅ Product added successfully!");
+            } else {
+                JOptionPane.showMessageDialog(this, "❌ Product add cancelled.");
+            }
 
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error saving image.");

@@ -173,41 +173,47 @@ public class ViewProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void updatePrdctsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrdctsButtonActionPerformed
-        int row = productsTable.getSelectedRow();
+        
+        try{
+            int row = productsTable.getSelectedRow();
 
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a product to update!");
-            return;
-        }
+            if (row == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a product to update!");
+                return;
+            }
 
-        // Get values from table
-        int productId = (int) productsTable.getValueAt(row, 0);
-        String name = productsTable.getValueAt(row, 1).toString();
-        int category = Integer.parseInt(productsTable.getValueAt(row, 2).toString());
-        float price = Float.parseFloat(productsTable.getValueAt(row, 3).toString());
-        int quantity = Integer.parseInt(productsTable.getValueAt(row, 4).toString());
-        String imagePath = dbManager.getImagePath(productId);
+            // Get values from table
+            int productId = (int) productsTable.getValueAt(row, 0);
+            String name = productsTable.getValueAt(row, 1).toString();
+            int category = Integer.parseInt(productsTable.getValueAt(row, 2).toString());
+            float price = Float.parseFloat(productsTable.getValueAt(row, 3).toString());
+            int quantity = Integer.parseInt(productsTable.getValueAt(row, 4).toString());
+            String imagePath = dbManager.getImagePath(productId);
 
-        // Open update frame and pass data + this table frame
-        UpdateProductsFrame updateFrame = new UpdateProductsFrame(
-                this, productId, name, category, price, quantity, imagePath
-        );
-
-        updateFrame.setVisible(true);
-        if (imagePath != null && !imagePath.isEmpty()) {
-            ImageIcon icon = new ImageIcon(imagePath);
-
-            // Optional: scale image to fit label
-            Image img = icon.getImage();
-            Image scaledImg = img.getScaledInstance(
-                    updateFrame.lblImagePreview.getWidth(),
-                    updateFrame.lblImagePreview.getHeight(),
-                    Image.SCALE_SMOOTH
+            // Open update frame and pass data + this table frame
+            UpdateProductsFrame updateFrame = new UpdateProductsFrame(
+                    this, productId, name, category, price, quantity, imagePath
             );
-            updateFrame.lblImagePreview.setIcon(new ImageIcon(scaledImg));
 
+            updateFrame.setVisible(true);
+            if (imagePath != null && !imagePath.isEmpty()) {
+                ImageIcon icon = new ImageIcon(imagePath);
+
+                // Optional: scale image to fit label
+                Image img = icon.getImage();
+                Image scaledImg = img.getScaledInstance(
+                        updateFrame.lblImagePreview.getWidth(),
+                        updateFrame.lblImagePreview.getHeight(),
+                        Image.SCALE_SMOOTH
+                );
+                updateFrame.lblImagePreview.setIcon(new ImageIcon(scaledImg));
+
+            }
+            updateFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } catch(NullPointerException e){
+            JOptionPane.showMessageDialog(this, "Please select a valid row to update");
         }
-        updateFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       
     }//GEN-LAST:event_updatePrdctsButtonActionPerformed
 
     private void updatePrdctsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrdctsButton1ActionPerformed
@@ -230,7 +236,6 @@ public class ViewProductsFrame extends javax.swing.JFrame {
     }
 
     public void refreshTable() {
-        System.out.println("Refreshing table...");
         dbManager.loadProducts(productsTable);
         productsTable.revalidate();
         productsTable.repaint();

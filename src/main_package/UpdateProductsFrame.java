@@ -222,9 +222,7 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,26 +273,57 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_selectImageButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        String name = productNameField.getText();
-        float price = Float.parseFloat(productPriceField.getText());
-        int quantity = Integer.parseInt(productQuantityField.getText());
-        int category = Integer.parseInt(categoryNumber.getText());
 
-        DatabaseManager db = new DatabaseManager();
+        try {
+            String name = productNameField.getText();
+            float price = Float.parseFloat(productPriceField.getText());
+            int quantity = Integer.parseInt(productQuantityField.getText());
+            int category = Integer.parseInt(categoryNumber.getText());
 
-        db.updateProduct(productId, name, category, price, quantity, this.imagePath);
-        System.out.println(this.imagePath);
+            DatabaseManager db = new DatabaseManager();
 
-        if (parentTableFrame != null) {
-            parentTableFrame.refreshTable();
+            if (parentTableFrame != null) {
+                parentTableFrame.refreshTable();
+            }
+
+            String message = "Please confirm the product update:\n\n"
+                    + "Product ID: " + productId + "\n"
+                    + "Name: " + name + "\n"
+                    + "Category: " + category + "\n"
+                    + "Price: ₱" + price + "\n"
+                    + "Quantity: " + quantity + "\n"
+                    + "Do you want to continue?";
+
+            int choice = JOptionPane.showConfirmDialog(
+                    this,
+                    message,
+                    "Confirm Product Update",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (imagePath == null || imagePath.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please select an image!");
+                return;
+            }
+
+            if (choice == JOptionPane.YES_OPTION) {
+
+                db.updateProduct(productId, name, category, price, quantity, imagePath);
+
+                System.out.println(imagePath);
+
+                if (parentTableFrame != null) {
+                    parentTableFrame.refreshTable();
+                }
+
+                JOptionPane.showMessageDialog(this, "✅ Product updated successfully!");
+            } else {
+                JOptionPane.showMessageDialog(this, "❌ Update cancelled.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid input");
         }
 
-        if (imagePath == null || imagePath.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please select an image!");
-            return;
-        }
-
-        JOptionPane.showMessageDialog(this, "Product updated successfully!");
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void productNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productNameFieldActionPerformed

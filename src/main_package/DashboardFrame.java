@@ -4195,7 +4195,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         paymentOptionsLabel.setBackground(new java.awt.Color(185, 85, 0));
         paymentOptionsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         paymentOptionsLabel.setForeground(new java.awt.Color(101, 13, 2));
-        paymentOptionsLabel.setText("Payment Options");
+        paymentOptionsLabel.setText("We Accept");
         paymentOptionsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 paymentOptionsMouseEntered(evt);
