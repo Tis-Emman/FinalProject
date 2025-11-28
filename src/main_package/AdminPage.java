@@ -174,13 +174,8 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_viewProductsButtonActionPerformed
 
     private void addProductsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductsButtonActionPerformed
-        if (productsFrame == null) {
-            JOptionPane.showMessageDialog(this, "Please open the products table first!");
-            return;
-        }
-        AddProductsFrame addFrame = new AddProductsFrame(productsFrame);
-        addFrame.setVisible(true);
-        addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
     }//GEN-LAST:event_addProductsButtonActionPerformed
 
     /**

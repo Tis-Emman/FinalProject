@@ -628,7 +628,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             registerWarningLabel.setText("Please fill out all the forms!");
         } else if (dbManager.checkEmailExist(email, passwordWarningLabel)) {
-            passwordWarningLabel.setText("Email is already registered!");
+            registerWarningLabel.setText("Email is already registered!");
         } else if (password.length() <= 8) {
             passwordWarningLabel.setText("Password must be greater than 8 characters!");
             emailWarningLabel.setText("");
@@ -640,7 +640,6 @@ public class TestLoginFrame extends javax.swing.JFrame {
         } else if (!password.equals(confirmationPass)) {
             confirmationPassLabel.setText("Password do not match!");
         } else {
-
             registerPanel.setVisible(false);
             loginPanel.setVisible(true);
             gotoRegisterButton.setBackground(new Color(252, 239, 216));
@@ -692,8 +691,8 @@ public class TestLoginFrame extends javax.swing.JFrame {
         }
 
         if (email.equalsIgnoreCase("admin") && password.equals("admin")) {
-            AdminPage aP = new AdminPage();
-            aP.setVisible(true);
+            ViewProductsFrame vpFrame = new ViewProductsFrame();
+            vpFrame.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_loginButtonActionPerformed

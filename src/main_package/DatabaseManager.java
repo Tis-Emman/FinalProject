@@ -20,6 +20,26 @@ public class DatabaseManager {
 
     static String URL = "jdbc:sqlite:inventory.db";
 
+    public void updateProduct(int id, String name, float price, int quantity, int category, String imagePath) {
+
+        String sql = "UPDATE products SET name=?, price=?, quantity=?, category=?, image_path=? WHERE id=?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, name);
+            ps.setFloat(2, price);
+            ps.setInt(3, quantity);
+            ps.setInt(4, category);
+            ps.setString(5, imagePath);
+            ps.setInt(6, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void insertAll(String name, String category, int price, int quantity) {
 
         String sql = "INSERT INTO items (name, category, price, quantity) VALUES (?, ?, ?, ?) ";
@@ -612,27 +632,26 @@ public class DatabaseManager {
         }
 
     }
-    
+
     public void deleteProduct(int id) {
-    String sql = "DELETE FROM products WHERE id = ?";
+        String sql = "DELETE FROM products WHERE id = ?";
 
-    try (Connection conn = DriverManager.getConnection(URL);
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        pstmt.setInt(1, id);
+            pstmt.setInt(1, id);
 
-        int rowsAffected = pstmt.executeUpdate();
+            int rowsAffected = pstmt.executeUpdate();
 
-        if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "Product deleted successfully!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Product not found or already deleted!");
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Product deleted successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Product not found or already deleted!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error deleting product: " + e.getMessage());
         }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error deleting product: " + e.getMessage());
     }
-}
 
 }

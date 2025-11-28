@@ -24,12 +24,12 @@ public class AddProductsFrame extends javax.swing.JFrame {
      * Creates new form AddProductsFrame
      */
     public AddProductsFrame(ViewProductsFrame parentFrame) {
-         this.parentTableFrame = parentFrame;
+        this.parentTableFrame = parentFrame;
         initComponents();
         setResizable(false);
         setLocation(943, 145);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-         categoryLabel.setText("New Products");
+        categoryLabel.setText("New Products");
         
     }
 
@@ -59,12 +59,12 @@ public class AddProductsFrame extends javax.swing.JFrame {
         incrementButton = new javax.swing.JButton();
         decrementButton = new javax.swing.JButton();
         categoryLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(251, 239, 215));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 222, 158));
+        jPanel1.setBackground(new java.awt.Color(254, 203, 105));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         selectImageButton.setBackground(new java.awt.Color(190, 165, 49));
@@ -77,12 +77,12 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 selectImageButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 610, 170, 40));
+        jPanel1.add(selectImageButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 710, 170, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(110, 66, 41));
         jLabel4.setText("IMAGE:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 50, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 510, 50, -1));
 
         submitButton.setBackground(new java.awt.Color(161, 134, 5));
         submitButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -93,57 +93,57 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 submitButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 660, 90, 30));
+        jPanel1.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 760, 90, 30));
 
         lblImagePreview.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
         lblImagePreview.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel1.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 150, 150));
+        jPanel1.add(lblImagePreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 550, 150, 150));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(110, 66, 41));
         jLabel1.setText("PRODUCT NAME:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 17, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         productNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productNameFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(productNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 45, 287, 30));
+        jPanel1.add(productNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 330, 40));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(110, 66, 41));
         jLabel2.setText("PRICE:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 111, 48, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 48, -1));
 
         productPriceField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productPriceFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(productPriceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 139, 287, 30));
+        jPanel1.add(productPriceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 330, 40));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(110, 66, 41));
-        jLabel3.setText("QUANTITY:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 82, -1));
+        jLabel3.setText("PRODUCT QUANTITY");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 150, -1));
 
         productQuantityField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productQuantityFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(productQuantityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 236, 287, 30));
+        jPanel1.add(productQuantityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 330, 40));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(110, 66, 41));
         jLabel6.setText("CATEGORY:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 82, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 82, -1));
 
         categoryNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         categoryNumber.setForeground(new java.awt.Color(110, 66, 41));
         categoryNumber.setText("1");
-        jPanel1.add(categoryNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 30, -1));
+        jPanel1.add(categoryNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 30, -1));
 
         incrementButton.setText("+");
         incrementButton.setFocusable(false);
@@ -152,7 +152,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 incrementButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(incrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, -1, -1));
+        jPanel1.add(incrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, -1, -1));
 
         decrementButton.setText("-");
         decrementButton.setFocusable(false);
@@ -161,13 +161,25 @@ public class AddProductsFrame extends javax.swing.JFrame {
                 decrementButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(decrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(decrementButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
 
         categoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         categoryLabel.setText("XXXXXXX");
-        jPanel1.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 140, 30));
+        jPanel1.add(categoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 140, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 720));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add product font.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -385,6 +397,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblImagePreview;
