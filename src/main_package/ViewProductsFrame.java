@@ -205,6 +205,7 @@ public class ViewProductsFrame extends javax.swing.JFrame {
                     Image.SCALE_SMOOTH
             );
             updateFrame.lblImagePreview.setIcon(new ImageIcon(scaledImg));
+
         }
         updateFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_updatePrdctsButtonActionPerformed

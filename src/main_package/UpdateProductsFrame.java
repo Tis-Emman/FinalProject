@@ -45,23 +45,34 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
         productQuantityField.setText(String.valueOf(quantity));
         categoryNumber.setText(String.valueOf(category));
 
-         if (category == 1) {
+        this.imagePath = dbManager.getImagePath(productId); // old image
+        if (imagePath != null && !imagePath.isEmpty()) {
+            ImageIcon icon = new ImageIcon(imagePath);
+            Image img = icon.getImage().getScaledInstance(
+                    lblImagePreview.getWidth(),
+                    lblImagePreview.getHeight(),
+                    Image.SCALE_SMOOTH
+            );
+            lblImagePreview.setIcon(new ImageIcon(img));
+        }
+
+        if (category == 1) {
             categoryLabel.setText("New Products");
-        } else if (category  == 2) {
+        } else if (category == 2) {
             categoryLabel.setText("Bakery");
-        } else if (category  == 3) {
+        } else if (category == 3) {
             categoryLabel.setText("Butchery");
-        } else if (category  == 4) {
+        } else if (category == 4) {
             categoryLabel.setText("Seafoods");
-        } else if (category  == 5) {
+        } else if (category == 5) {
             categoryLabel.setText("Ready Meals");
         } else if (category == 6) {
             categoryLabel.setText("Vegetables");
-        } else if (category  == 7) {
+        } else if (category == 7) {
             categoryLabel.setText("Fruits");
-        } else if (category  == 8) {
+        } else if (category == 8) {
             categoryLabel.setText("Grocery");
-        } else if (category  == 9) {
+        } else if (category == 9) {
             categoryLabel.setText("Snacks");
         } else if (category == 10) {
             categoryLabel.setText("Desserts");
@@ -272,9 +283,15 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
         DatabaseManager db = new DatabaseManager();
 
         db.updateProduct(productId, name, category, price, quantity, this.imagePath);
+        System.out.println(this.imagePath);
 
         if (parentTableFrame != null) {
             parentTableFrame.refreshTable();
+        }
+
+        if (imagePath == null || imagePath.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please select an image!");
+            return;
         }
 
         JOptionPane.showMessageDialog(this, "Product updated successfully!");
@@ -293,22 +310,34 @@ public class UpdateProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_productQuantityFieldActionPerformed
 
     private String getCategoryName(int number) {
-    switch (number) {
-        case 1: return "New Products";
-        case 2: return "Bakery";
-        case 3: return "Butchery";
-        case 4: return "Seafoods";
-        case 5: return "Ready Meals";
-        case 6: return "Vegetables";
-        case 7: return "Fruits";
-        case 8: return "Grocery";
-        case 9: return "Snacks";
-        case 10: return "Desserts";
-        case 11: return "Wines";
-        default: return "Unknown";
+        switch (number) {
+            case 1:
+                return "New Products";
+            case 2:
+                return "Bakery";
+            case 3:
+                return "Butchery";
+            case 4:
+                return "Seafoods";
+            case 5:
+                return "Ready Meals";
+            case 6:
+                return "Vegetables";
+            case 7:
+                return "Fruits";
+            case 8:
+                return "Grocery";
+            case 9:
+                return "Snacks";
+            case 10:
+                return "Desserts";
+            case 11:
+                return "Wines";
+            default:
+                return "Unknown";
+        }
     }
-}
-    
+
     private void incrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incrementButtonActionPerformed
         String categoryNum = categoryNumber.getText();
         int totalCategoryNum = Integer.parseInt(categoryNum);
