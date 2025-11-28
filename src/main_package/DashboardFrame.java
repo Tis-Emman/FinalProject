@@ -3921,8 +3921,8 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         paymentOptionsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel21.setText("Payment Options Panel");
-        paymentOptionsPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/payment supported icon.png"))); // NOI18N
+        paymentOptionsPanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1260, -1));
 
         jLayeredPane1.add(paymentOptionsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 1260, 550));
 
