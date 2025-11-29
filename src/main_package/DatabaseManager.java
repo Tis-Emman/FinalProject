@@ -21,23 +21,22 @@ public class DatabaseManager {
     static String URL = "jdbc:sqlite:inventory.db";
 
     public String getImagePath(int productId) {
-    String sql = "SELECT image_path FROM products WHERE id = ?";
-    try (Connection conn = DriverManager.getConnection(URL);
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "SELECT image_path FROM products WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, productId);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return rs.getString("image_path");
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("image_path");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return null; // fallback if not found
     }
-    return null; // fallback if not found
-}
-    
-    public void updateProduct(int id, String name, int category, float price,  int quantity,  String imagePath) {
+
+    public void updateProduct(int id, String name, int category, float price, int quantity, String imagePath) {
 
         String sql = "UPDATE products SET name=?, category=?, price=?, quantity=?, image_path=? WHERE id=?";
 
@@ -579,8 +578,13 @@ public class DatabaseManager {
         }
     }
 
-    public void displayItemByName(String productName, JLabel slotLabel, JLabel nameLabel, JLabel priceLabel) {
-        String query = "SELECT name, price, image_path FROM products WHERE name = ?";
+    private float unitPrice = 0;
+    private int maxStock = 0;
+
+    public void displayItemByName(String productName, JLabel slotLabel,
+            JLabel nameLabel, JLabel priceLabel) {
+
+        String query = "SELECT name, price, image_path, quantity FROM products WHERE name = ?";
 
         try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -589,14 +593,14 @@ public class DatabaseManager {
 
             if (rs.next()) {
                 String name = rs.getString("name");
-                float price = rs.getFloat("price");
+                unitPrice = rs.getFloat("price");  // save globally
+                maxStock = rs.getInt("quantity");  // limit quantity
                 String imagePath = rs.getString("image_path");
 
-                // Set cart labels
                 nameLabel.setText(name);
-                priceLabel.setText("P" + price);
+                priceLabel.setText("₱" + unitPrice);
 
-                // Load and scale image for the slot
+                // Load and scale image
                 ImageIcon icon = new ImageIcon(imagePath);
                 Image img = icon.getImage().getScaledInstance(
                         slotLabel.getWidth(),
@@ -605,10 +609,33 @@ public class DatabaseManager {
                 );
                 slotLabel.setIcon(new ImageIcon(img));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Product getProductByName(String productName) {
+
+        String query = "SELECT name, price, image_path, quantity FROM products WHERE name = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, productName);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return new Product(
+                        rs.getString("name"),
+                        rs.getFloat("price"),
+                        rs.getString("image_path"),
+                        rs.getInt("quantity")
+                );
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void loadProducts(JTable table) {

@@ -5,8 +5,11 @@
 package main_package;
 
 import java.awt.Color;
+import java.awt.Image;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,20 +17,22 @@ import javax.swing.JPanel;
  * @author user
  */
 public class CartFrame extends javax.swing.JFrame {
-    
+
+    private DatabaseManager db;
+
     JPanel newPanel = new JPanel();
-    
-    public CartFrame() {
+
+    public CartFrame(DatabaseManager db) {
         initComponents();
+        this.db = db;
         setLocationRelativeTo(null);
-        
+
         newPanel.setBackground(new Color(255, 255, 254));
         newPanel.setBounds(0, 0, 1600, 120);
         newPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
-        
-        
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,15 +62,42 @@ public class CartFrame extends javax.swing.JFrame {
         FAQsLabel = new javax.swing.JLabel();
         privacyPolicyLabel = new javax.swing.JLabel();
         cartPanel = new javax.swing.JPanel();
-        cartNameLabel1 = new javax.swing.JLabel();
-        cartPriceLabel1 = new javax.swing.JLabel();
-        cartSlot1 = new javax.swing.JLabel();
-        cartSlot2 = new javax.swing.JLabel();
-        cartNameLabel2 = new javax.swing.JLabel();
-        cartPriceLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        cartNameLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblImage = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblPrice = new javax.swing.JLabel();
         cartNameLabel4 = new javax.swing.JLabel();
+        lblTotal2 = new javax.swing.JLabel();
+        cartNameLabel7 = new javax.swing.JLabel();
+        cartNameLabel8 = new javax.swing.JLabel();
+        checkBoxSlot1 = new javax.swing.JCheckBox();
+        checkBoxSlot2 = new javax.swing.JCheckBox();
+        lblQnty1 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        lblName2 = new javax.swing.JLabel();
+        lblPrice2 = new javax.swing.JLabel();
+        btnMinus = new javax.swing.JButton();
+        btnPlus = new javax.swing.JButton();
+        btnPlus2 = new javax.swing.JButton();
+        lblQnty2 = new javax.swing.JLabel();
+        btnMinus2 = new javax.swing.JButton();
+        lblImage2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        deliveryFeeLabel = new javax.swing.JLabel();
+        totalLabel = new javax.swing.JLabel();
+        discountLabel = new javax.swing.JLabel();
+        subTotalLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -222,28 +254,178 @@ public class CartFrame extends javax.swing.JFrame {
 
         cartPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cartNameLabel1.setText("Product x Quantity");
-        cartPanel.add(cartNameLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 400, -1, -1));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 130, 120));
 
-        cartPriceLabel1.setText("Product Price");
-        cartPanel.add(cartPriceLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
-        cartPanel.add(cartSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 120));
-        cartPanel.add(cartSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 130, 120));
+        lblName.setText("Product Name");
+        jPanel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
-        cartNameLabel2.setText("Product Name");
-        cartPanel.add(cartNameLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+        lblPrice.setText("Product Price");
+        jPanel1.add(lblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
-        cartPriceLabel2.setText("Product Price");
-        cartPanel.add(cartPriceLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
+        cartNameLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cartNameLabel4.setText("Product");
+        jPanel1.add(cartNameLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        jLabel1.setText("jLabel1");
-        cartPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 340, -1, -1));
+        lblTotal2.setText("Total");
+        jPanel1.add(lblTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 330, -1, -1));
 
-        cartNameLabel3.setText("Product Name");
-        cartPanel.add(cartNameLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+        cartNameLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cartNameLabel7.setText("Total");
+        jPanel1.add(cartNameLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, -1, -1));
 
-        cartNameLabel4.setText("Product x Quantity");
-        cartPanel.add(cartNameLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, -1, -1));
+        cartNameLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cartNameLabel8.setText("Quantity");
+        jPanel1.add(cartNameLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
+
+        checkBoxSlot1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxSlot1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkBoxSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 49, -1, -1));
+
+        checkBoxSlot2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxSlot2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(checkBoxSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+
+        lblQnty1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQnty1.setText("1");
+        lblQnty1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel1.add(lblQnty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 40, 30));
+
+        lblTotal.setText("Total");
+        jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
+
+        jSeparator2.setForeground(new java.awt.Color(102, 102, 102));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 880, 10));
+
+        jButton2.setBackground(new java.awt.Color(215, 118, 25));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Remove");
+        jButton2.setBorder(null);
+        jButton2.setFocusable(false);
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 110, 90, 40));
+
+        jButton5.setBackground(new java.awt.Color(215, 118, 25));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Remove");
+        jButton5.setBorder(null);
+        jButton5.setFocusable(false);
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 330, 90, 40));
+
+        lblName2.setText("Product Name");
+        jPanel1.add(lblName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+
+        lblPrice2.setText("Product Price");
+        jPanel1.add(lblPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+
+        btnMinus.setBackground(new java.awt.Color(255, 255, 254));
+        btnMinus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnMinus.setForeground(new java.awt.Color(102, 102, 102));
+        btnMinus.setText("-");
+        btnMinus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnMinus.setFocusable(false);
+        btnMinus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinusActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 40, 30));
+
+        btnPlus.setBackground(new java.awt.Color(255, 255, 254));
+        btnPlus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnPlus.setForeground(new java.awt.Color(102, 102, 102));
+        btnPlus.setText("+");
+        btnPlus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnPlus.setFocusable(false);
+        btnPlus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPlus, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 40, 30));
+
+        btnPlus2.setBackground(new java.awt.Color(255, 255, 254));
+        btnPlus2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnPlus2.setForeground(new java.awt.Color(102, 102, 102));
+        btnPlus2.setText("+");
+        btnPlus2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnPlus2.setFocusable(false);
+        btnPlus2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlus2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnPlus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 360, 40, 30));
+
+        lblQnty2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQnty2.setText("1");
+        lblQnty2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel1.add(lblQnty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 40, 30));
+
+        btnMinus2.setBackground(new java.awt.Color(255, 255, 254));
+        btnMinus2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnMinus2.setForeground(new java.awt.Color(102, 102, 102));
+        btnMinus2.setText("-");
+        btnMinus2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnMinus2.setFocusable(false);
+        btnMinus2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinus2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMinus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 40, 30));
+        jPanel1.add(lblImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 130, 120));
+
+        cartPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 900, 480));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setForeground(new java.awt.Color(164, 113, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setText("Order Summary");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 340, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Total");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+
+        jLabel3.setText("Discount");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        jLabel4.setText("Delivery Fee");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+
+        jSeparator3.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 420, 20));
+
+        jLabel6.setText("Sub Total");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        jLabel7.setText("Order Summary");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(164, 113, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Proceed to Checkout");
+        jButton1.setFocusable(false);
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 200, 30));
+        jPanel3.add(deliveryFeeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 280, 20));
+        jPanel3.add(totalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 280, 20));
+        jPanel3.add(discountLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 280, 20));
+
+        subTotalLabel.setText("0.00");
+        jPanel3.add(subTotalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 280, 20));
+
+        cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 20, 440, 480));
 
         getContentPane().add(cartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1540, 530));
 
@@ -251,19 +433,19 @@ public class CartFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void myCartImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseEntered
-        myCartButton.setForeground(new Color(101,13,2));
+        myCartButton.setForeground(new Color(101, 13, 2));
     }//GEN-LAST:event_myCartImageMouseEntered
 
     private void myCartImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseExited
-        myCartButton.setForeground(new Color(153,153,153));
+        myCartButton.setForeground(new Color(153, 153, 153));
     }//GEN-LAST:event_myCartImageMouseExited
 
     private void gotoRegisterImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseEntered
-        gotoRegisterButton.setForeground(new Color(101,13,2));
+        gotoRegisterButton.setForeground(new Color(101, 13, 2));
     }//GEN-LAST:event_gotoRegisterImageMouseEntered
 
     private void gotoRegisterImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseExited
-        gotoRegisterButton.setForeground(new Color(153,153,153));
+        gotoRegisterButton.setForeground(new Color(153, 153, 153));
     }//GEN-LAST:event_gotoRegisterImageMouseExited
 
     private void paymentOptionsLabelpaymentOptionsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paymentOptionsLabelpaymentOptionsMouseEntered
@@ -302,70 +484,175 @@ public class CartFrame extends javax.swing.JFrame {
         privacyPolicyLabel.setForeground(new Color(101, 13, 2));
     }//GEN-LAST:event_privacyPolicyLabelprivacyPolicyMouseExited
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CartFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private int quantity1 = 1;
+    private int quantity2 = 1;
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CartFrame().setVisible(true);
-            }
-        });
+// Selected products
+    private Product selectedProduct1;
+    private Product selectedProduct2;
+
+// Load product 1
+    public void loadProduct1(String productName) {
+        selectedProduct1 = db.getProductByName(productName);
+        if (selectedProduct1 != null) {
+            lblName.setText(selectedProduct1.getName());
+            lblPrice.setText("₱" + String.format("%.2f", selectedProduct1.getPrice()));
+
+            ImageIcon icon = new ImageIcon(selectedProduct1.getImagePath());
+            Image img = icon.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+            lblImage.setIcon(new ImageIcon(img));
+
+            quantity1 = 1;
+            lblQnty1.setText(String.valueOf(quantity1));
+
+            updatePrdctTotal1();
+        }
     }
+
+// Load product 2
+    public void loadProduct2(String productName) {
+        selectedProduct2 = db.getProductByName(productName);
+        if (selectedProduct2 != null) {
+            lblName2.setText(selectedProduct2.getName());
+            lblPrice2.setText("₱" + String.format("%.2f", selectedProduct2.getPrice()));
+
+            ImageIcon icon = new ImageIcon(selectedProduct2.getImagePath());
+            Image img = icon.getImage().getScaledInstance(lblImage2.getWidth(), lblImage2.getHeight(), Image.SCALE_SMOOTH);
+            lblImage2.setIcon(new ImageIcon(img));
+
+            quantity2 = 1;
+            lblQnty2.setText(String.valueOf(quantity2));
+
+            updatePrdctTotal2();
+        }
+    }
+
+// Update product 1 total
+    private void updatePrdctTotal1() {
+        if (selectedProduct1 != null) {
+            float total = selectedProduct1.getPrice() * quantity1;
+            lblTotal.setText("₱" + String.format("%.2f", total));
+            updateCombinedSubtotal();
+        }
+    }
+
+// Update product 2 total
+    private void updatePrdctTotal2() {
+        if (selectedProduct2 != null) {
+            float total = selectedProduct2.getPrice() * quantity2;
+            lblTotal2.setText("₱" + String.format("%.2f", total));
+            updateCombinedSubtotal();
+        }
+    }
+
+// Update combined subtotal
+    private void updateCombinedSubtotal() {
+        float total1 = (selectedProduct1 != null && checkBoxSlot1.isSelected()) ? selectedProduct1.getPrice() * quantity1 : 0;
+        float total2 = (selectedProduct2 != null && checkBoxSlot2.isSelected()) ? selectedProduct2.getPrice() * quantity2 : 0;
+
+        float grandTotal = total1 + total2;
+
+        subTotalLabel.setText("₱" + String.format("%.2f", grandTotal));
+    }
+
+    private void checkBoxSlot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSlot1ActionPerformed
+        updateCombinedSubtotal();
+    }//GEN-LAST:event_checkBoxSlot1ActionPerformed
+
+
+    private void checkBoxSlot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSlot2ActionPerformed
+        updateCombinedSubtotal();
+    }//GEN-LAST:event_checkBoxSlot2ActionPerformed
+
+    private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
+        if (selectedProduct1 != null && quantity1 < selectedProduct1.getStock()) {
+            quantity1++;
+            lblQnty1.setText(String.valueOf(quantity1));
+            updatePrdctTotal1();
+        }
+    }//GEN-LAST:event_btnPlusActionPerformed
+
+    private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
+        if (selectedProduct1 != null && quantity1 > 1) {
+            quantity1--;
+            lblQnty1.setText(String.valueOf(quantity1));
+            updatePrdctTotal1();
+        }
+    }//GEN-LAST:event_btnMinusActionPerformed
+
+    private void btnMinus2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinus2ActionPerformed
+        if (selectedProduct2 != null && quantity2 > 1) {
+            quantity2--;
+            lblQnty2.setText(String.valueOf(quantity2));
+            updatePrdctTotal2();
+        }
+    }//GEN-LAST:event_btnMinus2ActionPerformed
+
+    private void btnPlus2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlus2ActionPerformed
+        if (selectedProduct2 != null && quantity2 < selectedProduct2.getStock()) {
+            quantity2++;
+            lblQnty2.setText(String.valueOf(quantity2));
+            updatePrdctTotal2();
+        }
+    }//GEN-LAST:event_btnPlus2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FAQsLabel;
     private javax.swing.JLabel aboutUsLabel;
+    private javax.swing.JButton btnMinus;
+    private javax.swing.JButton btnMinus2;
+    private javax.swing.JButton btnPlus;
+    private javax.swing.JButton btnPlus2;
     private javax.swing.JLabel cartCount;
-    public javax.swing.JLabel cartNameLabel1;
-    public javax.swing.JLabel cartNameLabel2;
-    public javax.swing.JLabel cartNameLabel3;
     public javax.swing.JLabel cartNameLabel4;
+    public javax.swing.JLabel cartNameLabel7;
+    public javax.swing.JLabel cartNameLabel8;
     private javax.swing.JPanel cartPanel;
-    public javax.swing.JLabel cartPriceLabel1;
-    public javax.swing.JLabel cartPriceLabel2;
-    public javax.swing.JLabel cartSlot1;
-    public javax.swing.JLabel cartSlot2;
+    private javax.swing.JCheckBox checkBoxSlot1;
+    private javax.swing.JCheckBox checkBoxSlot2;
+    private javax.swing.JLabel deliveryFeeLabel;
+    private javax.swing.JLabel discountLabel;
     private javax.swing.JLabel gotoLandingPanelLogo;
     private javax.swing.JLabel gotoRegisterButton;
     private javax.swing.JLabel gotoRegisterImage;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel92;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    public javax.swing.JLabel lblImage;
+    public javax.swing.JLabel lblImage2;
+    public javax.swing.JLabel lblName;
+    public javax.swing.JLabel lblName2;
+    public javax.swing.JLabel lblPrice;
+    public javax.swing.JLabel lblPrice2;
+    public javax.swing.JLabel lblQnty1;
+    public javax.swing.JLabel lblQnty2;
+    public javax.swing.JLabel lblTotal;
+    public javax.swing.JLabel lblTotal2;
     private javax.swing.JLabel myCartButton;
     private javax.swing.JLabel myCartImage;
     private javax.swing.JLabel paymentOptionsLabel;
     private javax.swing.JLabel privacyPolicyLabel;
+    private javax.swing.JLabel subTotalLabel;
+    private javax.swing.JLabel totalLabel;
     // End of variables declaration//GEN-END:variables
 }

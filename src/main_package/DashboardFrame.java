@@ -32,7 +32,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     static boolean isLoggedIn;
     DatabaseManager dbManager = new DatabaseManager();
     TestLoginFrame tFrame = new TestLoginFrame();
-    CartFrame cFrame = new CartFrame();
+    CartFrame cFrame = new CartFrame(dbManager);
 
     public static JLabel[] category1Slots;
     public static JLabel[] category2Slots;
@@ -246,7 +246,8 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         DatabaseManager.loadProductsFromDB();
 
-        getOrder(newProductsAddToCart1, newProductsLabel1, newProductsPrice1);
+        getOrderSlot1(bakeryAddToCart1, bakeryLabel1, bakeryPrice1);
+        getOrderSlot2(butcheryAddToCart1, butcheryLabel1, butcheryPrice1);
         showPanel(paymentOptionsLabel, paymentOptionsPanel, this);
         showPanel(privacyPolicyLabel, privacyPolicyPanel, this);
         showPanel(FAQsLabel, faqsPanel, this);
@@ -278,7 +279,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
     }
 
-    public void getOrder(JLabel label, JLabel name, JLabel price) {
+    public void getOrderSlot1(JLabel label, JLabel name, JLabel price) {
 
         label.addMouseListener(new java.awt.event.MouseAdapter() {
 
@@ -286,26 +287,29 @@ public class DashboardFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent e) {
 
                 String productName = name.getText();
-                String priceText = price.getText().replace("P", "").trim();
-                float productPrice = Float.parseFloat(priceText);
 
-                System.out.println(productName);
-                System.out.println(productPrice);
+                cFrame.loadProduct1(productName);
 
-                // Pass the CartFrame labels to display in cart
-                dbManager.displayItemByName(
-                        productName,
-                        cFrame.cartSlot1, // JLabel for image
-                        cFrame.cartNameLabel1, // JLabel for name
-                        cFrame.cartPriceLabel1 // JLabel for price
-                );
-
-                JOptionPane.showMessageDialog(rootPane, "Added to cart succesfully!");
-
+                JOptionPane.showMessageDialog(rootPane, "Added to cart successfully!");
             }
         });
     }
 
+    public void getOrderSlot2(JLabel label, JLabel name, JLabel price) {
+
+        label.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+
+                String productName = name.getText();
+
+                cFrame.loadProduct2(productName);
+
+                JOptionPane.showMessageDialog(rootPane, "Added to cart successfully!");
+            }
+        });
+    }
     public static boolean registerLabelClicked = false;
 
     private void setup(DashboardFrame frame) {
@@ -574,7 +578,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         bakeryLabel1 = new javax.swing.JLabel();
         bakeryPrice1 = new javax.swing.JLabel();
         bakeryStock1 = new javax.swing.JLabel();
-        newProductsAddToCart9 = new javax.swing.JLabel();
+        bakeryAddToCart1 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         newProductsAddToCart10 = new javax.swing.JLabel();
         bakeryStock2 = new javax.swing.JLabel();
@@ -627,7 +631,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel20 = new javax.swing.JPanel();
         butcheryLabel1 = new javax.swing.JLabel();
         butcheryStock1 = new javax.swing.JLabel();
-        newProductsAddToCart17 = new javax.swing.JLabel();
+        butcheryAddToCart1 = new javax.swing.JLabel();
         butcheryPrice1 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         newProductsAddToCart18 = new javax.swing.JLabel();
@@ -1825,9 +1829,9 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel12.add(bakeryPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, -1));
         jPanel12.add(bakeryStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
-        newProductsAddToCart9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
-        newProductsAddToCart9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel12.add(newProductsAddToCart9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        bakeryAddToCart1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        bakeryAddToCart1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel12.add(bakeryAddToCart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         bakeryPanel.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 150, 90));
 
@@ -2040,9 +2044,9 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel20.add(butcheryLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 150, -1));
         jPanel20.add(butcheryStock1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 60, 20));
 
-        newProductsAddToCart17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
-        newProductsAddToCart17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel20.add(newProductsAddToCart17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        butcheryAddToCart1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
+        butcheryAddToCart1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel20.add(butcheryAddToCart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         butcheryPrice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         butcheryPrice1.setForeground(new java.awt.Color(207, 127, 52));
@@ -4822,6 +4826,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private static javax.swing.JPanel accountPanel;
     private javax.swing.JLabel addAddressLabel;
     public static javax.swing.JLabel addressReader;
+    private javax.swing.JLabel bakeryAddToCart1;
     private javax.swing.JButton bakeryButton;
     public static javax.swing.JLabel bakeryLabel1;
     public static javax.swing.JLabel bakeryLabel2;
@@ -4859,6 +4864,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel bakeryStock8;
     private javax.swing.JLabel bakeryStock9;
     private javax.swing.JButton beveragesButton;
+    private javax.swing.JLabel butcheryAddToCart1;
     private javax.swing.JButton butcheryButton;
     public static javax.swing.JLabel butcheryLabel1;
     public static javax.swing.JLabel butcheryLabel2;
@@ -5163,7 +5169,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel newProductsAddToCart14;
     private javax.swing.JLabel newProductsAddToCart15;
     private javax.swing.JLabel newProductsAddToCart16;
-    private javax.swing.JLabel newProductsAddToCart17;
     private javax.swing.JLabel newProductsAddToCart18;
     private javax.swing.JLabel newProductsAddToCart19;
     private javax.swing.JLabel newProductsAddToCart2;
@@ -5242,7 +5247,6 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel newProductsAddToCart86;
     private javax.swing.JLabel newProductsAddToCart87;
     private javax.swing.JLabel newProductsAddToCart88;
-    private javax.swing.JLabel newProductsAddToCart9;
     private javax.swing.JButton newProductsButton;
     public static javax.swing.JLabel newProductsLabel1;
     public static javax.swing.JLabel newProductsLabel2;
