@@ -24,13 +24,8 @@ public class TestLoginFrame extends javax.swing.JFrame {
         togglePasswordVisibility(loginPasswordTextField, eyeIcon);
         togglePasswordVisibility(signUpPasswordTextField, registerPasswordEye);
         togglePasswordVisibility(passConfirmationField, registerConfirmationPasswordEye);
-        
-        
 
-        
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -669,17 +664,25 @@ public class TestLoginFrame extends javax.swing.JFrame {
 
         if (dbManager.readEmailPass(email, password)) {
             JOptionPane.showMessageDialog(rootPane, "Successfully logged in!");
+            String fullAddress = dbManager.retrieveFullAddress(email);
+
+            // Fetch name and address from database
+            String name = dbManager.getNameByEmail(email);
+            String address = dbManager.retrieveFullAddress(email); 
+
+            System.out.println("Email: " + name);
+            User user = new User(email, name, address);
+            
+            
 
             DashboardFrame dbFrame = new DashboardFrame(true, email);
-            
-            
-            if(rememberMe.isSelected()){
+
+            if (rememberMe.isSelected()) {
                 dbManager.rememberUser(email);
-            } else{
+            } else {
                 dbManager.unrememberUser();
             }
-
-            // System.out.println(getEmail());
+            
             dbFrame.setVisible(true);
 
             this.dispose();
@@ -698,11 +701,11 @@ public class TestLoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void loginEmailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginEmailTextFieldActionPerformed
-       loginPasswordTextField.requestFocusInWindow();
+        loginPasswordTextField.requestFocusInWindow();
     }//GEN-LAST:event_loginEmailTextFieldActionPerformed
 
     private void loginPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginPasswordTextFieldActionPerformed
-      loginButton.doClick();
+        loginButton.doClick();
     }//GEN-LAST:event_loginPasswordTextFieldActionPerformed
 
     private void fullNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullNameTextFieldActionPerformed
@@ -710,15 +713,15 @@ public class TestLoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_fullNameTextFieldActionPerformed
 
     private void emailTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextFieldActionPerformed
-      emailTextField.transferFocus();
+        emailTextField.transferFocus();
     }//GEN-LAST:event_emailTextFieldActionPerformed
 
     private void signUpPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpPasswordTextFieldActionPerformed
-      signUpPasswordTextField.transferFocus();
+        signUpPasswordTextField.transferFocus();
     }//GEN-LAST:event_signUpPasswordTextFieldActionPerformed
 
     private void passConfirmationFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passConfirmationFieldActionPerformed
-      signUpButton.doClick();
+        signUpButton.doClick();
     }//GEN-LAST:event_passConfirmationFieldActionPerformed
 
     public static void main(String args[]) {

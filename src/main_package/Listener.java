@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 
 public class Listener {
     
-       static DashboardFrame frame = new DashboardFrame(false, null);
+       static DashboardFrame frame = new DashboardFrame(false, "");
        
        
     public static void addLabelListener(JLabel label, JFrame currentFrame, JFrame targetedFrame){

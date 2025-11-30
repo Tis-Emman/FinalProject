@@ -20,6 +20,49 @@ public class DatabaseManager {
 
     static String URL = "jdbc:sqlite:inventory.db";
 
+    public String getNameByEmail(String email) {
+        String name = null;
+        String sql = "SELECT full_name FROM users WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                name = rs.getString("full_name");
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return name;
+    }
+    
+    public void saveCheckout(String userEmail, Product product, int quantity, float deliveryFee, String transactionNumber){
+        
+        String sql = "INSERT INTO checkout (transaction_number, user_email, product_name, quantity, delivery_fee, total, image_path VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+   
+    try(Connection conn = DriverManager.getConnection(URL);
+        PreparedStatement pstmt = conn.prepareStatement(sql)
+            ){
+        pstmt.setString(1, transactionNumber);
+        pstmt.setString(2, userEmail);
+        pstmt.setString(3, product.getName());
+        pstmt.setInt(4, quantity);
+        pstmt.setFloat(5, product.getPrice());
+        pstmt.setFloat(6, deliveryFee);
+        pstmt.setFloat(7, product.getPrice() * quantity + deliveryFee);
+        pstmt.setString(8, product.getImagePath()); 
+    }catch(SQLException e){
+        
+    }
+    
+    
+    }
+
     public String getImagePath(int productId) {
         String sql = "SELECT image_path FROM products WHERE id = ?";
         try (Connection conn = DriverManager.getConnection(URL); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -178,7 +221,25 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
+    }
+    
+    public void insertPhoneNumber(String phoneNumber , String email){
+        
+        String sql = "UPDATE users SET phone_number = ? WHERE email = ?";
+        
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+            PreparedStatement pstmt = conn.prepareStatement(sql)
+                ){
+            pstmt.setString(1, phoneNumber);
+            pstmt.setString(2, email);
+            
+            pstmt.executeUpdate();
+            
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        
     }
 
     public void updateAddress(String addressStreet, String barangay, String city, String province, String zip, String houseNumber, String email) {
@@ -370,6 +431,52 @@ public class DatabaseManager {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public String retrievePhoneNumber(String email) {
+        String sql = "SELECT phone_number FROM users WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("phone_number");
+            } else {
+                System.out.println("No name found");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String retrieveFullAddress(String email) {
+        String fullAddress = ""; // default empty
+        String sql = "SELECT address_house_number, address_street, address_barangay, address_city, address_province FROM users WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email); // set the email parameter
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String houseNumber = rs.getString("address_house_number");
+                    String street = rs.getString("address_street");
+                    String barangay = rs.getString("address_barangay");
+                    String city = rs.getString("address_city");
+                    String province = rs.getString("address_province");
+
+                    fullAddress = houseNumber + ", " + street + ", " + barangay + ", " + city + ", " + province;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fullAddress;
     }
 
     public void subtractQnty(int quantityToSubtract, int id) {

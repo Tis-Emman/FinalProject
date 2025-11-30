@@ -18,7 +18,7 @@ public class AdminPage extends javax.swing.JFrame {
      */
     private ViewProductsFrame productsFrame;
 
-    DashboardFrame frame = new DashboardFrame(false, null);
+    DashboardFrame frame = new DashboardFrame(false, "");
 
     public AdminPage() {
         initComponents();

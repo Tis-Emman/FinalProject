@@ -29,10 +29,12 @@ import javax.swing.border.MatteBorder;
 public class DashboardFrame extends javax.swing.JFrame {
 
     public static int[] categoryCounters = new int[11];
-    static boolean isLoggedIn;
+    static boolean isLoggedIn;private String address;
     DatabaseManager dbManager = new DatabaseManager();
     TestLoginFrame tFrame = new TestLoginFrame();
-    CartFrame cFrame = new CartFrame(dbManager);
+    CartFrame cFrame = new CartFrame(dbManager, this);
+    
+    private String email; // store logged-in email
 
     public static JLabel[] category1Slots;
     public static JLabel[] category2Slots;
@@ -81,10 +83,21 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category9Stock;
     public static JLabel[] category10Stock;
     public static JLabel[] category11Stock;
+    
+     public String getUserEmail() {
+        return email;
+    }
 
     public DashboardFrame(boolean isLoggedIn, String email) {
 
         DashboardFrame.isLoggedIn = isLoggedIn;
+        
+        this.isLoggedIn = isLoggedIn;
+        this.email = email;
+        this.address = address;
+        
+        System.out.println("The email is "+email);
+        
 
         JPanel newPanel = new JPanel();
         JPanel topFrame = new JPanel();
@@ -201,23 +214,24 @@ public class DashboardFrame extends javax.swing.JFrame {
             showPanel(gotoRegisterImage, accountPanel, this);
             showPanel(gotoRegisterButton, accountPanel, this);
 
-            Listener.addLabelListenerDontClose(myCartImage, this, cFrame);
+            //IMPORTANT!!!!
+            cFrame.setUserEmail(email); 
+            Listener.addLabelListener(myCartImage, this, cFrame);
 
             gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-            String rt = dbManager.retrieveUsername(email);
-            System.out.println(rt);
-
+      
             setup(this);
             switchPanel(this, landingPanel);
 
             fullNameHolder.setText(dbManager.retrieveUsername(email));
             emailHolder.setText(dbManager.retrieveEmail(email));
+            phoneNumberHolder.setText(dbManager.retrievePhoneNumber(email));
 
             String fullAddress = dbManager.readFullAddress(email);
 
             String gender = dbManager.readGender(email);
-
+            
+            
             setGenderRadioButton(gender, maleGenderButton, femaleGenderButton, otherGenderButton);
 
             if (fullAddress == null || fullAddress.isEmpty()) {
@@ -1126,6 +1140,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         monthChooser = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         addressReader = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        phoneNumberHolder = new javax.swing.JTextField();
         jPanel92 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -4016,7 +4032,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel26.setText("Date of Birth");
-        accountContainerPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
+        accountContainerPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, -1, -1));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel28.setText("Full Name");
@@ -4028,7 +4044,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel33.setText("Gender");
-        accountContainerPanel.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, -1, 30));
+        accountContainerPanel.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, 30));
 
         maleGenderButton.setBackground(new java.awt.Color(243, 243, 243));
         buttonGroup1.add(maleGenderButton);
@@ -4041,7 +4057,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 maleGenderButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(maleGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 50, 20));
+        accountContainerPanel.add(maleGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 50, 20));
 
         otherGenderButton.setBackground(new java.awt.Color(243, 243, 243));
         buttonGroup1.add(otherGenderButton);
@@ -4054,11 +4070,11 @@ public class DashboardFrame extends javax.swing.JFrame {
                 otherGenderButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(otherGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 60, 20));
+        accountContainerPanel.add(otherGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 60, 20));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel27.setText("Address");
-        accountContainerPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
+        jLabel27.setText("Phone Number");
+        accountContainerPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 300, -1, -1));
 
         femaleGenderButton.setBackground(new java.awt.Color(243, 243, 243));
         buttonGroup1.add(femaleGenderButton);
@@ -4071,7 +4087,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 femaleGenderButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(femaleGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 60, 20));
+        accountContainerPanel.add(femaleGenderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 60, 20));
 
         selectImageButton.setBackground(new java.awt.Color(243, 243, 243));
         selectImageButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -4122,7 +4138,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 addAddressLabelMouseClicked(evt);
             }
         });
-        accountContainerPanel.add(addAddressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, 30));
+        accountContainerPanel.add(addAddressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, -1, 30));
 
         saveButton.setBackground(new java.awt.Color(159, 133, 85));
         saveButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -4135,7 +4151,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 saveButtonActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 106, 38));
+        accountContainerPanel.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 500, 106, 38));
 
         yearChooser.setBackground(new java.awt.Color(255, 255, 254));
         yearChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2025", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959", "1958", "1957", "1956", "1955", "1954", "1953", "1952", "1951", "1950", "1949", "1948", "1947", "1946", "1945", "1944", "1943", "1942", "1941", "1940", "1939", "1938", "1937", "1936", "1935", "1934", "1933", "1932", "1931", "1930", "1929", "1928", "1927", "1926", "1925", "1924", "1923", "1922", "1921", "1920", "1919", "1918", "1917", "1916", "1915", "1914", "1913", "1912", "1911", "1910", "1909", "1908", "1907", "1906", "1905", "1904", "1903", "1902", "1901", "1900" }));
@@ -4146,7 +4162,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 yearChooserActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(yearChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, 110, 40));
+        accountContainerPanel.add(yearChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 430, 110, 40));
 
         dateChooser.setBackground(new java.awt.Color(255, 255, 254));
         dateChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", " " }));
@@ -4157,7 +4173,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 dateChooserActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(dateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 110, 40));
+        accountContainerPanel.add(dateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 430, 110, 40));
 
         monthChooser.setBackground(new java.awt.Color(255, 255, 254));
         monthChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", " " }));
@@ -4168,11 +4184,23 @@ public class DashboardFrame extends javax.swing.JFrame {
                 monthChooserActionPerformed(evt);
             }
         });
-        accountContainerPanel.add(monthChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 380, 110, 40));
+        accountContainerPanel.add(monthChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 110, 40));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/line seperator 1.png"))); // NOI18N
         accountContainerPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, -1, -1));
-        accountContainerPanel.add(addressReader, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 540, 20));
+        accountContainerPanel.add(addressReader, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 360, 540, 20));
+
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel31.setText("Address");
+        accountContainerPanel.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, -1));
+
+        phoneNumberHolder.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        phoneNumberHolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                phoneNumberHolderActionPerformed(evt);
+            }
+        });
+        accountContainerPanel.add(phoneNumberHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 340, 40));
 
         accountPanel.add(accountContainerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 550));
 
@@ -4689,6 +4717,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         String fullName = fullNameHolder.getText().toString().trim();
         String email = emailHolder.getText().toString().trim();
+        String phoneNumber = phoneNumberHolder.getText().toString().trim();
 
         String day = dateChooser.getSelectedItem().toString();
         String month = monthChooser.getSelectedItem().toString();
@@ -4737,7 +4766,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         String birthdate = year + "-" + monthNumber + "-" + day;
         dbManager.insertBirthdate(birthdate, email);
-
+        dbManager.insertPhoneNumber(phoneNumber, email);
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void addAddressLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAddressLabelMouseClicked
@@ -4790,6 +4819,10 @@ public class DashboardFrame extends javax.swing.JFrame {
         newProductsPanel.setVisible(true);
     }//GEN-LAST:event_newProductsLandingIconMouseClicked
 
+    private void phoneNumberHolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberHolderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_phoneNumberHolderActionPerformed
+
     public void selectButton(JButton btn) {
         if (selectedButton != null) {
             selectedButton.setBackground(Color.WHITE);
@@ -4810,13 +4843,6 @@ public class DashboardFrame extends javax.swing.JFrame {
         ));
     }
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DashboardFrame(true, null).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FAQsLabel;
@@ -5054,6 +5080,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -5285,6 +5312,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton otherGenderButton;
     private javax.swing.JLabel paymentOptionsLabel;
     private javax.swing.JPanel paymentOptionsPanel;
+    public static javax.swing.JTextField phoneNumberHolder;
     private javax.swing.JLabel privacyPolicyLabel;
     private javax.swing.JPanel privacyPolicyPanel;
     private javax.swing.JButton readyMealsButton;

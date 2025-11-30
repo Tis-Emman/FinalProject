@@ -19,21 +19,28 @@ import javax.swing.JPanel;
 public class CartFrame extends javax.swing.JFrame {
 
     private DatabaseManager db;
+    private DashboardFrame dbFrame;
 
     JPanel newPanel = new JPanel();
 
-    public CartFrame(DatabaseManager db) {
+    public CartFrame(DatabaseManager db, DashboardFrame dbFrame) {
         initComponents();
         this.db = db;
+        this.dbFrame = dbFrame;
         setLocationRelativeTo(null);
 
         checkBoxSlot1.setSelected(false);
         checkBoxSlot2.setSelected(false);
         updateCheckoutButton(); // will show 0 items
+        setResizable(false);
 
         newPanel.setBackground(new Color(255, 255, 254));
         newPanel.setBounds(0, 0, 1600, 120);
         newPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));
+
+        Listener.addLabelListener(gotoLandingPanelLogo, this, dbFrame);
+        setCheckBoxEnabled1();
+        setCheckBoxEnabled2();
 
     }
 
@@ -47,15 +54,10 @@ public class CartFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel6 = new javax.swing.JPanel();
-        myCartImage = new javax.swing.JLabel();
-        myCartButton = new javax.swing.JLabel();
-        cartCount = new javax.swing.JLabel();
         gotoLandingPanelLogo = new javax.swing.JLabel();
-        gotoRegisterImage = new javax.swing.JLabel();
-        gotoRegisterButton = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel92 = new javax.swing.JPanel();
-        jLabel16 = new javax.swing.JLabel();
+        jPanel93 = new javax.swing.JPanel();
         cartPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblImage1 = new javax.swing.JLabel();
@@ -97,6 +99,7 @@ public class CartFrame extends javax.swing.JFrame {
         voucherField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -104,56 +107,11 @@ public class CartFrame extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(251, 239, 215));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        myCartImage.setBackground(new java.awt.Color(25, 145, 77));
-        myCartImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        myCartImage.setForeground(new java.awt.Color(153, 153, 153));
-        myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon - test.png"))); // NOI18N
-        myCartImage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                myCartImageMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                myCartImageMouseExited(evt);
-            }
-        });
-        jPanel6.add(myCartImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 30, -1, 37));
-
-        myCartButton.setBackground(new java.awt.Color(25, 145, 77));
-        myCartButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        myCartButton.setForeground(new java.awt.Color(153, 153, 153));
-        myCartButton.setText("MY CART");
-        jPanel6.add(myCartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1470, 70, -1, -1));
-
-        cartCount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        cartCount.setForeground(new java.awt.Color(255, 102, 102));
-        cartCount.setText("0");
-        jPanel6.add(cartCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1510, 10, 20, -1));
-
         gotoLandingPanelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/dashboard logo.png"))); // NOI18N
-        jPanel6.add(gotoLandingPanelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 70));
+        gotoLandingPanelLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.add(gotoLandingPanelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 140, 80));
 
-        gotoRegisterImage.setBackground(new java.awt.Color(25, 145, 77));
-        gotoRegisterImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        gotoRegisterImage.setForeground(new java.awt.Color(153, 153, 153));
-        gotoRegisterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/register icon - test.png"))); // NOI18N
-        gotoRegisterImage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                gotoRegisterImageMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                gotoRegisterImageMouseExited(evt);
-            }
-        });
-        jPanel6.add(gotoRegisterImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 20, -1, -1));
-
-        gotoRegisterButton.setBackground(new java.awt.Color(25, 145, 77));
-        gotoRegisterButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        gotoRegisterButton.setForeground(new java.awt.Color(153, 153, 153));
-        gotoRegisterButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        gotoRegisterButton.setText("ACCOUNT");
-        jPanel6.add(gotoRegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 70, 210, 20));
-
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1542, 96));
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1542, 96));
 
         jPanel2.setBackground(new java.awt.Color(228, 166, 107));
 
@@ -172,175 +130,185 @@ public class CartFrame extends javax.swing.JFrame {
 
         jPanel92.setBackground(new java.awt.Color(228, 166, 107));
         jPanel92.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/motto icon.png"))); // NOI18N
-        jPanel92.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, 70));
-
         getContentPane().add(jPanel92, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 640, 1540, -1));
+
+        jPanel93.setBackground(new java.awt.Color(228, 166, 107));
+        jPanel93.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jPanel93, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 810, 1540, 60));
 
         cartPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(lblImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 130, 120));
+        jPanel1.add(lblImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 130, 120));
 
         lblName1.setText("Product Name");
-        jPanel1.add(lblName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+        jPanel1.add(lblName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
         lblPrice1.setText("Product Price");
-        jPanel1.add(lblPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        jPanel1.add(lblPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
         cartNameLabel4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         cartNameLabel4.setForeground(new java.awt.Color(153, 153, 153));
         cartNameLabel4.setText("Product");
-        jPanel1.add(cartNameLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        jPanel1.add(cartNameLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, -1, -1));
 
         lblTotal2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblTotal2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotal2.setText("Total");
-        jPanel1.add(lblTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 70, 20));
+        jPanel1.add(lblTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, 70, 20));
 
         cartNameLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         cartNameLabel7.setForeground(new java.awt.Color(153, 153, 153));
         cartNameLabel7.setText("Actions");
-        jPanel1.add(cartNameLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, -1, -1));
+        jPanel1.add(cartNameLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, -1, -1));
 
         cartNameLabel8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         cartNameLabel8.setForeground(new java.awt.Color(153, 153, 153));
         cartNameLabel8.setText("Quantity");
-        jPanel1.add(cartNameLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
+        jPanel1.add(cartNameLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
 
+        checkBoxSlot1.setBackground(new java.awt.Color(255, 255, 255));
+        checkBoxSlot1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         checkBoxSlot1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSlot1ActionPerformed(evt);
             }
         });
-        jPanel1.add(checkBoxSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 49, -1, -1));
+        jPanel1.add(checkBoxSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
+        checkBoxSlot2.setBackground(new java.awt.Color(255, 255, 255));
+        checkBoxSlot2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         checkBoxSlot2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSlot2ActionPerformed(evt);
             }
         });
-        jPanel1.add(checkBoxSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+        jPanel1.add(checkBoxSlot2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         lblQnty1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQnty1.setText("1");
         lblQnty1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel1.add(lblQnty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 40, 30));
+        jPanel1.add(lblQnty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 40, 30));
 
         lblTotal1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblTotal1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotal1.setText("Total");
-        jPanel1.add(lblTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 60, 20));
+        jPanel1.add(lblTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 60, 20));
 
         jSeparator2.setForeground(new java.awt.Color(102, 102, 102));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 880, 10));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 880, 10));
 
         removeButton1.setBackground(new java.awt.Color(215, 118, 25));
         removeButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         removeButton1.setForeground(new java.awt.Color(255, 255, 255));
         removeButton1.setText("Remove");
         removeButton1.setBorder(null);
+        removeButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         removeButton1.setFocusable(false);
         removeButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(removeButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, 90, 40));
+        jPanel1.add(removeButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 90, 40));
 
         removeButton2.setBackground(new java.awt.Color(215, 118, 25));
         removeButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         removeButton2.setForeground(new java.awt.Color(255, 255, 255));
         removeButton2.setText("Remove");
         removeButton2.setBorder(null);
+        removeButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         removeButton2.setFocusable(false);
         removeButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(removeButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 350, 90, 40));
+        jPanel1.add(removeButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 380, 90, 40));
 
         lblName2.setText("Product Name");
-        jPanel1.add(lblName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+        jPanel1.add(lblName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
 
         lblPrice2.setText("Product Price");
-        jPanel1.add(lblPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+        jPanel1.add(lblPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, -1, -1));
 
         btnMinus.setBackground(new java.awt.Color(255, 255, 254));
         btnMinus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMinus.setForeground(new java.awt.Color(102, 102, 102));
         btnMinus.setText("-");
         btnMinus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnMinus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMinus.setFocusable(false);
         btnMinus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMinusActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 40, 30));
+        jPanel1.add(btnMinus, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 40, 30));
 
         btnPlus.setBackground(new java.awt.Color(255, 255, 254));
         btnPlus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnPlus.setForeground(new java.awt.Color(102, 102, 102));
         btnPlus.setText("+");
         btnPlus.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnPlus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPlus.setFocusable(false);
         btnPlus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPlusActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPlus, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, 40, 30));
+        jPanel1.add(btnPlus, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 150, 40, 30));
 
         btnPlus2.setBackground(new java.awt.Color(255, 255, 254));
         btnPlus2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnPlus2.setForeground(new java.awt.Color(102, 102, 102));
         btnPlus2.setText("+");
         btnPlus2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnPlus2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPlus2.setFocusable(false);
         btnPlus2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPlus2ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPlus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 40, 30));
+        jPanel1.add(btnPlus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, 40, 30));
 
         lblQnty2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQnty2.setText("1");
         lblQnty2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel1.add(lblQnty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 40, 30));
+        jPanel1.add(lblQnty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, 40, 30));
 
         btnMinus2.setBackground(new java.awt.Color(255, 255, 254));
         btnMinus2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMinus2.setForeground(new java.awt.Color(102, 102, 102));
         btnMinus2.setText("-");
         btnMinus2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        btnMinus2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMinus2.setFocusable(false);
         btnMinus2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMinus2ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMinus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 360, 40, 30));
-        jPanel1.add(lblImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 130, 120));
+        jPanel1.add(btnMinus2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 40, 30));
+        jPanel1.add(lblImage2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 130, 120));
 
         warningLabel2.setForeground(new java.awt.Color(255, 51, 51));
         warningLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(warningLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 400, 190, 20));
+        jPanel1.add(warningLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, 190, 20));
 
         warningLabel1.setForeground(new java.awt.Color(255, 51, 51));
         warningLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(warningLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 190, 20));
+        jPanel1.add(warningLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 190, 20));
 
         cartNameLabel9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         cartNameLabel9.setForeground(new java.awt.Color(153, 153, 153));
         cartNameLabel9.setText("Total");
-        jPanel1.add(cartNameLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, -1, -1));
+        jPanel1.add(cartNameLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
 
-        cartPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 900, 480));
+        cartPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 900, 560));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(164, 113, 0));
@@ -365,7 +333,7 @@ public class CartFrame extends javax.swing.JFrame {
         jLabel6.setText("Sub Total");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Order Summary");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -373,6 +341,7 @@ public class CartFrame extends javax.swing.JFrame {
         btnCheckout.setFont(new java.awt.Font("Garamond", 1, 18)); // NOI18N
         btnCheckout.setForeground(new java.awt.Color(255, 255, 255));
         btnCheckout.setText("PROCEED TO CHECKOUT");
+        btnCheckout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCheckout.setFocusable(false);
         btnCheckout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -402,33 +371,21 @@ public class CartFrame extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("APPLY");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 90, 40));
 
         jLabel3.setText("Enter Voucher ");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
-        cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 20, 440, 430));
+        cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 20, 440, 430));
 
-        getContentPane().add(cartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1540, 530));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        cartPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 40));
+
+        getContentPane().add(cartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1540, 700));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void myCartImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseEntered
-        myCartButton.setForeground(new Color(101, 13, 2));
-    }//GEN-LAST:event_myCartImageMouseEntered
-
-    private void myCartImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseExited
-        myCartButton.setForeground(new Color(153, 153, 153));
-    }//GEN-LAST:event_myCartImageMouseExited
-
-    private void gotoRegisterImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseEntered
-        gotoRegisterButton.setForeground(new Color(101, 13, 2));
-    }//GEN-LAST:event_gotoRegisterImageMouseEntered
-
-    private void gotoRegisterImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseExited
-        gotoRegisterButton.setForeground(new Color(153, 153, 153));
-    }//GEN-LAST:event_gotoRegisterImageMouseExited
 
     private int quantity1 = 1;
     private int quantity2 = 1;
@@ -443,6 +400,8 @@ public class CartFrame extends javax.swing.JFrame {
 // Load product 1
     public void loadProduct1(String productName) {
         selectedProduct1 = db.getProductByName(productName);
+        setCheckBoxEnabled1();
+
         if (selectedProduct1 != null) {
             lblName1.setText(selectedProduct1.getName());
             lblPrice1.setText("₱" + String.format("%.2f", selectedProduct1.getPrice()));
@@ -458,6 +417,24 @@ public class CartFrame extends javax.swing.JFrame {
             updateDeliveryFee();        // ✅ recalc delivery
             updateCombinedSubtotal();
             updateCheckoutButton();
+            setCheckBoxEnabled1();
+        }
+
+    }
+
+    private void setCheckBoxEnabled1() {
+        if (selectedProduct1 == null) {
+            checkBoxSlot1.setEnabled(false);
+        } else {
+            checkBoxSlot1.setEnabled(true);
+        }
+    }
+
+    private void setCheckBoxEnabled2() {
+        if (selectedProduct2 == null) {
+            checkBoxSlot2.setEnabled(false);
+        } else {
+            checkBoxSlot2.setEnabled(true);
         }
     }
 
@@ -479,6 +456,7 @@ public class CartFrame extends javax.swing.JFrame {
             updateDeliveryFee();        // ✅ recalc delivery
             updateCombinedSubtotal();
             updateCheckoutButton();
+            setCheckBoxEnabled2();
         }
     }
 
@@ -606,6 +584,7 @@ public class CartFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPlus2ActionPerformed
 
     private void removeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButton1ActionPerformed
+
         if (selectedProduct1 != null) {
             // Clear product info from UI
             lblName1.setText("");
@@ -625,6 +604,7 @@ public class CartFrame extends javax.swing.JFrame {
             updateDeliveryFee();
             updateCombinedSubtotal();
             updateCheckoutButton();
+            checkBoxSlot1.setEnabled(false);
         }
     }//GEN-LAST:event_removeButton1ActionPerformed
 
@@ -648,28 +628,39 @@ public class CartFrame extends javax.swing.JFrame {
             updateDeliveryFee();
             updateCombinedSubtotal();
             updateCheckoutButton();
+            checkBoxSlot2.setEnabled(false);
         }
     }//GEN-LAST:event_removeButton2ActionPerformed
 
     private void updateCheckoutButton() {
-    int total = 0;
+        int total = 0;
 
-    if (checkBoxSlot1.isSelected() && selectedProduct1 != null) {
-        total += quantity1;
+        if (checkBoxSlot1.isSelected() && selectedProduct1 != null) {
+            total += quantity1;
+        }
+
+        if (checkBoxSlot2.isSelected() && selectedProduct2 != null) {
+            total += quantity2;
+        }
+
+        btnCheckout.setText(
+                "Proceed to Checkout (" + total + ")"
+        );
     }
+    
+    private String email;
 
-    if (checkBoxSlot2.isSelected() && selectedProduct2 != null) {
-        total += quantity2;
+    public void setUserEmail(String email) {
+        this.email = email;
     }
-
-    btnCheckout.setText(
-        "Proceed to Checkout (" + total + ")" 
-    );
-}
-
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-        // TODO add your handling code here:
+        CheckoutFrame checkoutFrame = new CheckoutFrame(db, this);
+        checkoutFrame.setVisible(true);
+        checkoutFrame.setEmail(email);
+        
+        System.out.println(email);
+        this.dispose();
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
 
@@ -679,7 +670,6 @@ public class CartFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnMinus2;
     private javax.swing.JButton btnPlus;
     private javax.swing.JButton btnPlus2;
-    private javax.swing.JLabel cartCount;
     public javax.swing.JLabel cartNameLabel4;
     public javax.swing.JLabel cartNameLabel7;
     public javax.swing.JLabel cartNameLabel8;
@@ -688,11 +678,8 @@ public class CartFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxSlot1;
     private javax.swing.JCheckBox checkBoxSlot2;
     private javax.swing.JLabel gotoLandingPanelLogo;
-    private javax.swing.JLabel gotoRegisterButton;
-    private javax.swing.JLabel gotoRegisterImage;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -703,6 +690,8 @@ public class CartFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel92;
+    private javax.swing.JPanel jPanel93;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblDeliveryFee;
@@ -717,8 +706,6 @@ public class CartFrame extends javax.swing.JFrame {
     public javax.swing.JLabel lblQnty2;
     public javax.swing.JLabel lblTotal1;
     public javax.swing.JLabel lblTotal2;
-    private javax.swing.JLabel myCartButton;
-    private javax.swing.JLabel myCartImage;
     private javax.swing.JButton removeButton1;
     private javax.swing.JButton removeButton2;
     private javax.swing.JLabel subTotalLabel;

@@ -163,7 +163,7 @@ public class LoginFrame extends javax.swing.JFrame {
         if(dbManager.readEmailPass(email, password)){
             JOptionPane.showMessageDialog(rootPane, "Successfully logged in!");
 
-            DashboardFrame dbFrame = new DashboardFrame(true, email);
+            DashboardFrame dbFrame = new DashboardFrame(true, "");
 
             // System.out.println(getEmail());
             

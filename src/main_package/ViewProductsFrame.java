@@ -17,7 +17,7 @@ import javax.swing.table.JTableHeader;
 
 public class ViewProductsFrame extends javax.swing.JFrame {
 
-    DashboardFrame frame = new DashboardFrame(false, null);
+    DashboardFrame frame = new DashboardFrame(false, "");
 
     public ViewProductsFrame() {
         initComponents();
