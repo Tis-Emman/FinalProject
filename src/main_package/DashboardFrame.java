@@ -29,11 +29,12 @@ import javax.swing.border.MatteBorder;
 public class DashboardFrame extends javax.swing.JFrame {
 
     public static int[] categoryCounters = new int[11];
-    static boolean isLoggedIn;private String address;
+    static boolean isLoggedIn;
+    private String address;
     DatabaseManager dbManager = new DatabaseManager();
     TestLoginFrame tFrame = new TestLoginFrame();
     CartFrame cFrame = new CartFrame(dbManager, this);
-    
+
     private String email; // store logged-in email
 
     public static JLabel[] category1Slots;
@@ -83,21 +84,20 @@ public class DashboardFrame extends javax.swing.JFrame {
     public static JLabel[] category9Stock;
     public static JLabel[] category10Stock;
     public static JLabel[] category11Stock;
-    
-     public String getUserEmail() {
+
+    public String getUserEmail() {
         return email;
     }
 
     public DashboardFrame(boolean isLoggedIn, String email) {
 
         DashboardFrame.isLoggedIn = isLoggedIn;
-        
+
         this.isLoggedIn = isLoggedIn;
         this.email = email;
         this.address = address;
-        
-        System.out.println("The email is "+email);
-        
+
+        System.out.println("The email is " + email);
 
         JPanel newPanel = new JPanel();
         JPanel topFrame = new JPanel();
@@ -215,11 +215,11 @@ public class DashboardFrame extends javax.swing.JFrame {
             showPanel(gotoRegisterButton, accountPanel, this);
 
             //IMPORTANT!!!!
-            cFrame.setUserEmail(email); 
+            cFrame.setUserEmail(email);
             Listener.addLabelListener(myCartImage, this, cFrame);
 
             gotoRegisterImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-      
+
             setup(this);
             switchPanel(this, landingPanel);
 
@@ -230,8 +230,7 @@ public class DashboardFrame extends javax.swing.JFrame {
             String fullAddress = dbManager.readFullAddress(email);
 
             String gender = dbManager.readGender(email);
-            
-            
+
             setGenderRadioButton(gender, maleGenderButton, femaleGenderButton, otherGenderButton);
 
             if (fullAddress == null || fullAddress.isEmpty()) {
@@ -293,6 +292,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         }
     }
 
+    
     public void getOrderSlot1(JLabel label, JLabel name, JLabel price) {
 
         label.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -302,9 +302,14 @@ public class DashboardFrame extends javax.swing.JFrame {
 
                 String productName = name.getText();
 
+                // Load product but do NOT automatically select it
                 cFrame.loadProduct1(productName);
 
-                JOptionPane.showMessageDialog(rootPane, "Added to cart successfully!");
+                // Uncheck the checkbox initially
+                cFrame.checkBoxSlot1.setSelected(false);
+
+                JOptionPane.showMessageDialog(rootPane,
+                        "Product added to cart! Please check the box to include it in checkout.");
             }
         });
     }
@@ -318,12 +323,18 @@ public class DashboardFrame extends javax.swing.JFrame {
 
                 String productName = name.getText();
 
+                // Load product but do NOT automatically select it
                 cFrame.loadProduct2(productName);
 
-                JOptionPane.showMessageDialog(rootPane, "Added to cart successfully!");
+                // Uncheck the checkbox initially
+                cFrame.checkBoxSlot2.setSelected(false);
+
+                JOptionPane.showMessageDialog(rootPane,
+                        "Product added to cart! Please check the box to include it in checkout.");
             }
         });
     }
+
     public static boolean registerLabelClicked = false;
 
     private void setup(DashboardFrame frame) {

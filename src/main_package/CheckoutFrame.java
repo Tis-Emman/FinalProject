@@ -5,7 +5,9 @@
 package main_package;
 
 import java.awt.Color;
+import java.awt.Image;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -17,6 +19,14 @@ public class CheckoutFrame extends javax.swing.JFrame {
      * Creates new form CheckoutFrame
      */
     private DatabaseManager dbManager;
+
+    private Product selectedProduct1;
+    private Product selectedProduct2;
+    private int quantity1;
+    private int quantity2;
+    private float deliveryFee1;
+    private float deliveryFee2;
+    private String email;
 
     public CheckoutFrame(DatabaseManager dbManager, CartFrame cFrame) {
         initComponents();
@@ -31,19 +41,88 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
     }
 
+    public void setCartData(Product p1, int q1, float d1, Product p2, int q2, float d2) {
+        this.selectedProduct1 = p1;
+        this.quantity1 = q1;
+        this.deliveryFee1 = d1;
+
+        this.selectedProduct2 = p2;
+        this.quantity2 = q2;
+        this.deliveryFee2 = d2;
+
+        loadCartProductsToUI();
+        generateTransactionNumber();
+    }
+    
+    private void loadCartProductsToUI() {
+    if (selectedProduct1 != null) {
+        productName1.setText(selectedProduct1.getName());
+        productPrice1.setText("₱" + String.format("%.2f", selectedProduct1.getPrice()));
+        qty1.setText(String.valueOf(quantity1));
+        lbl1Total.setText("₱" + String.format("%.2f", selectedProduct1.getPrice() * quantity1 + deliveryFee1));
+
+        ImageIcon icon = new ImageIcon(selectedProduct1.getImagePath());
+        Image img = icon.getImage().getScaledInstance(lblImage1.getWidth(), lblImage1.getHeight(), Image.SCALE_SMOOTH);
+        lblImage1.setIcon(new ImageIcon(img));
+    }
+
+    if (selectedProduct2 != null) {
+        productName2.setText(selectedProduct2.getName());
+        productPrice2.setText("₱" + String.format("%.2f", selectedProduct2.getPrice()));
+        qty2.setText(String.valueOf(quantity2));
+        lbl2Total.setText("₱" + String.format("%.2f", selectedProduct2.getPrice() * quantity2 + deliveryFee2));
+
+        ImageIcon icon = new ImageIcon(selectedProduct2.getImagePath());
+        Image img = icon.getImage().getScaledInstance(lblImage2.getWidth(), lblImage2.getHeight(), Image.SCALE_SMOOTH);
+        lblImage2.setIcon(new ImageIcon(img));
+    }
+    
+    updateCombinedSubtotal();
+}
+    
+    private String transactionNumber;
+    
+    private void generateTransactionNumber() {
+    String timestamp = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+    int random = (int)(Math.random() * 900 + 100); // 3-digit random number
+    transactionNumber = "TXN-" + timestamp + "-" + random;
+    
+    transactionNumberLabel.setText(transactionNumber); // show in UI
+}
+    
+ private void updateCombinedSubtotal() {
+    float productTotal = 0;
+    float deliveryTotal = 0;
+
+    if (selectedProduct1 != null) {
+        productTotal += selectedProduct1.getPrice() * quantity1;
+        deliveryTotal += deliveryFee1;
+    }
+    if (selectedProduct2 != null) {
+        productTotal += selectedProduct2.getPrice() * quantity2;
+        deliveryTotal += deliveryFee2;
+    }
+
+    float grandTotal = productTotal + deliveryTotal;
+
+    subTotalLabel.setText("₱" + String.format("%.2f", productTotal));
+    lblDeliveryFee.setText("₱" + String.format("%.2f", deliveryTotal));
+    lblGrandTotal.setText("₱" + String.format("%.2f", grandTotal));
+}
+ 
+ 
     public void setEmail(String email) {
         if (email == null) {
             return; // safety check
         }
         String fullName = dbManager.getNameByEmail(email);
         String fullAddress = dbManager.retrieveFullAddress(email);
-        String emailSetter = dbManager.retrieveEmail(email);
         String phoneNumber = dbManager.retrievePhoneNumber(email);
 
         nameLabel1.setText(fullName != null ? fullName : "");
         addressLabel.setText(fullAddress != null ? fullAddress : "");
         phoneNumberLabel.setText(phoneNumber);
-        
+
     }
 
     /**
@@ -89,6 +168,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblDeliveryFee = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         editAddressLabel1 = new javax.swing.JLabel();
+        transactionNumberLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         warningLabel2 = new javax.swing.JLabel();
         warningLabel1 = new javax.swing.JLabel();
@@ -110,7 +190,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblImage1 = new javax.swing.JLabel();
         qty1 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        transactionNumber1 = new javax.swing.JLabel();
+        lbl1Total = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lblImage4 = new javax.swing.JLabel();
         productPrice2 = new javax.swing.JLabel();
@@ -118,7 +198,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         productName2 = new javax.swing.JLabel();
         qty2 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
-        transactionNumber2 = new javax.swing.JLabel();
+        lbl2Total = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -287,17 +367,17 @@ public class CheckoutFrame extends javax.swing.JFrame {
         );
 
         jPanel3.add(gcashPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 400, 100));
-        jPanel3.add(voucherField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 260, 40));
+        jPanel3.add(voucherField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 260, 40));
 
         jButton2.setBackground(new java.awt.Color(0, 153, 153));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("APPLY");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 130, 40));
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 130, 40));
 
         jLabel20.setText("Enter Voucher ");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel22.setText("Select Payment Method");
@@ -354,6 +434,10 @@ public class CheckoutFrame extends javax.swing.JFrame {
         editAddressLabel1.setText("View all methods>");
         editAddressLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel3.add(editAddressLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+
+        transactionNumberLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        transactionNumberLabel.setText("Transaction Number");
+        jPanel3.add(transactionNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
 
         cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 440, 650));
 
@@ -480,9 +564,8 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel21.setText("Qty");
         jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
-        transactionNumber1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        transactionNumber1.setText("Transaction Number");
-        jPanel7.add(transactionNumber1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        lbl1Total.setText("TOTAL");
+        jPanel7.add(lbl1Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, -1, -1));
 
         cartPanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 780, 170));
 
@@ -516,9 +599,8 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel24.setText("Qty");
         jPanel8.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
-        transactionNumber2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        transactionNumber2.setText("Transaction Number");
-        jPanel8.add(transactionNumber2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        lbl2Total.setText("TOTAL");
+        jPanel8.add(lbl2Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, -1, -1));
 
         cartPanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 780, 190));
 
@@ -680,6 +762,8 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel lbl1Total;
+    private javax.swing.JLabel lbl2Total;
     private javax.swing.JLabel lblDeliveryFee;
     private javax.swing.JLabel lblGrandTotal;
     public javax.swing.JLabel lblImage1;
@@ -696,8 +780,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JLabel qty2;
     public static javax.swing.JLabel shippingAddressLabel;
     private javax.swing.JLabel subTotalLabel;
-    private javax.swing.JLabel transactionNumber1;
-    private javax.swing.JLabel transactionNumber2;
+    private javax.swing.JLabel transactionNumberLabel;
     private javax.swing.JTextField voucherField;
     private javax.swing.JLabel warningLabel1;
     private javax.swing.JLabel warningLabel2;

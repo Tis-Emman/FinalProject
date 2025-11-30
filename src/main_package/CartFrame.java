@@ -308,7 +308,7 @@ public class CartFrame extends javax.swing.JFrame {
         cartNameLabel9.setText("Total");
         jPanel1.add(cartNameLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
 
-        cartPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 900, 560));
+        cartPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 900, 560));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(164, 113, 0));
@@ -377,7 +377,7 @@ public class CartFrame extends javax.swing.JFrame {
         jLabel3.setText("Enter Voucher ");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
-        cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 20, 440, 430));
+        cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 80, 440, 430));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         cartPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 40));
@@ -647,7 +647,7 @@ public class CartFrame extends javax.swing.JFrame {
                 "Proceed to Checkout (" + total + ")"
         );
     }
-    
+
     private String email;
 
     public void setUserEmail(String email) {
@@ -655,11 +655,27 @@ public class CartFrame extends javax.swing.JFrame {
     }
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
+        // Count how many products are selected and have quantity > 0
+        int totalSelected = 0;
+        if (selectedProduct1 != null && checkBoxSlot1.isSelected() && quantity1 > 0) {
+            totalSelected += quantity1;
+        }
+        if (selectedProduct2 != null && checkBoxSlot2.isSelected() && quantity2 > 0) {
+            totalSelected += quantity2;
+        }
+
+        if (totalSelected == 0) {
+            JOptionPane.showMessageDialog(this, "Your cart is empty! Please select at least one product.",
+                    "Cannot Checkout", JOptionPane.WARNING_MESSAGE);
+            return; // stop checkout
+        }
+
+        // Proceed to checkout
         CheckoutFrame checkoutFrame = new CheckoutFrame(db, this);
+        checkoutFrame.setEmail(email); // pass user info
+        checkoutFrame.setCartData(selectedProduct1, quantity1, deliveryFee1,
+                selectedProduct2, quantity2, deliveryFee2);
         checkoutFrame.setVisible(true);
-        checkoutFrame.setEmail(email);
-        
-        System.out.println(email);
         this.dispose();
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
@@ -675,8 +691,8 @@ public class CartFrame extends javax.swing.JFrame {
     public javax.swing.JLabel cartNameLabel8;
     public javax.swing.JLabel cartNameLabel9;
     private javax.swing.JPanel cartPanel;
-    private javax.swing.JCheckBox checkBoxSlot1;
-    private javax.swing.JCheckBox checkBoxSlot2;
+    public javax.swing.JCheckBox checkBoxSlot1;
+    public javax.swing.JCheckBox checkBoxSlot2;
     private javax.swing.JLabel gotoLandingPanelLogo;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

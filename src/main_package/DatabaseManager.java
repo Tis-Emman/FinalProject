@@ -41,27 +41,6 @@ public class DatabaseManager {
         return name;
     }
     
-    public void saveCheckout(String userEmail, Product product, int quantity, float deliveryFee, String transactionNumber){
-        
-        String sql = "INSERT INTO checkout (transaction_number, user_email, product_name, quantity, delivery_fee, total, image_path VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-   
-    try(Connection conn = DriverManager.getConnection(URL);
-        PreparedStatement pstmt = conn.prepareStatement(sql)
-            ){
-        pstmt.setString(1, transactionNumber);
-        pstmt.setString(2, userEmail);
-        pstmt.setString(3, product.getName());
-        pstmt.setInt(4, quantity);
-        pstmt.setFloat(5, product.getPrice());
-        pstmt.setFloat(6, deliveryFee);
-        pstmt.setFloat(7, product.getPrice() * quantity + deliveryFee);
-        pstmt.setString(8, product.getImagePath()); 
-    }catch(SQLException e){
-        
-    }
-    
-    
-    }
 
     public String getImagePath(int productId) {
         String sql = "SELECT image_path FROM products WHERE id = ?";
