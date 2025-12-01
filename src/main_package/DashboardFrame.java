@@ -513,6 +513,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         gotoLoginImage = new javax.swing.JLabel();
@@ -1177,6 +1178,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         );
 
         jButton3.setText("jButton3");
+
+        jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(243, 243, 243));
@@ -5067,6 +5070,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JButton iceCreamButton;
     private javax.swing.JLabel imageProfileHolder;
     private javax.swing.JButton jButton3;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

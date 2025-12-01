@@ -26,7 +26,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private int quantity2;
     private float deliveryFee1;
     private float deliveryFee2;
-    private String email;
+private String email;
 
     public CheckoutFrame(DatabaseManager dbManager, CartFrame cFrame) {
         initComponents();
@@ -554,18 +554,19 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblImage1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel7.add(lblImage1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 134, 129));
 
-        qty1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        qty1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         qty1.setForeground(new java.awt.Color(102, 102, 102));
         qty1.setText("0");
-        jPanel7.add(qty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, -1, -1));
+        jPanel7.add(qty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 30, -1));
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(102, 102, 102));
         jLabel21.setText("Qty");
-        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+        jPanel7.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 15, -1, 30));
 
+        lbl1Total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl1Total.setText("TOTAL");
-        jPanel7.add(lbl1Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, -1, -1));
+        jPanel7.add(lbl1Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, -1));
 
         cartPanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 780, 170));
 
@@ -589,18 +590,19 @@ public class CheckoutFrame extends javax.swing.JFrame {
         productName2.setText("Product Name");
         jPanel8.add(productName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, 20));
 
-        qty2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        qty2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         qty2.setForeground(new java.awt.Color(102, 102, 102));
         qty2.setText("0");
-        jPanel8.add(qty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 20, 10, -1));
+        jPanel8.add(qty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, 30, -1));
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(102, 102, 102));
         jLabel24.setText("Qty");
-        jPanel8.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+        jPanel8.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 15, -1, 30));
 
+        lbl2Total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl2Total.setText("TOTAL");
-        jPanel8.add(lbl2Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, -1, -1));
+        jPanel8.add(lbl2Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, -1, -1));
 
         cartPanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 780, 190));
 
