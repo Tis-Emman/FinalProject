@@ -80,10 +80,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
         updateCombinedSubtotal();
     }
 
-
-
-   
-
     private void updateCombinedSubtotal() {
         float productTotal = 0;
         float deliveryTotal = 0;
@@ -103,18 +99,23 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblDeliveryFee.setText("₱" + String.format("%.2f", deliveryTotal));
         lblGrandTotal.setText("₱" + String.format("%.2f", grandTotal));
     }
+    private String userAddress;
 
     public void setEmail(String email) {
         if (email == null) {
-            return; // safety check
+            return;
         }
+
         String fullName = dbManager.getNameByEmail(email);
         String fullAddress = dbManager.retrieveFullAddress(email);
         String phoneNumber = dbManager.retrievePhoneNumber(email);
 
         nameLabel1.setText(fullName != null ? fullName : "");
-        addressLabel.setText(fullAddress != null ? fullAddress : "");
-        phoneNumberLabel.setText(phoneNumber);
+        addressLabel.setText(fullAddress != null ? fullAddress : "No address set");
+        phoneNumberLabel.setText(phoneNumber != null ? phoneNumber : "No phone number");
+
+        // Store it for checkout validation
+        this.userAddress = fullAddress;
 
     }
 
@@ -719,6 +720,11 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
         if (selectedPaymentMethod == null) {
             JOptionPane.showMessageDialog(this, "Please select a payment method");
+            return;
+        }
+        
+        if(addressLabel.getText().equalsIgnoreCase("No address set")){
+            JOptionPane.showMessageDialog(this, "Please set an address for the user first!");
             return;
         }
 

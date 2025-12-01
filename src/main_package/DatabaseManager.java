@@ -40,26 +40,23 @@ public class DatabaseManager {
 
         return name;
     }
-    
+
     public String getUserProvince(String email) {
-        
+
         String province = null;
-        
+
         String sql = "SELECT address_province FROM users WHERE email = ?";
-        
-        try(Connection conn = DriverManager.getConnection(URL);
-            PreparedStatement pstmt = conn.prepareStatement(sql)
-                ){
-            
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
             pstmt.setString(1, email);
             ResultSet rs = pstmt.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 province = rs.getString("address_province");
             }
-            
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return province;
@@ -224,24 +221,21 @@ public class DatabaseManager {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void insertPhoneNumber(String phoneNumber , String email){
-        
+
+    public void insertPhoneNumber(String phoneNumber, String email) {
+
         String sql = "UPDATE users SET phone_number = ? WHERE email = ?";
-        
-        
-        try(Connection conn = DriverManager.getConnection(URL);
-            PreparedStatement pstmt = conn.prepareStatement(sql)
-                ){
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, phoneNumber);
             pstmt.setString(2, email);
-            
+
             pstmt.executeUpdate();
-            
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        
+
     }
 
     public void updateAddress(String addressStreet, String barangay, String city, String province, String zip, String houseNumber, String email) {
@@ -434,7 +428,7 @@ public class DatabaseManager {
             return null;
         }
     }
-    
+
     public String retrievePhoneNumber(String email) {
         String sql = "SELECT phone_number FROM users WHERE email = ?";
 
@@ -470,7 +464,17 @@ public class DatabaseManager {
                     String city = rs.getString("address_city");
                     String province = rs.getString("address_province");
 
-                    fullAddress = houseNumber + ", " + street + ", " + barangay + ", " + city + ", " + province;
+                    if (houseNumber == null || houseNumber.isEmpty()
+                            || street == null || street.isEmpty()
+                            || barangay == null || barangay.isEmpty()
+                            || city == null || city.isEmpty()
+                            || province == null || province.isEmpty()){
+                        return null;
+                    }
+                           
+                   
+
+                    return houseNumber + ", " + street + ", " + barangay + ", " + city + ", " + province;
                 }
             }
 
@@ -606,16 +610,16 @@ public class DatabaseManager {
         } catch (SQLException e) {
         }
     }
-    
-    public String retrieveEmailUsingFullName(String fullName){
-       String sql = "SELECT email FROM users WHERE full_name = ?";
+
+    public String retrieveEmailUsingFullName(String fullName) {
+        String sql = "SELECT email FROM users WHERE full_name = ?";
 
         try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, fullName);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                    return rs.getString("email");
+                return rs.getString("email");
             } else {
                 System.out.println("No name found");
                 return null;
