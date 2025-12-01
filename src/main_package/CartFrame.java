@@ -23,6 +23,7 @@ public class CartFrame extends javax.swing.JFrame {
 
     JPanel newPanel = new JPanel();
 
+    
     public CartFrame(DatabaseManager db, DashboardFrame dbFrame) {
         initComponents();
         this.db = db;
@@ -55,9 +56,14 @@ public class CartFrame extends javax.swing.JFrame {
 
         jPanel6 = new javax.swing.JPanel();
         gotoLandingPanelLogo = new javax.swing.JLabel();
+        gotoRegisterImage = new javax.swing.JLabel();
+        myCartImage = new javax.swing.JLabel();
+        myCartButton = new javax.swing.JLabel();
+        myCartButton1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel92 = new javax.swing.JPanel();
         jPanel93 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
         cartPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         lblImage1 = new javax.swing.JLabel();
@@ -99,7 +105,11 @@ public class CartFrame extends javax.swing.JFrame {
         voucherField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblDeliveryFee1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -110,6 +120,47 @@ public class CartFrame extends javax.swing.JFrame {
         gotoLandingPanelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/dashboard logo.png"))); // NOI18N
         gotoLandingPanelLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel6.add(gotoLandingPanelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 140, 80));
+
+        gotoRegisterImage.setBackground(new java.awt.Color(25, 145, 77));
+        gotoRegisterImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        gotoRegisterImage.setForeground(new java.awt.Color(153, 153, 153));
+        gotoRegisterImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/register icon - test.png"))); // NOI18N
+        gotoRegisterImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                gotoRegisterImageMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                gotoRegisterImageMouseExited(evt);
+            }
+        });
+        jPanel6.add(gotoRegisterImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 10, -1, 60));
+
+        myCartImage.setBackground(new java.awt.Color(25, 145, 77));
+        myCartImage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        myCartImage.setForeground(new java.awt.Color(153, 153, 153));
+        myCartImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon - test.png"))); // NOI18N
+        myCartImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        myCartImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                myCartImageMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                myCartImageMouseExited(evt);
+            }
+        });
+        jPanel6.add(myCartImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 20, -1, 50));
+
+        myCartButton.setBackground(new java.awt.Color(25, 145, 77));
+        myCartButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        myCartButton.setForeground(new java.awt.Color(153, 153, 153));
+        myCartButton.setText("MY ACCOUNT");
+        jPanel6.add(myCartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 70, -1, -1));
+
+        myCartButton1.setBackground(new java.awt.Color(25, 145, 77));
+        myCartButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        myCartButton1.setForeground(new java.awt.Color(153, 153, 153));
+        myCartButton1.setText("MY CART");
+        jPanel6.add(myCartButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 70, -1, -1));
 
         getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1542, 96));
 
@@ -134,8 +185,13 @@ public class CartFrame extends javax.swing.JFrame {
 
         jPanel93.setBackground(new java.awt.Color(228, 166, 107));
         jPanel93.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel93, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 810, 1540, 60));
 
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/motto icon.png"))); // NOI18N
+        jPanel93.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 470, 70));
+
+        getContentPane().add(jPanel93, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 790, 1540, 80));
+
+        cartPanel.setBackground(new java.awt.Color(243, 243, 243));
         cartPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -313,10 +369,10 @@ public class CartFrame extends javax.swing.JFrame {
 
         cartNameLabel9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         cartNameLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        cartNameLabel9.setText("Total");
-        jPanel1.add(cartNameLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
+        cartNameLabel9.setText("Item Subtotal");
+        jPanel1.add(cartNameLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
 
-        cartPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 900, 560));
+        cartPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 900, 560));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(164, 113, 0));
@@ -327,12 +383,12 @@ public class CartFrame extends javax.swing.JFrame {
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 340, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Subtotal");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+        jLabel2.setText("Total");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Delivery Fee");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jLabel4.setText("Discount");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         jSeparator3.setForeground(new java.awt.Color(51, 51, 51));
         jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 420, 20));
@@ -385,10 +441,25 @@ public class CartFrame extends javax.swing.JFrame {
         jLabel3.setText("Enter Voucher ");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
-        cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 80, 440, 430));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel9.setText("Delivery Fee");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        lblDeliveryFee1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblDeliveryFee1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblDeliveryFee1.setText("0.00");
+        jPanel3.add(lblDeliveryFee1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 280, 20));
+
+        cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 90, 440, 430));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         cartPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, 40));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart page icon.png"))); // NOI18N
+        cartPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cart icon 2.png"))); // NOI18N
+        cartPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 10, -1, 70));
 
         getContentPane().add(cartPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1540, 700));
 
@@ -409,30 +480,23 @@ public class CartFrame extends javax.swing.JFrame {
 
 // Load product 1
     public void loadProduct1(String productName) {
-        selectedProduct1 = db.getProductByName(productName);
+        tempProduct1 = db.getProductByName(productName);
         setCheckBoxEnabled1();
 
-        if (selectedProduct1 != null) {
-            tempProduct1 = db.getProductByName(productName);
-            setCheckBoxEnabled1();
+        if (tempProduct1 != null) {
+            lblName1.setText(tempProduct1.getName());
+            lblPrice1.setText("₱" + String.format("%.2f", tempProduct1.getPrice()));
+            ImageIcon icon = new ImageIcon(tempProduct1.getImagePath());
+            Image img = icon.getImage().getScaledInstance(lblImage1.getWidth(), lblImage1.getHeight(), Image.SCALE_SMOOTH);
+            lblImage1.setIcon(new ImageIcon(img));
 
-            if (tempProduct1 != null) {
-                lblName1.setText(tempProduct1.getName());
-                lblPrice1.setText("₱" + String.format("%.2f", tempProduct1.getPrice()));
-                ImageIcon icon = new ImageIcon(tempProduct1.getImagePath());
-                Image img = icon.getImage().getScaledInstance(lblImage1.getWidth(), lblImage1.getHeight(), Image.SCALE_SMOOTH);
-                lblImage1.setIcon(new ImageIcon(img));
+            quantity1 = 1;
+            lblQnty1.setText(String.valueOf(quantity1));
 
-                quantity1 = 1;
-                lblQnty1.setText(String.valueOf(quantity1));
-
-                // Only update display info, not checkout
-                updatePrdctTotal1();
-                updateDeliveryFee();
-                updateCombinedSubtotal();
-                updateCheckoutButton();
-            }
-
+            updatePrdctTotal1();
+            updateDeliveryFee();
+            updateCombinedSubtotal();
+            updateCheckoutButton();
         }
     }
 
@@ -450,12 +514,8 @@ public class CartFrame extends javax.swing.JFrame {
         setCheckBoxEnabled2();
 
         if (tempProduct2 != null) {
-
-            selectedProduct2 = tempProduct2;
-
             lblName2.setText(tempProduct2.getName());
             lblPrice2.setText("₱" + String.format("%.2f", tempProduct2.getPrice()));
-
             ImageIcon icon = new ImageIcon(tempProduct2.getImagePath());
             Image img = icon.getImage().getScaledInstance(lblImage2.getWidth(), lblImage2.getHeight(), Image.SCALE_SMOOTH);
             lblImage2.setIcon(new ImageIcon(img));
@@ -472,163 +532,130 @@ public class CartFrame extends javax.swing.JFrame {
 
     private void updateDeliveryFee() {
         float totalDelivery = 0;
-
-        if (selectedProduct1 != null && checkBoxSlot1.isSelected()) {
+        if (tempProduct1 != null && include1) {
             totalDelivery += deliveryFee1;
         }
-
-        if (selectedProduct2 != null && checkBoxSlot2.isSelected()) {
+        if (tempProduct2 != null && include2) {
             totalDelivery += deliveryFee2;
         }
-
         lblDeliveryFee.setText("₱" + String.format("%.2f", totalDelivery));
     }
 
 // Update product 1 total
     private void updatePrdctTotal1() {
-        if (selectedProduct1 != null) {
-            float total = selectedProduct1.getPrice() * quantity1;
+        if (tempProduct1 != null) {
+            float total = tempProduct1.getPrice() * quantity1;
             lblTotal1.setText("₱" + String.format("%.2f", total));
-            updateCombinedSubtotal();
         }
     }
 
 // Update product 2 total
     private void updatePrdctTotal2() {
-        if (selectedProduct2 != null) {
-            float total = selectedProduct2.getPrice() * quantity2;
+        if (tempProduct2 != null) {
+            float total = tempProduct2.getPrice() * quantity2;
             lblTotal2.setText("₱" + String.format("%.2f", total));
-            updateCombinedSubtotal();
         }
     }
 
 // Update combined subtotal
     private void updateCombinedSubtotal() {
         float productTotal = 0;
-
-        if (selectedProduct1 != null && checkBoxSlot1.isSelected()) {
-            productTotal += selectedProduct1.getPrice() * quantity1;
+        if (tempProduct1 != null && include1) {
+            productTotal += tempProduct1.getPrice() * quantity1;
         }
-
-        if (selectedProduct2 != null && checkBoxSlot2.isSelected()) {
-            productTotal += selectedProduct2.getPrice() * quantity2;
+        if (tempProduct2 != null && include2) {
+            productTotal += tempProduct2.getPrice() * quantity2;
         }
 
         float deliveryTotal = 0;
-        if (selectedProduct1 != null && checkBoxSlot1.isSelected()) {
+        if (tempProduct1 != null && include1) {
             deliveryTotal += deliveryFee1;
         }
-        if (selectedProduct2 != null && checkBoxSlot2.isSelected()) {
+        if (tempProduct2 != null && include2) {
             deliveryTotal += deliveryFee2;
         }
 
         float grandTotal = productTotal + deliveryTotal;
 
-        subTotalLabel.setText("₱" + String.format("%.2f", productTotal));   // product subtotal
-        lblDeliveryFee.setText("₱" + String.format("%.2f", deliveryTotal)); // delivery fee
+        subTotalLabel.setText("₱" + String.format("%.2f", productTotal));
+        lblDeliveryFee.setText("₱" + String.format("%.2f", deliveryTotal));
         lblGrandTotal.setText("₱" + String.format("%.2f", grandTotal));
     }
+    private boolean include1;
+    private boolean include2;
 
     private void checkBoxSlot1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSlot1ActionPerformed
-        if (checkBoxSlot1.isSelected()) {
-            selectedProduct1 = tempProduct1; // commit to checkout
-        } else {
-            selectedProduct1 = null; // remove from checkout
-        }
-        updateDeliveryFee();
-        updateCombinedSubtotal();
-        updateCheckoutButton();
-        refreshTotals();
+        include1 = checkBoxSlot1.isSelected();
+        refreshTotals();;
 
     }//GEN-LAST:event_checkBoxSlot1ActionPerformed
 
 
     private void checkBoxSlot2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSlot2ActionPerformed
-        if (checkBoxSlot2.isSelected()) {
-            selectedProduct2 = tempProduct2; // commit to checkout
-        } else {
-            selectedProduct2 = null; // remove from checkout
-        }
-        updateDeliveryFee();
-        updateCombinedSubtotal();
-        updateCheckoutButton();
+        include2 = checkBoxSlot2.isSelected();
         refreshTotals();
     }//GEN-LAST:event_checkBoxSlot2ActionPerformed
 
     private void btnPlusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusActionPerformed
-        if (selectedProduct1 != null && quantity1 < selectedProduct1.getStock()) {
+        if (tempProduct1 != null && quantity1 < tempProduct1.getStock()) {
             quantity1++;
             lblQnty1.setText(String.valueOf(quantity1));
+            warningLabel1.setText("");
             updatePrdctTotal1();
-            updateDeliveryFee();        // ✅ update delivery fee
-            updateCombinedSubtotal();
-            updateCheckoutButton();
+            refreshTotals();
         } else {
             warningLabel1.setText("Out of stock!");
         }
     }//GEN-LAST:event_btnPlusActionPerformed
 
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
-        if (selectedProduct1 != null && quantity1 > 1) {
+        if (tempProduct1 != null && quantity1 > 1) {
             quantity1--;
             lblQnty1.setText(String.valueOf(quantity1));
-            updatePrdctTotal1();
-            updateDeliveryFee();
             warningLabel1.setText("");
-            updateCombinedSubtotal();
-            updateCheckoutButton();
+            updatePrdctTotal1();
+            refreshTotals();
         }
     }//GEN-LAST:event_btnMinusActionPerformed
 
     private void btnMinus2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinus2ActionPerformed
-        if (selectedProduct2 != null && quantity2 > 1) {
+        if (tempProduct2 != null && quantity2 > 1) { // ✅ Correct
             quantity2--;
             lblQnty2.setText(String.valueOf(quantity2));
-            updatePrdctTotal2();
-            updateDeliveryFee();
             warningLabel2.setText("");
-            updateCombinedSubtotal();
-            updateCheckoutButton();
+            updatePrdctTotal2();
+            refreshTotals();
         }
     }//GEN-LAST:event_btnMinus2ActionPerformed
 
     private void btnPlus2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlus2ActionPerformed
-        if (selectedProduct2 != null && quantity2 < selectedProduct2.getStock()) {
+        if (tempProduct2 != null && quantity2 < tempProduct2.getStock()) {
             quantity2++;
             lblQnty2.setText(String.valueOf(quantity2));
+            warningLabel2.setText("");
             updatePrdctTotal2();
-            updateDeliveryFee();        // ✅ update delivery fee
-            updateCombinedSubtotal();
-            updateCheckoutButton();
+            refreshTotals();
         } else {
             warningLabel2.setText("Out of stock!");
         }
     }//GEN-LAST:event_btnPlus2ActionPerformed
 
     private void removeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButton1ActionPerformed
-        // Always clear both temp and selected to avoid ghost items
         tempProduct1 = null;
-        selectedProduct1 = null;
+        include1 = false;
         quantity1 = 0;
 
-        // Clear UI
         lblName1.setText("");
         lblPrice1.setText("₱0.00");
         lblImage1.setIcon(null);
         lblQnty1.setText("0");
         lblTotal1.setText("₱0.00");
 
-        // Deselect and disable checkbox
         checkBoxSlot1.setSelected(false);
         checkBoxSlot1.setEnabled(false);
 
-        // Clear any warnings
         warningLabel1.setText("");
-
-        // Recompute totals & button
-        updateDeliveryFee();
-        updateCombinedSubtotal();
-        updateCheckoutButton();
+        refreshTotals();
     }//GEN-LAST:event_removeButton1ActionPerformed
     private void refreshTotals() {
         updateDeliveryFee();
@@ -637,45 +664,33 @@ public class CartFrame extends javax.swing.JFrame {
     }
 
     private void removeButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButton2ActionPerformed
-        // Always clear both temp and selected to avoid ghost items
         tempProduct2 = null;
-        selectedProduct2 = null;
+        include2 = false;
         quantity2 = 0;
 
-        // Clear UI
         lblName2.setText("");
         lblPrice2.setText("₱0.00");
         lblImage2.setIcon(null);
         lblQnty2.setText("0");
         lblTotal2.setText("₱0.00");
 
-        // Deselect and disable checkbox
         checkBoxSlot2.setSelected(false);
         checkBoxSlot2.setEnabled(false);
 
-        // Clear any warnings
         warningLabel2.setText("");
-
-        // Recompute totals & button
-        updateDeliveryFee();
-        updateCombinedSubtotal();
-        updateCheckoutButton();
+        refreshTotals();
     }//GEN-LAST:event_removeButton2ActionPerformed
 
     private void updateCheckoutButton() {
-        int total = 0;
-
-        if (checkBoxSlot1.isSelected() && selectedProduct1 != null) {
-            total += quantity1;
+        int totalQty = 0;
+        if (tempProduct1 != null && include1) {
+            totalQty += quantity1;
+        }
+        if (tempProduct2 != null && include2) {
+            totalQty += quantity2;
         }
 
-        if (checkBoxSlot2.isSelected() && selectedProduct2 != null) {
-            total += quantity2;
-        }
-
-        btnCheckout.setText(
-                "Proceed to Checkout (" + total + ")"
-        );
+        btnCheckout.setText("Proceed to Checkout (" + totalQty + ")");
     }
 
     private String email;
@@ -685,28 +700,16 @@ public class CartFrame extends javax.swing.JFrame {
     }
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-
-        // Reset items that are NOT selected
-        if (!checkBoxSlot1.isSelected()) {
-            selectedProduct1 = null;
-            quantity1 = 0;
-        }
-        if (!checkBoxSlot2.isSelected()) {
-            selectedProduct2 = null;
-            quantity2 = 0;
-        }
-
-        // Count selected items
         int totalSelected = 0;
 
-        if (selectedProduct1 != null && quantity1 > 0) {
+        if (tempProduct1 != null && include1 && quantity1 > 0) {
             totalSelected += quantity1;
         }
-        if (selectedProduct2 != null && quantity2 > 0) {
+        if (tempProduct2 != null && include2 && quantity2 > 0) {
             totalSelected += quantity2;
         }
 
-        // Block checkout if no valid item
+// Block checkout if no valid item
         if (totalSelected == 0) {
             JOptionPane.showMessageDialog(this,
                     "Your cart is empty! Please select at least one product.",
@@ -715,16 +718,32 @@ public class CartFrame extends javax.swing.JFrame {
             return;
         }
 
-        // Proceed to checkout
+// Proceed to checkout
         CheckoutFrame checkoutFrame = new CheckoutFrame(db, this);
         checkoutFrame.setEmail(email);
         checkoutFrame.setCartData(
-                selectedProduct1, quantity1, deliveryFee1,
-                selectedProduct2, quantity2, deliveryFee2
+                include1 ? tempProduct1 : null, quantity1, deliveryFee1,
+                include2 ? tempProduct2 : null, quantity2, deliveryFee2
         );
         checkoutFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCheckoutActionPerformed
+
+    private void gotoRegisterImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseEntered
+
+    }//GEN-LAST:event_gotoRegisterImageMouseEntered
+
+    private void gotoRegisterImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseExited
+
+    }//GEN-LAST:event_gotoRegisterImageMouseExited
+
+    private void myCartImageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseEntered
+        myCartButton.setForeground(new Color(101, 13, 2));
+    }//GEN-LAST:event_myCartImageMouseEntered
+
+    private void myCartImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myCartImageMouseExited
+        myCartButton.setForeground(new Color(153, 153, 153));
+    }//GEN-LAST:event_myCartImageMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -741,13 +760,18 @@ public class CartFrame extends javax.swing.JFrame {
     public javax.swing.JCheckBox checkBoxSlot1;
     public javax.swing.JCheckBox checkBoxSlot2;
     private javax.swing.JLabel gotoLandingPanelLogo;
+    private javax.swing.JLabel gotoRegisterImage;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -758,6 +782,7 @@ public class CartFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblDeliveryFee;
+    private javax.swing.JLabel lblDeliveryFee1;
     private javax.swing.JLabel lblGrandTotal;
     public javax.swing.JLabel lblImage1;
     public javax.swing.JLabel lblImage2;
@@ -769,6 +794,9 @@ public class CartFrame extends javax.swing.JFrame {
     public javax.swing.JLabel lblQnty2;
     public javax.swing.JLabel lblTotal1;
     public javax.swing.JLabel lblTotal2;
+    private javax.swing.JLabel myCartButton;
+    private javax.swing.JLabel myCartButton1;
+    private javax.swing.JLabel myCartImage;
     private javax.swing.JButton removeButton1;
     private javax.swing.JButton removeButton2;
     private javax.swing.JLabel subTotalLabel;

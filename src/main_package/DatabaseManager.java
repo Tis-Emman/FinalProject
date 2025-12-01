@@ -41,6 +41,29 @@ public class DatabaseManager {
         return name;
     }
     
+    public String getUserProvince(String email) {
+        
+        String province = null;
+        
+        String sql = "SELECT address_province FROM users WHERE email = ?";
+        
+        try(Connection conn = DriverManager.getConnection(URL);
+            PreparedStatement pstmt = conn.prepareStatement(sql)
+                ){
+            
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if(rs.next()){
+                province = rs.getString("address_province");
+            }
+            
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return province;
+    }
 
     public String getImagePath(int productId) {
         String sql = "SELECT image_path FROM products WHERE id = ?";
@@ -581,6 +604,25 @@ public class DatabaseManager {
             }
 
         } catch (SQLException e) {
+        }
+    }
+    
+    public String retrieveEmailUsingFullName(String fullName){
+       String sql = "SELECT email FROM users WHERE full_name = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, fullName);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                    return rs.getString("email");
+            } else {
+                System.out.println("No name found");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

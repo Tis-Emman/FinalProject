@@ -664,7 +664,6 @@ public class TestLoginFrame extends javax.swing.JFrame {
 
         if (dbManager.readEmailPass(email, password)) {
             JOptionPane.showMessageDialog(rootPane, "Successfully logged in!");
-            String fullAddress = dbManager.retrieveFullAddress(email);
 
             // Fetch name and address from database
             String name = dbManager.getNameByEmail(email);
