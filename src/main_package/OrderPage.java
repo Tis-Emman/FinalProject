@@ -45,6 +45,7 @@ public class OrderPage extends javax.swing.JFrame {
 
         Listener.addLabelListener(gotoLandingPanel, this, dbFrame);
         orderPlacedLabel.setText(currentTime);
+        
 
         loadOrderDetails();
 
@@ -82,7 +83,9 @@ public class OrderPage extends javax.swing.JFrame {
         lblPaymentMethod.setText(order.getPaymentMethod());
         lblDeliveryFee.setText("₱" + order.getDeliveryFee());
         lblSubtotal.setText("₱" + order.getSubtotal());
-        lblGrandTotal.setText("₱" + order.getGrandTotal());      
+        lblGrandTotal.setText("₱" + order.getGrandTotal());    
+        shippingMethod.setText(order.getShippingMethod());
+        
         generateTransactionNumber();
         
     }
@@ -173,6 +176,7 @@ public class OrderPage extends javax.swing.JFrame {
         productName19 = new javax.swing.JLabel();
         shippingMethod = new javax.swing.JLabel();
         message = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
         jPanel12 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -344,7 +348,7 @@ public class OrderPage extends javax.swing.JFrame {
         lblGrandTotal.setForeground(new java.awt.Color(215, 118, 25));
         lblGrandTotal.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblGrandTotal.setText("ORDER TOTAL");
-        jPanel1.add(lblGrandTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 590, 220, 80));
+        jPanel1.add(lblGrandTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 580, 220, 90));
 
         lblProd2Price.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblProd2Price.setForeground(new java.awt.Color(102, 102, 102));
@@ -380,13 +384,13 @@ public class OrderPage extends javax.swing.JFrame {
 
         jSeparator3.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator3.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 1200, 10));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 1200, 10));
 
         productName14.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         productName14.setForeground(new java.awt.Color(51, 51, 51));
         productName14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         productName14.setText("Delivery Partner");
-        jPanel1.add(productName14, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 510, 110, -1));
+        jPanel1.add(productName14, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 510, 110, -1));
 
         productName15.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         productName15.setForeground(new java.awt.Color(51, 51, 51));
@@ -398,7 +402,7 @@ public class OrderPage extends javax.swing.JFrame {
         productName16.setForeground(new java.awt.Color(51, 51, 51));
         productName16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         productName16.setText("Shipping Method");
-        jPanel1.add(productName16, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, 120, -1));
+        jPanel1.add(productName16, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 470, 120, -1));
 
         jSeparator4.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator4.setForeground(new java.awt.Color(204, 204, 204));
@@ -409,12 +413,11 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 1190, 10));
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 10, 240));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 10, 290));
 
         productName17.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         productName17.setForeground(new java.awt.Color(51, 51, 51));
         productName17.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        productName17.setText("(0 item)");
         jPanel1.add(productName17, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 390, 60, -1));
 
         lblSubtotal.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -439,7 +442,7 @@ public class OrderPage extends javax.swing.JFrame {
         productName20.setForeground(new java.awt.Color(51, 51, 51));
         productName20.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         productName20.setText("Payment Method");
-        jPanel1.add(productName20, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 540, 120, 40));
+        jPanel1.add(productName20, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 120, 40));
 
         jSeparator7.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator7.setForeground(new java.awt.Color(204, 204, 204));
@@ -449,25 +452,25 @@ public class OrderPage extends javax.swing.JFrame {
         productName18.setForeground(new java.awt.Color(51, 51, 51));
         productName18.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         productName18.setText("Subtotal");
-        jPanel1.add(productName18, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, 60, -1));
+        jPanel1.add(productName18, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 380, 80, 40));
 
         lblAssignedCourier.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblAssignedCourier.setForeground(new java.awt.Color(51, 51, 51));
         lblAssignedCourier.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblAssignedCourier.setText("GRAB");
-        jPanel1.add(lblAssignedCourier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 510, 40, 30));
+        jPanel1.add(lblAssignedCourier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 500, 40, 40));
 
         lblCourierLogo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblCourierLogo.setForeground(new java.awt.Color(51, 51, 51));
         lblCourierLogo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblCourierLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grab icon.png"))); // NOI18N
-        jPanel1.add(lblCourierLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 510, 30, 30));
+        jPanel1.add(lblCourierLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 500, 30, 40));
 
         productName19.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         productName19.setForeground(new java.awt.Color(51, 51, 51));
         productName19.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         productName19.setText("Shipping Fee");
-        jPanel1.add(productName19, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 430, 100, -1));
+        jPanel1.add(productName19, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 420, 110, 40));
 
         shippingMethod.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         shippingMethod.setForeground(new java.awt.Color(51, 51, 51));
@@ -475,8 +478,13 @@ public class OrderPage extends javax.swing.JFrame {
         shippingMethod.setText("XXXXX");
         jPanel1.add(shippingMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 460, 340, 40));
 
-        message.setText("jLabel4");
-        jPanel1.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 320, -1, -1));
+        message.setForeground(new java.awt.Color(100, 156, 255));
+        message.setText("SEE MESSAGE ");
+        jPanel1.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 350, -1, -1));
+
+        jSeparator8.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator8.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 1200, 10));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 1210, 670));
 
@@ -618,6 +626,7 @@ public class OrderPage extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblAssignedCourier;
     private javax.swing.JLabel lblCourierLogo;

@@ -22,9 +22,10 @@ public class Order {
     private float deliveryFee;
     private float subtotal;
     private float grandTotal;
+    private String shippingMethod;
     
     public Order(Product product1, int quantity1, Product product2, int quantity2,
-            String paymentMethod, float deliveryFee, float subtotal, float grandTotal
+            String paymentMethod, float deliveryFee, float subtotal, float grandTotal, String shippingMethod
             ){
         
         this.product1 = product1;
@@ -35,6 +36,11 @@ public class Order {
         this.deliveryFee = deliveryFee;
         this.subtotal = subtotal;
         this.grandTotal = grandTotal;
+        this.shippingMethod = shippingMethod;
+    }
+    
+    public String getShippingMethod(){
+        return shippingMethod;
     }
     
     public Product getProduct1(){
