@@ -448,6 +448,45 @@ public class DatabaseManager {
         }
     }
 
+    public String retrieveEmailUsingName(String fullName) {
+        String sql = "SELECT email FROM users WHERE full_name = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, fullName); // pass full name
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("email"); // get the email
+            } else {
+                System.out.println("No name found for: " + fullName);
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String retrieveCity(String email) {
+        String sql = "SELECT address_city FROM users WHERE email = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("address_city");
+            } else {
+                System.out.println("No full name / User does not exists");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public String retrieveFullAddress(String email) {
         String fullAddress = ""; // default empty
         String sql = "SELECT address_house_number, address_street, address_barangay, address_city, address_province FROM users WHERE email = ?";
@@ -468,11 +507,9 @@ public class DatabaseManager {
                             || street == null || street.isEmpty()
                             || barangay == null || barangay.isEmpty()
                             || city == null || city.isEmpty()
-                            || province == null || province.isEmpty()){
+                            || province == null || province.isEmpty()) {
                         return null;
                     }
-                           
-                   
 
                     return houseNumber + ", " + street + ", " + barangay + ", " + city + ", " + province;
                 }

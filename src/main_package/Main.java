@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        
         DatabaseManager dbManager = new DatabaseManager();
 
         String rememberedEmail = dbManager.getRememberedUser();

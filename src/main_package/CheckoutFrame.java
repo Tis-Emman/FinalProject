@@ -6,6 +6,8 @@ package main_package;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -19,6 +21,64 @@ public class CheckoutFrame extends javax.swing.JFrame {
     /**
      * Creates new form CheckoutFrame
      */
+    private String shippingMethod = "Pickup"; // default
+
+    public void setShippingMethod(String method) {
+        if (method == null || (!method.equals("Pickup") && !method.equals("Delivery"))) {
+            // invalid method, do nothing
+            JOptionPane.showMessageDialog(this, "Please select a shipping method.");
+            return;
+        }
+
+        this.shippingMethod = method;
+
+        float baseFee = 50;
+        float cityFee = 0;
+        String city = dbManager != null ? dbManager.retrieveCity(email) : null;
+
+        if ("Pickup".equals(method)) {
+            deliveryFee1 = 0;
+            deliveryFee2 = 0;
+        } else { // Delivery
+            if (city != null && !"Baliwag".equals(city) && shippingFees.containsKey(city)) {
+                cityFee = shippingFees.get(city);
+            }
+
+            deliveryFee1 = selectedProduct1 != null ? baseFee + cityFee : 0;
+            deliveryFee2 = selectedProduct2 != null ? baseFee + cityFee : 0;
+
+        }
+
+        selectShippingOption.setText(method);
+        updateCombinedSubtotal();
+    }
+    private Map<String, Integer> shippingFees = new HashMap<>() {
+        {
+            put("Baliwag", 50);
+            put("Bustos", 60);
+            put("Plaridel", 80);
+            put("San Ildefonso", 80);
+            put("San Rafael", 70);
+            put("Balagtas", 80);
+            put("Bulakan", 80);
+            put("Bocaue", 90);
+            put("Guiguinto", 90);
+            put("Pulilan", 90);
+            put("Marilao", 100);
+            put("Meycauayan", 100);
+            put("Pandi", 110);
+            put("Paombong", 110);
+            put("Obando", 110);
+            put("Hagonoy", 120);
+            put("San Jose del Monte", 120);
+            put("San Miguel", 130);
+            put("Santa Maria", 140);
+            put("Angat", 130);
+            put("Calumpit", 130);
+            put("Doña Remedios Trinidad", 150);
+        }
+    };
+
     private DatabaseManager dbManager;
 
     private Product selectedProduct1;
@@ -29,16 +89,20 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private float deliveryFee2;
     private String email;
 
-    public CheckoutFrame(DatabaseManager dbManager, CartFrame cFrame) {
+    private String temp;
+
+    public CheckoutFrame(DatabaseManager dbManager, CartFrame cFrame, String email) {
         initComponents();
 
         this.dbManager = dbManager;
+        this.email = email;
 
         setLocationRelativeTo(null);
         setResizable(false);
 
         // Set up navigation
         Listener.addLabelListener(gotoLandingPanelLogo, this, cFrame);
+        setShippingMethod("Delivery");
 
     }
 
@@ -59,7 +123,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
             productName1.setText(selectedProduct1.getName());
             productPrice1.setText("₱" + String.format("%.2f", selectedProduct1.getPrice()));
             qty1.setText(String.valueOf(quantity1));
-            lbl1Total.setText("₱" + String.format("%.2f", selectedProduct1.getPrice() * quantity1 + deliveryFee1));
 
             ImageIcon icon = new ImageIcon(selectedProduct1.getImagePath());
             Image img = icon.getImage().getScaledInstance(lblImage1.getWidth(), lblImage1.getHeight(), Image.SCALE_SMOOTH);
@@ -70,8 +133,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
             productName2.setText(selectedProduct2.getName());
             productPrice2.setText("₱" + String.format("%.2f", selectedProduct2.getPrice()));
             qty2.setText(String.valueOf(quantity2));
-            lbl2Total.setText("₱" + String.format("%.2f", selectedProduct2.getPrice() * quantity2 + deliveryFee2));
-
             ImageIcon icon = new ImageIcon(selectedProduct2.getImagePath());
             Image img = icon.getImage().getScaledInstance(lblImage2.getWidth(), lblImage2.getHeight(), Image.SCALE_SMOOTH);
             lblImage2.setIcon(new ImageIcon(img));
@@ -99,6 +160,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblDeliveryFee.setText("₱" + String.format("%.2f", deliveryTotal));
         lblGrandTotal.setText("₱" + String.format("%.2f", grandTotal));
     }
+
     private String userAddress;
 
     public void setEmail(String email) {
@@ -106,6 +168,9 @@ public class CheckoutFrame extends javax.swing.JFrame {
             return;
         }
 
+        this.email = email; // store email for later use
+
+        // --- Load user info ---
         String fullName = dbManager.getNameByEmail(email);
         String fullAddress = dbManager.retrieveFullAddress(email);
         String phoneNumber = dbManager.retrievePhoneNumber(email);
@@ -114,8 +179,31 @@ public class CheckoutFrame extends javax.swing.JFrame {
         addressLabel.setText(fullAddress != null ? fullAddress : "No address set");
         phoneNumberLabel.setText(phoneNumber != null ? phoneNumber : "No phone number");
 
-        // Store it for checkout validation
         this.userAddress = fullAddress;
+
+        // --- Get shipping fee based on city ---
+        String city = dbManager.retrieveCity(email);
+        
+        float shippingFee = 0;
+
+        System.out.println("Retrieved city: " + city);
+
+        if (city != null && shippingFees.containsKey(city)) {
+            shippingFee = shippingFees.get(city);
+        }
+
+        System.out.println("Calculated shipping fee: " + shippingFee);
+
+        // --- Reset delivery fees to base product delivery + shipping ---
+        if (selectedProduct1 != null) {
+            deliveryFee1 = shippingFee; // only shipping, or add base fee if any
+        }
+        if (selectedProduct2 != null) {
+            deliveryFee2 = shippingFee; // only shipping, or add base fee if any
+        }
+
+        // --- Refresh totals on UI ---
+        updateCombinedSubtotal();
 
     }
 
@@ -162,11 +250,12 @@ public class CheckoutFrame extends javax.swing.JFrame {
         subTotalLabel = new javax.swing.JLabel();
         lblDeliveryFee = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        editAddressLabel1 = new javax.swing.JLabel();
+        selectShippingOption = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblDeliveryFee1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        editAddressLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         warningLabel2 = new javax.swing.JLabel();
         warningLabel1 = new javax.swing.JLabel();
@@ -188,14 +277,12 @@ public class CheckoutFrame extends javax.swing.JFrame {
         productPrice1 = new javax.swing.JLabel();
         lblImage1 = new javax.swing.JLabel();
         qty1 = new javax.swing.JLabel();
-        lbl1Total = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lblImage4 = new javax.swing.JLabel();
         productPrice2 = new javax.swing.JLabel();
         lblImage2 = new javax.swing.JLabel();
         productName2 = new javax.swing.JLabel();
         qty2 = new javax.swing.JLabel();
-        lbl2Total = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -457,11 +544,16 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel31.setText("Subtotal");
         jPanel3.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
 
-        editAddressLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        editAddressLabel1.setForeground(new java.awt.Color(51, 153, 255));
-        editAddressLabel1.setText("View all methods>");
-        editAddressLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.add(editAddressLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
+        selectShippingOption.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        selectShippingOption.setForeground(new java.awt.Color(51, 153, 255));
+        selectShippingOption.setText("Select Shipping Option>");
+        selectShippingOption.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        selectShippingOption.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectShippingOptionMouseClicked(evt);
+            }
+        });
+        jPanel3.add(selectShippingOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
@@ -475,7 +567,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Message");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 70, 20));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 70, 20));
 
         jTextField1.setForeground(new java.awt.Color(153, 153, 153));
         jTextField1.setText("Note to Delivery Rider");
@@ -484,7 +576,13 @@ public class CheckoutFrame extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 390, 50));
+        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 390, 50));
+
+        editAddressLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        editAddressLabel2.setForeground(new java.awt.Color(51, 153, 255));
+        editAddressLabel2.setText("View all methods>");
+        editAddressLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel3.add(editAddressLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
 
         cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 440, 650));
 
@@ -596,11 +694,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
         qty1.setText("0");
         jPanel7.add(qty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
-        lbl1Total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl1Total.setForeground(new java.awt.Color(215, 118, 25));
-        lbl1Total.setText("TOTAL");
-        jPanel7.add(lbl1Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 130, -1, -1));
-
         cartPanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 780, 170));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -626,12 +719,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
         qty2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         qty2.setText("0");
         jPanel8.add(qty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 10, -1));
-
-        lbl2Total.setBackground(new java.awt.Color(215, 118, 25));
-        lbl2Total.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbl2Total.setForeground(new java.awt.Color(215, 118, 25));
-        lbl2Total.setText("TOTAL");
-        jPanel8.add(lbl2Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, -1, -1));
 
         cartPanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 780, 190));
 
@@ -718,12 +805,17 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
     private void btnPlaceOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaceOrderActionPerformed
 
+        if (shippingMethod == null) {
+            JOptionPane.showMessageDialog(this, "Please select a shipping method before proceeding.");
+            return;
+        }
+
         if (selectedPaymentMethod == null) {
             JOptionPane.showMessageDialog(this, "Please select a payment method");
             return;
         }
-        
-        if(addressLabel.getText().equalsIgnoreCase("No address set")){
+
+        if (addressLabel.getText().equalsIgnoreCase("No address set")) {
             JOptionPane.showMessageDialog(this, "Please set an address for the user first!");
             return;
         }
@@ -788,6 +880,12 @@ public class CheckoutFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void selectShippingOptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectShippingOptionMouseClicked
+        ShippingOptionDialog shipOption = new ShippingOptionDialog(this, true, this);
+        shipOption.setVisible(true);
+
+    }//GEN-LAST:event_selectShippingOptionMouseClicked
+
     private void updatePaymentPanel() {
         if (cashOnDeliverCB.isSelected()) {
             cashOnDeliverPanel.setBorder(BorderFactory.createLineBorder(new Color(51, 153, 255)));
@@ -821,7 +919,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JPanel cashOnDeliverPanel;
     private javax.swing.JSeparator cashOnDeliverySeperator;
     private javax.swing.JLabel editAddressLabel;
-    private javax.swing.JLabel editAddressLabel1;
+    private javax.swing.JLabel editAddressLabel2;
     private javax.swing.JCheckBox gcashCheckBox;
     private javax.swing.JPanel gcashPanel;
     private javax.swing.JSeparator gcashSeperator;
@@ -864,8 +962,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel lbl1Total;
-    private javax.swing.JLabel lbl2Total;
     private javax.swing.JLabel lblDeliveryFee;
     private javax.swing.JLabel lblDeliveryFee1;
     private javax.swing.JLabel lblGrandTotal;
@@ -884,6 +980,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JLabel productPrice2;
     private javax.swing.JLabel qty1;
     private javax.swing.JLabel qty2;
+    public static javax.swing.JLabel selectShippingOption;
     public static javax.swing.JLabel shippingAddressLabel;
     private javax.swing.JLabel subTotalLabel;
     private javax.swing.JLabel warningLabel1;

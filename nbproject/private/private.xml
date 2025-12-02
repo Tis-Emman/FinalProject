@@ -4,11 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/DatabaseManager.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/CheckoutFrame.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/AdminPage.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/ViewProductsFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/UpdateProductsFrame.java</file>
-            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/AddProductsFrame.java</file>
             <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/DashboardFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/CartFrame.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/OrderPage.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/User.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/Order.java</file>
+            <file>file:/C:/Users/user/Documents/NetBeansProjects/FinalProject/src/main_package/AddressDialog.java</file>
         </group>
     </open-files>
 </project-private>

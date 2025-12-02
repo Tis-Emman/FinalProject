@@ -470,7 +470,7 @@ public class CartFrame extends javax.swing.JFrame {
     private int quantity2 = 1;
 
     private float deliveryFee1 = 50.0f;
-    private float deliveryFee2 = 30.0f;
+    private float deliveryFee2 = 50.0f;
 
     private Product tempProduct1;
     private Product tempProduct2;
@@ -719,12 +719,13 @@ public class CartFrame extends javax.swing.JFrame {
         }
 
 // Proceed to checkout
-        CheckoutFrame checkoutFrame = new CheckoutFrame(db, this);
+        CheckoutFrame checkoutFrame = new CheckoutFrame(db, this, email);
         checkoutFrame.setEmail(email);
         checkoutFrame.setCartData(
                 include1 ? tempProduct1 : null, quantity1, deliveryFee1,
                 include2 ? tempProduct2 : null, quantity2, deliveryFee2
         );
+        checkoutFrame.setShippingMethod("Delivery");
         checkoutFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCheckoutActionPerformed
