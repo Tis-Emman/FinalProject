@@ -21,6 +21,7 @@ public class OrderPage extends javax.swing.JFrame {
     private String email;
 
     private String transactionNumber;
+    private String deliveryNote;
     
      private void generateTransactionNumber() {
         String timestamp = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
@@ -30,10 +31,11 @@ public class OrderPage extends javax.swing.JFrame {
         transactionNumberLabel.setText(transactionNumber); // show in UI
     }
      
-    public OrderPage(DashboardFrame dbFrame, Order order) {
+    public OrderPage(DashboardFrame dbFrame, Order order, String deliveryNote) {
 
         this.dbFrame = dbFrame;
         this.order = order;
+        this.deliveryNote = deliveryNote;
 
         email = dbFrame.getUserEmail();
 
@@ -482,7 +484,12 @@ public class OrderPage extends javax.swing.JFrame {
 
         message.setForeground(new java.awt.Color(100, 156, 255));
         message.setText("SEE MESSAGE ");
-        jPanel1.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 350, -1, -1));
+        message.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                messageMouseClicked(evt);
+            }
+        });
+        jPanel1.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 350, -1, -1));
 
         jSeparator8.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator8.setForeground(new java.awt.Color(204, 204, 204));
@@ -605,6 +612,11 @@ public class OrderPage extends javax.swing.JFrame {
     private void gotoRegisterImageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoRegisterImageMouseExited
 
     }//GEN-LAST:event_gotoRegisterImageMouseExited
+
+    private void messageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_messageMouseClicked
+       DeliveryNote dNote = new DeliveryNote(this, true, deliveryNote);
+       dNote.setVisible(true);
+    }//GEN-LAST:event_messageMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

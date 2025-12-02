@@ -281,7 +281,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         lblDeliveryFee1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        noteField = new javax.swing.JTextField();
         editAddressLabel2 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -599,14 +599,14 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel2.setText("Message");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 70, 20));
 
-        jTextField1.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField1.setText("Note to Delivery Rider");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        noteField.setForeground(new java.awt.Color(153, 153, 153));
+        noteField.setText("Note to Delivery Rider");
+        noteField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                noteFieldActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 390, 50));
+        jPanel3.add(noteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 390, 50));
 
         editAddressLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editAddressLabel2.setForeground(new java.awt.Color(51, 153, 255));
@@ -899,13 +899,16 @@ public class CheckoutFrame extends javax.swing.JFrame {
                 Float.parseFloat(lblGrandTotal.getText().replace("₱", "")),
                 shippingMethod
         );
+        
+        String deliveryNote = noteField.getText();
 
 // Go to OrderPage directly
         DashboardFrame dbFrame = new DashboardFrame(true, dbManager.retrieveEmailUsingFullName(nameLabel1.getText()));
-        OrderPage orderPage = new OrderPage(dbFrame, order);
+        OrderPage orderPage = new OrderPage(dbFrame, order, deliveryNote);
         System.out.println("UPDATRED EMAIL" + email);
         orderPage.setEmail(email);
 
+        
         this.dispose();
         orderPage.setVisible(true);
 
@@ -940,9 +943,9 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_gotoRegisterImageMouseExited
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void noteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noteFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_noteFieldActionPerformed
 
     private void selectShippingOptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectShippingOptionMouseClicked
         ShippingOptionDialog shipOption = new ShippingOptionDialog(this, true, this);
@@ -1033,7 +1036,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblBaseFee;
     private javax.swing.JLabel lblDeliveryFee;
     private javax.swing.JLabel lblDeliveryFee1;
@@ -1047,6 +1049,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JLabel myCartButton1;
     private javax.swing.JLabel myCartImage;
     public static javax.swing.JLabel nameLabel1;
+    private javax.swing.JTextField noteField;
     private javax.swing.JLabel phoneNumberLabel;
     private javax.swing.JLabel productName1;
     private javax.swing.JLabel productName2;
