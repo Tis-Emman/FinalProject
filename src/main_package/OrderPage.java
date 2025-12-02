@@ -108,6 +108,8 @@ public class OrderPage extends javax.swing.JFrame {
     String fullName = dbManager.getNameByEmail(email);
     String fullAddress = dbManager.retrieveFullAddress(email);
     String phoneNumber = dbManager.retrievePhoneNumber(email);
+    
+        System.out.println(email + "THIS ISSSS!!!");
 
     nameLabel1.setText(fullName != null ? fullName : "");
     addressLabel.setText(fullAddress != null ? fullAddress : "No address set");

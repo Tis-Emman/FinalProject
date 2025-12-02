@@ -23,7 +23,6 @@ public class CartFrame extends javax.swing.JFrame {
 
     JPanel newPanel = new JPanel();
 
-    
     public CartFrame(DatabaseManager db, DashboardFrame dbFrame) {
         initComponents();
         this.db = db;
@@ -718,13 +717,19 @@ public class CartFrame extends javax.swing.JFrame {
             return;
         }
 
-// Proceed to checkout
         CheckoutFrame checkoutFrame = new CheckoutFrame(db, this, email);
-        checkoutFrame.setEmail(email);
+
+// First set cart products
         checkoutFrame.setCartData(
                 include1 ? tempProduct1 : null, quantity1, deliveryFee1,
                 include2 ? tempProduct2 : null, quantity2, deliveryFee2
         );
+
+// Then set shipping AFTER products and email are ready
+        checkoutFrame.setShippingMethod("Delivery");
+        checkoutFrame.setEmail(email);
+
+// Finally, show checkout
         checkoutFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCheckoutActionPerformed

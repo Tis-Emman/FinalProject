@@ -337,7 +337,7 @@ public class AddressDialog extends javax.swing.JDialog {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         //S, B, C, P, Z
 
-        String street = streetField.getText().toString().trim();
+         String street = streetField.getText().toString().trim();
         String barangay = barangayField.getSelectedItem().toString().trim();
         String city = cityField.getSelectedItem().toString().trim();
         String province = provinceField.getText().toString().trim();
