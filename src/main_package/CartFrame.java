@@ -102,7 +102,7 @@ public class CartFrame extends javax.swing.JFrame {
         lblGrandTotal = new javax.swing.JLabel();
         subTotalLabel = new javax.swing.JLabel();
         voucherField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        voucherButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         lblDeliveryFee1 = new javax.swing.JLabel();
@@ -430,12 +430,17 @@ public class CartFrame extends javax.swing.JFrame {
         jPanel3.add(subTotalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 280, 20));
         jPanel3.add(voucherField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 230, 40));
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 153));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("APPLY");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 90, 40));
+        voucherButton.setBackground(new java.awt.Color(0, 153, 153));
+        voucherButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        voucherButton.setForeground(new java.awt.Color(255, 255, 255));
+        voucherButton.setText("APPLY");
+        voucherButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        voucherButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voucherButtonActionPerformed(evt);
+            }
+        });
+        jPanel3.add(voucherButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 90, 40));
 
         jLabel3.setText("Enter Voucher ");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
@@ -471,11 +476,15 @@ public class CartFrame extends javax.swing.JFrame {
     private float deliveryFee1 = 50.0f;
     private float deliveryFee2 = 50.0f;
 
+    private float voucherDiscount = 0f;
+    private boolean isPercent = false;
+
     private Product tempProduct1;
     private Product tempProduct2;
 // Selected products
     private Product selectedProduct1;
     private Product selectedProduct2;
+
 
 // Load product 1
     public void loadProduct1(String productName) {
@@ -575,6 +584,19 @@ public class CartFrame extends javax.swing.JFrame {
         }
 
         float grandTotal = productTotal + deliveryTotal;
+
+        // APPLY VOUCHER HERE
+        if (voucherDiscount > 0) {
+            if (isPercent) {
+                grandTotal -= (grandTotal * voucherDiscount);
+            } else {
+                grandTotal -= voucherDiscount;
+            }
+
+            if (grandTotal < 0) {
+                grandTotal = 0; // prevent negative total
+            }
+        }
 
         subTotalLabel.setText("₱" + String.format("%.2f", productTotal));
         lblDeliveryFee.setText("₱" + String.format("%.2f", deliveryTotal));
@@ -718,6 +740,7 @@ public class CartFrame extends javax.swing.JFrame {
         }
 
         CheckoutFrame checkoutFrame = new CheckoutFrame(db, this, email);
+        checkoutFrame.setVoucher(voucherDiscount, isPercent);
 
 // First set cart products
         checkoutFrame.setCartData(
@@ -750,6 +773,50 @@ public class CartFrame extends javax.swing.JFrame {
         myCartButton.setForeground(new Color(153, 153, 153));
     }//GEN-LAST:event_myCartImageMouseExited
 
+    private void voucherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voucherButtonActionPerformed
+          String code = voucherField.getText().trim().toUpperCase();
+
+        switch (code) {
+            case "IMBROKE":
+                voucherDiscount = 0.10f;  // 10%
+                isPercent = true;
+                JOptionPane.showMessageDialog(this, "Voucher applied: 10% OFF!");
+                break;
+
+            case "POBREAKO":
+                voucherDiscount = 0.15f;  // 15%
+                isPercent = true;
+                JOptionPane.showMessageDialog(this, "Voucher applied: 15% OFF!");
+                break;
+
+            case "DIKOAFFORD":
+                voucherDiscount = 0.20f;  // 20%
+                isPercent = true;
+                JOptionPane.showMessageDialog(this, "Voucher applied: 20% OFF!");
+                break;
+
+            case "MAGSALEKA":
+                voucherDiscount = 50;     // ₱50
+                isPercent = false;
+                JOptionPane.showMessageDialog(this, "Voucher applied: ₱50 OFF!");
+                break;
+
+            case "TAMAAAXXX":
+                voucherDiscount = 100;    // ₱100
+                isPercent = false;
+                JOptionPane.showMessageDialog(this, "Voucher applied: ₱100 OFF!");
+                break;
+
+            default:
+                voucherDiscount = 0;
+                JOptionPane.showMessageDialog(this, "Invalid voucher code!");
+                return;
+        }
+
+        // Recompute total after applying the voucher
+        updateCombinedSubtotal();
+    }//GEN-LAST:event_voucherButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheckout;
@@ -766,7 +833,6 @@ public class CartFrame extends javax.swing.JFrame {
     public javax.swing.JCheckBox checkBoxSlot2;
     private javax.swing.JLabel gotoLandingPanelLogo;
     private javax.swing.JLabel gotoRegisterImage;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -805,6 +871,7 @@ public class CartFrame extends javax.swing.JFrame {
     private javax.swing.JButton removeButton1;
     private javax.swing.JButton removeButton2;
     private javax.swing.JLabel subTotalLabel;
+    private javax.swing.JButton voucherButton;
     private javax.swing.JTextField voucherField;
     private javax.swing.JLabel warningLabel1;
     private javax.swing.JLabel warningLabel2;

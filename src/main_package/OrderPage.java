@@ -146,6 +146,7 @@ public class OrderPage extends javax.swing.JFrame {
         addressLabel = new javax.swing.JLabel();
         nameLabel1 = new javax.swing.JLabel();
         phoneNumberLabel = new javax.swing.JLabel();
+        message = new javax.swing.JLabel();
         lblProd1Qty = new javax.swing.JLabel();
         lblProd1Image = new javax.swing.JLabel();
         lblProd1Price = new javax.swing.JLabel();
@@ -179,7 +180,6 @@ public class OrderPage extends javax.swing.JFrame {
         lblCourierLogo = new javax.swing.JLabel();
         productName19 = new javax.swing.JLabel();
         shippingMethod = new javax.swing.JLabel();
-        message = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         jPanel12 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -316,7 +316,16 @@ public class OrderPage extends javax.swing.JFrame {
         phoneNumberLabel.setText("Contact Number / Email of the user");
         jPanel3.add(phoneNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1180, 110));
+        message.setForeground(new java.awt.Color(100, 156, 255));
+        message.setText("SEE MESSAGE ");
+        message.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                messageMouseClicked(evt);
+            }
+        });
+        jPanel3.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 100, -1, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1180, 120));
 
         lblProd1Qty.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblProd1Qty.setText("x1");
@@ -400,7 +409,7 @@ public class OrderPage extends javax.swing.JFrame {
         productName15.setForeground(new java.awt.Color(51, 51, 51));
         productName15.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         productName15.setText("Order Total");
-        jPanel1.add(productName15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 590, 110, 80));
+        jPanel1.add(productName15, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 580, 110, 90));
 
         productName16.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         productName16.setForeground(new java.awt.Color(51, 51, 51));
@@ -416,6 +425,7 @@ public class OrderPage extends javax.swing.JFrame {
         jSeparator5.setForeground(new java.awt.Color(204, 204, 204));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 1190, 10));
 
+        jSeparator1.setForeground(new java.awt.Color(206, 206, 205));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 10, 290));
 
@@ -481,15 +491,6 @@ public class OrderPage extends javax.swing.JFrame {
         shippingMethod.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         shippingMethod.setText("XXXXX");
         jPanel1.add(shippingMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 460, 340, 40));
-
-        message.setForeground(new java.awt.Color(100, 156, 255));
-        message.setText("SEE MESSAGE ");
-        message.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                messageMouseClicked(evt);
-            }
-        });
-        jPanel1.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 350, -1, -1));
 
         jSeparator8.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator8.setForeground(new java.awt.Color(204, 204, 204));

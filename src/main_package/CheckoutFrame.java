@@ -23,6 +23,16 @@ public class CheckoutFrame extends javax.swing.JFrame {
      */
     private String shippingMethod = "Pickup"; // default
 
+    public void setVoucher(float discount, boolean isPercent) {
+        if (isPercent) {
+            this.voucherDiscountPercent = discount; // assign to the percentage variable
+        } else {
+            this.voucherDiscountPercent = 0f; // ignore peso vouchers
+        }
+
+        updateCombinedSubtotal();
+    }
+
     public void setShippingMethod(String method) {
         if (method == null || (!method.equals("Pickup") && !method.equals("Delivery"))) {
             // invalid method, do nothing
@@ -118,6 +128,11 @@ public class CheckoutFrame extends javax.swing.JFrame {
         loadCartProductsToUI();
     }
 
+    public void refreshAfterAddressUpdate(String email) {
+        setEmail(email);           // reload address + phone + shipping fee
+        updateCombinedSubtotal();  // recalc subtotal + delivery + grand total
+    }
+
     private void loadCartProductsToUI() {
         if (selectedProduct1 != null) {
             productName1.setText(selectedProduct1.getName());
@@ -173,15 +188,27 @@ public class CheckoutFrame extends javax.swing.JFrame {
         }
 
         float deliveryTotal = baseFeeTotal + distanceFeeTotal;
-        float grandTotal = productTotal + deliveryTotal;
+
+// --- APPLY PERCENTAGE VOUCHER ---
+        float discountedProductTotal = productTotal;
+        if (voucherDiscountPercent > 0) { // voucherDiscountPercent is 0.1 for 10%, 0.15 for 15%, etc.
+            discountedProductTotal -= (productTotal * voucherDiscountPercent);
+        }
+
+// GRAND TOTAL = discounted product subtotal + delivery
+        float grandTotal = discountedProductTotal + deliveryTotal;
 
 // Update GUI labels
         subTotalLabel.setText("₱" + String.format("%.2f", productTotal));
         lblBaseFee.setText("₱" + String.format("%.2f", baseFeeTotal));
         lblDistanceFee.setText("₱" + String.format("%.2f", distanceFeeTotal));
         lblDeliveryFee.setText("₱" + String.format("%.2f", deliveryTotal));
+
+        lblDiscount.setText("-" + (int) (voucherDiscountPercent * 100) + "%"); // optional
         lblGrandTotal.setText("₱" + String.format("%.2f", grandTotal));
     }
+
+    private float voucherDiscountPercent = 0f;
 
     private String userAddress;
 
@@ -196,7 +223,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         String fullName = dbManager.getNameByEmail(email);
         String fullAddress = dbManager.retrieveFullAddress(email);
         String phoneNumber = dbManager.retrievePhoneNumber(email);
-        
+
         System.out.println("HERE IT IS");
         System.out.println(fullName);
         System.out.println(fullAddress);
@@ -279,7 +306,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         selectShippingOption = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        lblDeliveryFee1 = new javax.swing.JLabel();
+        lblDiscount = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         noteField = new javax.swing.JTextField();
         editAddressLabel2 = new javax.swing.JLabel();
@@ -590,10 +617,10 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel12.setText("b. Distance Fee . . . . . . . . . . . . . . . . . . . . . . . . . . . .  ");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 520, -1, -1));
 
-        lblDeliveryFee1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblDeliveryFee1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        lblDeliveryFee1.setText("0.00");
-        jPanel3.add(lblDeliveryFee1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 610, 280, 20));
+        lblDiscount.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblDiscount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        lblDiscount.setText("0.00");
+        jPanel3.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 610, 280, 20));
 
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Message");
@@ -658,7 +685,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
         editAddressLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editAddressLabel.setForeground(new java.awt.Color(51, 153, 255));
-        editAddressLabel.setText("Edit");
+        editAddressLabel.setText("Edit Shipping Address");
         editAddressLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         editAddressLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -676,7 +703,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(shippingAddressLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 485, Short.MAX_VALUE)
                 .addComponent(editAddressLabel)
                 .addGap(34, 34, 34))
         );
@@ -899,7 +926,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
                 Float.parseFloat(lblGrandTotal.getText().replace("₱", "")),
                 shippingMethod
         );
-        
+
         String deliveryNote = noteField.getText();
 
 // Go to OrderPage directly
@@ -908,7 +935,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
         System.out.println("UPDATRED EMAIL" + email);
         orderPage.setEmail(email);
 
-        
         this.dispose();
         orderPage.setVisible(true);
 
@@ -954,7 +980,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_selectShippingOptionMouseClicked
 
     private void editAddressLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editAddressLabelMouseClicked
-        AddressDialog s = new AddressDialog(this, true);
+        AddressDialog s = new AddressDialog(this, true, this);
         s.setVisible(true);
     }//GEN-LAST:event_editAddressLabelMouseClicked
 
@@ -1038,7 +1064,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblBaseFee;
     private javax.swing.JLabel lblDeliveryFee;
-    private javax.swing.JLabel lblDeliveryFee1;
+    private javax.swing.JLabel lblDiscount;
     private javax.swing.JLabel lblDistanceFee;
     private javax.swing.JLabel lblGrandTotal;
     public javax.swing.JLabel lblImage1;
