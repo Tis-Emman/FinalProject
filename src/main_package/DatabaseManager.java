@@ -846,6 +846,45 @@ public class DatabaseManager {
 
     }
 
+    public void loadProductsByCategory(JTable table, int categoryFilter) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+
+        String query = "SELECT id, name, category, price, quantity FROM products WHERE category = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, categoryFilter);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int category = rs.getInt("category");
+                float price = rs.getFloat("price");
+                int quantity = rs.getInt("quantity");
+
+                model.addRow(new Object[]{
+                    id,
+                    name,
+                    category,
+                    price,
+                    quantity
+                });
+            }
+
+            // fill empty rows to make table look clean
+            while (model.getRowCount() < 18) {
+                model.addRow(new Object[]{
+                    null, "", "", null, null
+                });
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void deleteProduct(int id) {
         String sql = "DELETE FROM products WHERE id = ?";
 

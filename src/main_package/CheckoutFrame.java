@@ -206,6 +206,8 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
         lblDiscount.setText("-" + (int) (voucherDiscountPercent * 100) + "%"); // optional
         lblGrandTotal.setText("₱" + String.format("%.2f", grandTotal));
+        
+        
     }
 
     private float voucherDiscountPercent = 0f;
@@ -336,12 +338,14 @@ public class CheckoutFrame extends javax.swing.JFrame {
         productPrice1 = new javax.swing.JLabel();
         lblImage1 = new javax.swing.JLabel();
         qty1 = new javax.swing.JLabel();
+        lblTotal1 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         lblImage4 = new javax.swing.JLabel();
         productPrice2 = new javax.swing.JLabel();
         lblImage2 = new javax.swing.JLabel();
         productName2 = new javax.swing.JLabel();
         qty2 = new javax.swing.JLabel();
+        lblTotal2 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -628,6 +632,14 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
         noteField.setForeground(new java.awt.Color(153, 153, 153));
         noteField.setText("Note to Delivery Rider");
+        noteField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                noteFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                noteFieldFocusLost(evt);
+            }
+        });
         noteField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 noteFieldActionPerformed(evt);
@@ -783,6 +795,12 @@ public class CheckoutFrame extends javax.swing.JFrame {
         qty1.setText("0");
         jPanel7.add(qty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
+        lblTotal1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblTotal1.setForeground(new java.awt.Color(215, 118, 25));
+        lblTotal1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal1.setText("0");
+        jPanel7.add(lblTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, -1, -1));
+
         cartPanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 780, 170));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -808,6 +826,12 @@ public class CheckoutFrame extends javax.swing.JFrame {
         qty2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         qty2.setText("0");
         jPanel8.add(qty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 10, -1));
+
+        lblTotal2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblTotal2.setForeground(new java.awt.Color(215, 118, 25));
+        lblTotal2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal2.setText("0");
+        jPanel8.add(lblTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, -1, -1));
 
         cartPanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 780, 190));
 
@@ -984,6 +1008,20 @@ public class CheckoutFrame extends javax.swing.JFrame {
         s.setVisible(true);
     }//GEN-LAST:event_editAddressLabelMouseClicked
 
+    private void noteFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_noteFieldFocusGained
+        if(noteField.getText().equals("Note to Delivery Rider")){
+            noteField.setText("");
+            noteField.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_noteFieldFocusGained
+
+    private void noteFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_noteFieldFocusLost
+        if (noteField.getText().isEmpty()) {
+        noteField.setText("Enter your street");
+        noteField.setForeground(Color.GRAY);
+    }
+    }//GEN-LAST:event_noteFieldFocusLost
+
     private void updatePaymentPanel() {
         if (cashOnDeliverCB.isSelected()) {
             cashOnDeliverPanel.setBorder(BorderFactory.createLineBorder(new Color(51, 153, 255)));
@@ -1071,6 +1109,8 @@ public class CheckoutFrame extends javax.swing.JFrame {
     public javax.swing.JLabel lblImage2;
     public javax.swing.JLabel lblImage4;
     public javax.swing.JLabel lblImage5;
+    public static javax.swing.JLabel lblTotal1;
+    public static javax.swing.JLabel lblTotal2;
     private javax.swing.JLabel myCartButton;
     private javax.swing.JLabel myCartButton1;
     private javax.swing.JLabel myCartImage;
