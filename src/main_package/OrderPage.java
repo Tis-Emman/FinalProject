@@ -44,7 +44,8 @@ public class OrderPage extends javax.swing.JFrame {
         setResizable(false);
 
         setEmail(email);
-
+        
+        
         Listener.addLabelListener(gotoLandingPanel, this, dbFrame);
         orderPlacedLabel.setText(currentTime);
 
@@ -54,7 +55,10 @@ public class OrderPage extends javax.swing.JFrame {
             pickupLabel.setText("(Not used for pickup)");
             lblAssignedCourier.setText("(Not applicable)");
             courierIcon.setIcon(null);
+            message.setVisible(false);
+          
         }
+        
 
     }
 
@@ -659,7 +663,7 @@ public class OrderPage extends javax.swing.JFrame {
     private javax.swing.JLabel lblProd2Price;
     private javax.swing.JLabel lblProd2Qty;
     private javax.swing.JLabel lblSubtotal;
-    private javax.swing.JLabel message;
+    public static javax.swing.JLabel message;
     private javax.swing.JLabel myCartButton;
     private javax.swing.JLabel myCartButton1;
     private javax.swing.JLabel myCartImage;

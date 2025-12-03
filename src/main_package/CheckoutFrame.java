@@ -30,7 +30,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
             this.voucherDiscountPercent = 0f; // ignore peso vouchers
         }
 
-        updateCombinedSubtotal();
+     updateCombinedSubtotal();
     }
 
     public void setShippingMethod(String method) {
@@ -309,7 +309,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         selectShippingOption = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         lblDiscount = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        messageLabel = new javax.swing.JLabel();
         noteField = new javax.swing.JTextField();
         editAddressLabel2 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -318,6 +318,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblDistanceFee = new javax.swing.JLabel();
         lblBaseFee = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         warningLabel2 = new javax.swing.JLabel();
         warningLabel1 = new javax.swing.JLabel();
@@ -582,7 +583,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, 120, 30));
 
         jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
-        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 640, 400, 10));
+        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 400, 10));
 
         jLabel26.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel26.setText("Order Detail");
@@ -617,7 +618,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
                 selectShippingOptionMouseClicked(evt);
             }
         });
-        jPanel3.add(selectShippingOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        jPanel3.add(selectShippingOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(102, 102, 102));
@@ -629,9 +630,9 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblDiscount.setText("0.00");
         jPanel3.add(lblDiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 610, 280, 20));
 
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Message");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 70, 20));
+        messageLabel.setForeground(new java.awt.Color(51, 51, 51));
+        messageLabel.setText("Message");
+        jPanel3.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 70, 20));
 
         noteField.setForeground(new java.awt.Color(153, 153, 153));
         noteField.setText("Note to Delivery Rider");
@@ -648,7 +649,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
                 noteFieldActionPerformed(evt);
             }
         });
-        jPanel3.add(noteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 390, 50));
+        jPanel3.add(noteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 390, 50));
 
         editAddressLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         editAddressLabel2.setForeground(new java.awt.Color(51, 153, 255));
@@ -686,6 +687,9 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel24.setText("Discount");
         jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 60, 30));
+
+        jSeparator4.setForeground(new java.awt.Color(102, 102, 102));
+        jPanel3.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 640, 400, 10));
 
         cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 440, 750));
 
@@ -1036,7 +1040,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
     private void noteFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_noteFieldFocusLost
         if (noteField.getText().isEmpty()) {
-        noteField.setText("Enter your street");
+        noteField.setText("Note to Delivery Rider");
         noteField.setForeground(Color.GRAY);
     }
     }//GEN-LAST:event_noteFieldFocusLost
@@ -1092,7 +1096,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -1122,6 +1125,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblBaseFee;
     private javax.swing.JLabel lblDeliveryFee;
     private javax.swing.JLabel lblDiscount;
@@ -1133,11 +1137,12 @@ public class CheckoutFrame extends javax.swing.JFrame {
     public javax.swing.JLabel lblImage5;
     public static javax.swing.JLabel lblTotal1;
     public static javax.swing.JLabel lblTotal2;
+    public javax.swing.JLabel messageLabel;
     private javax.swing.JLabel myCartButton;
     private javax.swing.JLabel myCartButton1;
     private javax.swing.JLabel myCartImage;
     public static javax.swing.JLabel nameLabel1;
-    private javax.swing.JTextField noteField;
+    public javax.swing.JTextField noteField;
     private javax.swing.JLabel phoneNumberLabel;
     private javax.swing.JLabel productName1;
     private javax.swing.JLabel productName2;

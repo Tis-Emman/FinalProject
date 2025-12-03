@@ -1214,6 +1214,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         jPanel93 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         faqsPanel = new javax.swing.JPanel();
+        jPanel94 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         aboutUsPanel = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
@@ -4047,24 +4048,30 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLayeredPane1.add(privacyPolicyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 540));
 
-        jLabel24.setText("HOLLA");
+        faqsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout faqsPanelLayout = new javax.swing.GroupLayout(faqsPanel);
-        faqsPanel.setLayout(faqsPanelLayout);
-        faqsPanelLayout.setHorizontalGroup(
-            faqsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(faqsPanelLayout.createSequentialGroup()
-                .addContainerGap()
+        jPanel94.setBackground(new java.awt.Color(245, 245, 245));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/about us.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel94Layout = new javax.swing.GroupLayout(jPanel94);
+        jPanel94.setLayout(jPanel94Layout);
+        jPanel94Layout.setHorizontalGroup(
+            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel94Layout.createSequentialGroup()
+                .addGap(170, 170, 170)
                 .addComponent(jLabel24)
-                .addContainerGap(1096, Short.MAX_VALUE))
+                .addContainerGap(318, Short.MAX_VALUE))
         );
-        faqsPanelLayout.setVerticalGroup(
-            faqsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(faqsPanelLayout.createSequentialGroup()
-                .addContainerGap()
+        jPanel94Layout.setVerticalGroup(
+            jPanel94Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel94Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addComponent(jLabel24)
-                .addContainerGap(528, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
+
+        faqsPanel.add(jPanel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, 1040, 560));
 
         jLayeredPane1.add(faqsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 550));
 
@@ -5271,6 +5278,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel91;
     private javax.swing.JPanel jPanel92;
     private javax.swing.JPanel jPanel93;
+    private javax.swing.JPanel jPanel94;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel landingPanel;
     private javax.swing.JButton logoutButton;

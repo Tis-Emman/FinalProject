@@ -29,6 +29,7 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
             pickupRadioButton.setEnabled(true);
             pickupRadioButton.setSelected(true);     // highlight Pickup radio button
             deliveryRadioButton.setSelected(false);  // unselect Delivery
+            checkoutFrame.noteField.setEnabled(false);
         } else {
             deliveryRadioButton.setEnabled(false);
             pickupRadioButton.setEnabled(false);
@@ -192,6 +193,16 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
 
         // Pass shipping method to CheckoutFrame
         checkoutFrame.setShippingMethod(selectedMethod);
+
+        if (pickupRadioButton.isSelected()) {
+            checkoutFrame.noteField.setVisible(false); // hide for pickup
+            checkoutFrame.messageLabel.setVisible(false);
+        } else if (deliveryRadioButton.isSelected()) {
+            checkoutFrame.messageLabel.setVisible(true);
+            checkoutFrame.noteField.setVisible(true);
+            checkoutFrame.noteField.setEnabled(true);
+            checkoutFrame.noteField.setEditable(true);
+        }
 
         // Close the dialog
         this.dispose();
