@@ -50,6 +50,13 @@ public class OrderPage extends javax.swing.JFrame {
         
 
         loadOrderDetails();
+        
+        if(shippingMethod.getText().equalsIgnoreCase("Pickup")){
+            pickupLabel.setText("(Not used for pickup)");
+            lblAssignedCourier.setText("(Not applicable)");
+            courierIcon.setIcon(null);
+        }
+        
 
     }
 
@@ -143,6 +150,7 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         shippingAddressLabel = new javax.swing.JLabel();
         transactionNumberLabel = new javax.swing.JLabel();
+        pickupLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
         nameLabel1 = new javax.swing.JLabel();
         phoneNumberLabel = new javax.swing.JLabel();
@@ -177,10 +185,10 @@ public class OrderPage extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         productName18 = new javax.swing.JLabel();
         lblAssignedCourier = new javax.swing.JLabel();
-        lblCourierLogo = new javax.swing.JLabel();
         productName19 = new javax.swing.JLabel();
         shippingMethod = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
+        courierIcon = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -284,22 +292,27 @@ public class OrderPage extends javax.swing.JFrame {
         transactionNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         transactionNumberLabel.setText("Transaction Number");
 
+        pickupLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(shippingAddressLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 735, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(shippingAddressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76)
+                .addComponent(pickupLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 391, Short.MAX_VALUE)
                 .addComponent(transactionNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(shippingAddressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(shippingAddressLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(transactionNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(transactionNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pickupLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 40));
@@ -419,7 +432,7 @@ public class OrderPage extends javax.swing.JFrame {
 
         jSeparator4.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator4.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 1190, 20));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 1190, 10));
 
         jSeparator5.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator5.setForeground(new java.awt.Color(204, 204, 204));
@@ -471,14 +484,8 @@ public class OrderPage extends javax.swing.JFrame {
         lblAssignedCourier.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblAssignedCourier.setForeground(new java.awt.Color(51, 51, 51));
         lblAssignedCourier.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        lblAssignedCourier.setText("GRAB");
-        jPanel1.add(lblAssignedCourier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 500, 40, 40));
-
-        lblCourierLogo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblCourierLogo.setForeground(new java.awt.Color(51, 51, 51));
-        lblCourierLogo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCourierLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/grab icon.png"))); // NOI18N
-        jPanel1.add(lblCourierLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 500, 30, 40));
+        lblAssignedCourier.setText("Cozy Crate Express");
+        jPanel1.add(lblAssignedCourier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 500, 130, 40));
 
         productName19.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         productName19.setForeground(new java.awt.Color(51, 51, 51));
@@ -495,6 +502,9 @@ public class OrderPage extends javax.swing.JFrame {
         jSeparator8.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator8.setForeground(new java.awt.Color(204, 204, 204));
         jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 1200, 10));
+
+        courierIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cozy crate express icon.png"))); // NOI18N
+        jPanel1.add(courierIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 510, -1, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 1210, 670));
 
@@ -522,8 +532,7 @@ public class OrderPage extends javax.swing.JFrame {
         productName13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         productName13.setText("Order Placed");
 
-        orderPlacedLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        orderPlacedLabel.setForeground(new java.awt.Color(153, 153, 153));
+        orderPlacedLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         orderPlacedLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         orderPlacedLabel.setText("0/0/0");
 
@@ -578,7 +587,7 @@ public class OrderPage extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addContainerGap(39, Short.MAX_VALUE))
+                        .addContainerGap(36, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(productName13)
@@ -622,6 +631,7 @@ public class OrderPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel courierIcon;
     private javax.swing.JLabel gotoLandingPanel;
     private javax.swing.JLabel gotoRegisterImage;
     private javax.swing.JLabel jLabel1;
@@ -644,7 +654,6 @@ public class OrderPage extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel lblAssignedCourier;
-    private javax.swing.JLabel lblCourierLogo;
     private javax.swing.JLabel lblDeliveryFee;
     private javax.swing.JLabel lblGrandTotal;
     private javax.swing.JLabel lblPaymentMethod;
@@ -664,6 +673,7 @@ public class OrderPage extends javax.swing.JFrame {
     public static javax.swing.JLabel nameLabel1;
     private javax.swing.JLabel orderPlacedLabel;
     private javax.swing.JLabel phoneNumberLabel;
+    public static javax.swing.JLabel pickupLabel;
     private javax.swing.JLabel productName11;
     private javax.swing.JLabel productName13;
     private javax.swing.JLabel productName14;

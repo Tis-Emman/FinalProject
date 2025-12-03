@@ -20,6 +20,19 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
         initComponents();
         this.checkoutFrame = frame; // store reference
         setLocationRelativeTo(parent);
+
+        if (CheckoutFrame.selectShippingOption.getText().equalsIgnoreCase("Delivery")) {
+            deliveryRadioButton.setEnabled(true);
+            deliveryRadioButton.setSelected(true);   // highlight the Delivery radio button
+            pickupRadioButton.setSelected(false);    // unselect Pickup
+        } else if (CheckoutFrame.selectShippingOption.getText().equalsIgnoreCase("Pickup")) {
+            pickupRadioButton.setEnabled(true);
+            pickupRadioButton.setSelected(true);     // highlight Pickup radio button
+            deliveryRadioButton.setSelected(false);  // unselect Delivery
+        } else {
+            deliveryRadioButton.setEnabled(false);
+            pickupRadioButton.setEnabled(false);
+        }
     }
 
     /**
@@ -33,31 +46,20 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        deliveryRadioButton = new javax.swing.JRadioButton();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         pickupRadioButton = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        deliveryRadioButton = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        buttonGroup1.add(deliveryRadioButton);
-        deliveryRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        deliveryRadioButton.setForeground(new java.awt.Color(168, 109, 0));
-        deliveryRadioButton.setText("Delivery");
-        deliveryRadioButton.setFocusable(false);
-        deliveryRadioButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deliveryRadioButtonActionPerformed(evt);
-            }
-        });
 
         saveButton.setBackground(new java.awt.Color(159, 133, 85));
         saveButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -96,6 +98,19 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
 
         jLabel3.setText("⏰ Available hours: [9AM–6PM].");
 
+        jSeparator1.setForeground(new java.awt.Color(206, 206, 205));
+
+        buttonGroup1.add(deliveryRadioButton);
+        deliveryRadioButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        deliveryRadioButton.setForeground(new java.awt.Color(168, 109, 0));
+        deliveryRadioButton.setText("Delivery");
+        deliveryRadioButton.setFocusable(false);
+        deliveryRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliveryRadioButtonActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("💸 Shipping fee applies");
 
         jLabel5.setText(" 📦 Estimated delivery: [3–5 days]. ");
@@ -110,23 +125,17 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(deliveryRadioButton)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(pickupRadioButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4))
-                                .addGap(71, 71, 71))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -134,7 +143,17 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(26, 26, 26)
+                .addComponent(deliveryRadioButton)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel4)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel5)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pickupRadioButton)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
@@ -142,16 +161,6 @@ public class ShippingOptionDialog extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deliveryRadioButton)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel6)
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)

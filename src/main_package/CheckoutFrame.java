@@ -317,6 +317,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         lblDistanceFee = new javax.swing.JLabel();
         lblBaseFee = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         warningLabel2 = new javax.swing.JLabel();
         warningLabel1 = new javax.swing.JLabel();
@@ -328,10 +329,11 @@ public class CheckoutFrame extends javax.swing.JFrame {
         phoneNumberLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel5 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblImage5 = new javax.swing.JLabel();
         productName1 = new javax.swing.JLabel();
@@ -351,6 +353,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
 
@@ -574,9 +577,9 @@ public class CheckoutFrame extends javax.swing.JFrame {
         });
         jPanel3.add(btnPlaceOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 690, 400, 40));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel11.setText("Discount");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 90, 30));
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 2, 15)); // NOI18N
+        jLabel11.setText("(Excl. shipping)");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, 120, 30));
 
         jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
         jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 640, 400, 10));
@@ -680,6 +683,10 @@ public class CheckoutFrame extends javax.swing.JFrame {
         lblBaseFee.setToolTipText("");
         jPanel3.add(lblBaseFee, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, 280, 20));
 
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel24.setText("Discount");
+        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 600, 60, 30));
+
         cartPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 20, 440, 750));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -750,11 +757,6 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(245, 245, 245));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(108, 108, 108));
-        jLabel8.setText("Unit Quantity");
-        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 0, -1, 40));
-
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Package 1 of 2 ");
         jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 6, -1, 28));
@@ -767,7 +769,17 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(108, 108, 108));
         jLabel14.setText("Product Price");
-        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, -1, 40));
+        jPanel5.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, -1, 40));
+
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(108, 108, 108));
+        jLabel20.setText("Unit Quantity");
+        jPanel5.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, 40));
+
+        jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(108, 108, 108));
+        jLabel23.setText("Total Unit Price");
+        jPanel5.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, -1, 40));
 
         cartPanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 780, 40));
 
@@ -785,7 +797,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         productPrice1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         productPrice1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         productPrice1.setText("Product Price");
-        jPanel7.add(productPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
+        jPanel7.add(productPrice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
 
         lblImage1.setForeground(new java.awt.Color(204, 204, 204));
         lblImage1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -793,13 +805,13 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
         qty1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         qty1.setText("0");
-        jPanel7.add(qty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+        jPanel7.add(qty1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 20, -1));
 
         lblTotal1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblTotal1.setForeground(new java.awt.Color(215, 118, 25));
         lblTotal1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotal1.setText("0");
-        jPanel7.add(lblTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, -1, -1));
+        jPanel7.add(lblTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 120, -1));
 
         cartPanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 780, 170));
 
@@ -813,7 +825,7 @@ public class CheckoutFrame extends javax.swing.JFrame {
         productPrice2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         productPrice2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         productPrice2.setText("Product Price");
-        jPanel8.add(productPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, 20));
+        jPanel8.add(productPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, 20));
 
         lblImage2.setForeground(new java.awt.Color(204, 204, 204));
         lblImage2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -825,13 +837,13 @@ public class CheckoutFrame extends javax.swing.JFrame {
 
         qty2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         qty2.setText("0");
-        jPanel8.add(qty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 10, -1));
+        jPanel8.add(qty2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 10, -1));
 
         lblTotal2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblTotal2.setForeground(new java.awt.Color(215, 118, 25));
         lblTotal2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotal2.setText("0");
-        jPanel8.add(lblTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 150, -1, -1));
+        jPanel8.add(lblTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 110, -1));
 
         cartPanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 780, 190));
 
@@ -852,6 +864,10 @@ public class CheckoutFrame extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(108, 108, 108));
         jLabel18.setText("Unit Quantity");
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(108, 108, 108));
+        jLabel8.setText("Total Unit Price");
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -861,22 +877,25 @@ public class CheckoutFrame extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addGap(42, 42, 42)
                 .addComponent(jLabel15)
-                .addGap(163, 163, 163)
+                .addGap(79, 79, 79)
                 .addComponent(jLabel16)
-                .addGap(130, 130, 130)
+                .addGap(78, 78, 78)
                 .addComponent(jLabel18)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(35, 35, 35))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         cartPanel.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 780, -1));
@@ -1074,8 +1093,11 @@ public class CheckoutFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;

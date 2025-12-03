@@ -1211,6 +1211,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         privacyPolicyPanel = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
+        jPanel93 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
         faqsPanel = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         aboutUsPanel = new javax.swing.JPanel();
@@ -3183,7 +3185,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         snacksAddToCart1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
         snacksAddToCart1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel84.add(snacksAddToCart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        jPanel84.add(snacksAddToCart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksPanel.add(jPanel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 150, 90));
 
@@ -3293,7 +3295,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         snacksAddToCart7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
         snacksAddToCart7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel89.add(snacksAddToCart7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
+        jPanel89.add(snacksAddToCart7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksPanel.add(jPanel89, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 430, 150, 90));
 
@@ -3337,7 +3339,7 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         snacksAddToCart5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add to cart icon.png"))); // NOI18N
         snacksAddToCart5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel91.add(snacksAddToCart5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        jPanel91.add(snacksAddToCart5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         snacksPanel.add(jPanel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 150, 90));
 
@@ -4019,24 +4021,29 @@ public class DashboardFrame extends javax.swing.JFrame {
 
         jLayeredPane1.add(paymentOptionsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 1260, 550));
 
-        jLabel23.setText("Privacy and Policy Panel");
+        privacyPolicyPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        privacyPolicyPanel.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, -1));
 
-        javax.swing.GroupLayout privacyPolicyPanelLayout = new javax.swing.GroupLayout(privacyPolicyPanel);
-        privacyPolicyPanel.setLayout(privacyPolicyPanelLayout);
-        privacyPolicyPanelLayout.setHorizontalGroup(
-            privacyPolicyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(privacyPolicyPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addContainerGap(1126, Short.MAX_VALUE))
+        jPanel93.setBackground(new java.awt.Color(243, 243, 243));
+
+        jLabel32.setBackground(new java.awt.Color(246, 246, 246));
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/deliveryPartner.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel93Layout = new javax.swing.GroupLayout(jPanel93);
+        jPanel93.setLayout(jPanel93Layout);
+        jPanel93Layout.setHorizontalGroup(
+            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel93Layout.createSequentialGroup()
+                .addContainerGap(151, Short.MAX_VALUE)
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 978, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(141, 141, 141))
         );
-        privacyPolicyPanelLayout.setVerticalGroup(
-            privacyPolicyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(privacyPolicyPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addContainerGap(518, Short.MAX_VALUE))
+        jPanel93Layout.setVerticalGroup(
+            jPanel93Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
+
+        privacyPolicyPanel.add(jPanel93, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1270, 550));
 
         jLayeredPane1.add(privacyPolicyPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 540));
 
@@ -4334,7 +4341,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         FAQsLabel.setBackground(new java.awt.Color(185, 85, 0));
         FAQsLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         FAQsLabel.setForeground(new java.awt.Color(101, 13, 2));
-        FAQsLabel.setText("Delivery Partners");
+        FAQsLabel.setText("About us");
         FAQsLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         FAQsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -4344,12 +4351,12 @@ public class DashboardFrame extends javax.swing.JFrame {
                 FAQsMouseExited(evt);
             }
         });
-        jPanel92.add(FAQsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, -1, -1));
+        jPanel92.add(FAQsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, -1));
 
         privacyPolicyLabel.setBackground(new java.awt.Color(185, 85, 0));
         privacyPolicyLabel.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         privacyPolicyLabel.setForeground(new java.awt.Color(101, 13, 2));
-        privacyPolicyLabel.setText("Privacy & Policy");
+        privacyPolicyLabel.setText("Delivery Partners");
         privacyPolicyLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         privacyPolicyLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -4359,7 +4366,7 @@ public class DashboardFrame extends javax.swing.JFrame {
                 privacyPolicyMouseExited(evt);
             }
         });
-        jPanel92.add(privacyPolicyLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, -1, -1));
+        jPanel92.add(privacyPolicyLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -5162,6 +5169,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -5262,6 +5270,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel90;
     private javax.swing.JPanel jPanel91;
     private javax.swing.JPanel jPanel92;
+    private javax.swing.JPanel jPanel93;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel landingPanel;
     private javax.swing.JButton logoutButton;

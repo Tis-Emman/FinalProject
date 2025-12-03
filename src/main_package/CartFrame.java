@@ -763,22 +763,22 @@ public class CartFrame extends javax.swing.JFrame {
         CheckoutFrame.lblTotal1.setText(total1);
         CheckoutFrame.lblTotal2.setText(total2);
 
-
 // Step 1: directly copy to CheckoutFrame
         CheckoutFrame.lblTotal1.setText(total1);
         CheckoutFrame.lblTotal2.setText(total2);
 
 // Step 2: check if total1 or total2 equals "Total"
-        if (total1.equalsIgnoreCase("Total")) {
-            CheckoutFrame.lblTotal1.setText("0");
+        if (include1) {
+            CheckoutFrame.lblTotal1.setText(lblTotal1.getText());
         } else {
-            CheckoutFrame.lblTotal1.setText(total1);
+            CheckoutFrame.lblTotal1.setText("0");
         }
 
-        if (total2.equalsIgnoreCase("Total")) {
-            CheckoutFrame.lblTotal2.setText("0");
+// Only update total2 if include2 is true, else set it to 0
+        if (include2) {
+            CheckoutFrame.lblTotal2.setText(lblTotal2.getText());
         } else {
-            CheckoutFrame.lblTotal2.setText(total2);
+            CheckoutFrame.lblTotal2.setText("0");
         }
 
 // Finally, show checkout
