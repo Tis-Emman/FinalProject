@@ -26,6 +26,7 @@ public class ViewProductsFrame extends javax.swing.JFrame {
         styleTableHeader();
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         Listener.addLabelListenerDontClose(cozyCrateLogo, this, frame);
+        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +41,7 @@ public class ViewProductsFrame extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         updatePrdctsButton = new javax.swing.JButton();
         cozyCrateLogo = new javax.swing.JLabel();
-        updatePrdctsButton1 = new javax.swing.JButton();
+        addProduct = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         beveragesTable = new javax.swing.JLabel();
         butcheryTable = new javax.swing.JLabel();
@@ -133,18 +134,18 @@ public class ViewProductsFrame extends javax.swing.JFrame {
         cozyCrateLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel1.add(cozyCrateLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 440, -1, 90));
 
-        updatePrdctsButton1.setBackground(new java.awt.Color(169, 122, 98));
-        updatePrdctsButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        updatePrdctsButton1.setForeground(new java.awt.Color(255, 255, 255));
-        updatePrdctsButton1.setText("Add Product");
-        updatePrdctsButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        updatePrdctsButton1.setFocusable(false);
-        updatePrdctsButton1.addActionListener(new java.awt.event.ActionListener() {
+        addProduct.setBackground(new java.awt.Color(169, 122, 98));
+        addProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addProduct.setForeground(new java.awt.Color(255, 255, 255));
+        addProduct.setText("Add Product");
+        addProduct.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addProduct.setFocusable(false);
+        addProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updatePrdctsButton1ActionPerformed(evt);
+                addProductActionPerformed(evt);
             }
         });
-        jPanel1.add(updatePrdctsButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 160, 40));
+        jPanel1.add(addProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 470, 160, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/goto dashboard indicator icon.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 450, -1, -1));
@@ -281,8 +282,8 @@ public class ViewProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void updatePrdctsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrdctsButtonActionPerformed
-        
-        try{
+
+        try {
             int row = productsTable.getSelectedRow();
 
             if (row == -1) {
@@ -318,71 +319,86 @@ public class ViewProductsFrame extends javax.swing.JFrame {
 
             }
             updateFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        } catch(NullPointerException e){
+        } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(this, "Please select a valid row to update");
         }
-       
+
     }//GEN-LAST:event_updatePrdctsButtonActionPerformed
 
-    private void updatePrdctsButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePrdctsButton1ActionPerformed
-        AddProductsFrame addFrame = new AddProductsFrame(this);
+    private int categoryNumber = 1;
+
+
+    private void addProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductActionPerformed
+
+        AddProductsFrame addFrame = new AddProductsFrame(this, categoryNumber);
         addFrame.setVisible(true);
         addFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_updatePrdctsButton1ActionPerformed
+    }//GEN-LAST:event_addProductActionPerformed
 
     private void bakeryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bakeryTableMouseClicked
         dbManager.loadProductsByCategory(productsTable, 2);
         tableNameSetter.setText("Bakery Table (2)");
+        categoryNumber = 2;
     }//GEN-LAST:event_bakeryTableMouseClicked
 
     private void butcheryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_butcheryTableMouseClicked
-       dbManager.loadProductsByCategory(productsTable, 3);
-       tableNameSetter.setText("Butchery Table (3)");
+        dbManager.loadProductsByCategory(productsTable, 3);
+        tableNameSetter.setText("Butchery Table (3)");
+        categoryNumber = 3;
     }//GEN-LAST:event_butcheryTableMouseClicked
 
     private void seafoodsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seafoodsTableMouseClicked
         dbManager.loadProductsByCategory(productsTable, 4);
         tableNameSetter.setText("Seafoods Table (4)");
+        categoryNumber = 4;
     }//GEN-LAST:event_seafoodsTableMouseClicked
 
     private void readyMealsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readyMealsTableMouseClicked
         dbManager.loadProductsByCategory(productsTable, 5);
         tableNameSetter.setText("Ready Meals Table (5)");
+        categoryNumber = 5;
     }//GEN-LAST:event_readyMealsTableMouseClicked
 
     private void vegetablesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vegetablesTableMouseClicked
         dbManager.loadProductsByCategory(productsTable, 6);
         tableNameSetter.setText("Vegetables Table (6)");
+        categoryNumber = 6;
     }//GEN-LAST:event_vegetablesTableMouseClicked
 
     private void fruitsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fruitsTableMouseClicked
         dbManager.loadProductsByCategory(productsTable, 7);
         tableNameSetter.setText("Fruits Table (7)");
+        categoryNumber = 7;
     }//GEN-LAST:event_fruitsTableMouseClicked
 
     private void groceryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_groceryTableMouseClicked
-       dbManager.loadProductsByCategory(productsTable, 8);
-       tableNameSetter.setText("Grocery Table (8)");
+        dbManager.loadProductsByCategory(productsTable, 8);
+        tableNameSetter.setText("Grocery Table (8)");
+        categoryNumber = 8;
     }//GEN-LAST:event_groceryTableMouseClicked
 
     private void snacksTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_snacksTableMouseClicked
         dbManager.loadProductsByCategory(productsTable, 9);
         tableNameSetter.setText("Snacks Table (9)");
+        categoryNumber = 9;
     }//GEN-LAST:event_snacksTableMouseClicked
 
     private void dessertsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dessertsTableMouseClicked
-       dbManager.loadProductsByCategory(productsTable, 10);
+        dbManager.loadProductsByCategory(productsTable, 10);
         tableNameSetter.setText("Desserts Table (10)");
+        categoryNumber = 10;
     }//GEN-LAST:event_dessertsTableMouseClicked
 
     private void beveragesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_beveragesTableMouseClicked
         dbManager.loadProductsByCategory(productsTable, 11);
         tableNameSetter.setText("Beverages Table (11)");
+        categoryNumber = 11;
     }//GEN-LAST:event_beveragesTableMouseClicked
 
     private void loadProductsAllLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadProductsAllLabelMouseClicked
-       dbManager.loadProducts(productsTable); 
-       tableNameSetter.setText("All Category Table");
+        dbManager.loadProducts(productsTable);
+        tableNameSetter.setText("All Category Table");
+        categoryNumber = 1;
     }//GEN-LAST:event_loadProductsAllLabelMouseClicked
 
     private void styleTableHeader() {
@@ -440,6 +456,7 @@ public class ViewProductsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addProduct;
     private javax.swing.JLabel bakeryTable;
     private javax.swing.JLabel beveragesTable;
     private javax.swing.JButton btnDelete;
@@ -459,7 +476,6 @@ public class ViewProductsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel snacksTable;
     private javax.swing.JLabel tableNameSetter;
     private javax.swing.JButton updatePrdctsButton;
-    private javax.swing.JButton updatePrdctsButton1;
     private javax.swing.JLabel vegetablesTable;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,15 +22,15 @@ public class OrderPage extends javax.swing.JFrame {
 
     private String transactionNumber;
     private String deliveryNote;
-    
-     private void generateTransactionNumber() {
+
+    private void generateTransactionNumber() {
         String timestamp = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
         int random = (int) (Math.random() * 900 + 100); // 3-digit random number
         transactionNumber = "TXN-" + timestamp + "-" + random;
 
         transactionNumberLabel.setText(transactionNumber); // show in UI
     }
-     
+
     public OrderPage(DashboardFrame dbFrame, Order order, String deliveryNote) {
 
         this.dbFrame = dbFrame;
@@ -47,16 +47,14 @@ public class OrderPage extends javax.swing.JFrame {
 
         Listener.addLabelListener(gotoLandingPanel, this, dbFrame);
         orderPlacedLabel.setText(currentTime);
-        
 
         loadOrderDetails();
-        
-        if(shippingMethod.getText().equalsIgnoreCase("Pickup")){
+
+        if (shippingMethod.getText().equalsIgnoreCase("Pickup")) {
             pickupLabel.setText("(Not used for pickup)");
             lblAssignedCourier.setText("(Not applicable)");
             courierIcon.setIcon(null);
         }
-        
 
     }
 
@@ -92,37 +90,39 @@ public class OrderPage extends javax.swing.JFrame {
         lblPaymentMethod.setText(order.getPaymentMethod());
         lblDeliveryFee.setText("₱" + order.getDeliveryFee());
         lblSubtotal.setText("₱" + order.getSubtotal());
-        lblGrandTotal.setText("₱" + order.getGrandTotal());    
+        lblGrandTotal.setText(String.format("₱%.2f", order.getGrandTotal()));
         shippingMethod.setText(order.getShippingMethod());
-        
+
         generateTransactionNumber();
-        
+
     }
-    
+
     private ImageIcon loadIcon(String path) {
-    java.net.URL imgURL = getClass().getResource(path);
-    if (imgURL != null) {
-        return new ImageIcon(imgURL);
-    } else {
-        System.out.println("Image not found: " + path);
-        return null;
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.out.println("Image not found: " + path);
+            return null;
+        }
     }
-}
 
     public void setEmail(String email) {
-          if (email == null) return;
+        if (email == null) {
+            return;
+        }
 
-    this.email = email;
+        this.email = email;
 
-    String fullName = dbManager.getNameByEmail(email);
-    String fullAddress = dbManager.retrieveFullAddress(email);
-    String phoneNumber = dbManager.retrievePhoneNumber(email);
-    
+        String fullName = dbManager.getNameByEmail(email);
+        String fullAddress = dbManager.retrieveFullAddress(email);
+        String phoneNumber = dbManager.retrievePhoneNumber(email);
+
         System.out.println(email + "THIS ISSSS!!!");
 
-    nameLabel1.setText(fullName != null ? fullName : "");
-    addressLabel.setText(fullAddress != null ? fullAddress : "No address set");
-    phoneNumberLabel.setText(phoneNumber != null ? phoneNumber : "No phone number");
+        nameLabel1.setText(fullName != null ? fullName : "");
+        addressLabel.setText(fullAddress != null ? fullAddress : "No address set");
+        phoneNumberLabel.setText(phoneNumber != null ? phoneNumber : "No phone number");
 
     }
 
@@ -330,13 +330,13 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel3.add(phoneNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
 
         message.setForeground(new java.awt.Color(100, 156, 255));
-        message.setText("SEE MESSAGE ");
+        message.setText("VIEW DELIVERY NOTE");
         message.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 messageMouseClicked(evt);
             }
         });
-        jPanel3.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 100, -1, -1));
+        jPanel3.add(message, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 50, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 1180, 120));
 
@@ -349,7 +349,6 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(lblProd1Image, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 100, 90));
 
         lblProd1Price.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblProd1Price.setForeground(new java.awt.Color(102, 102, 102));
         lblProd1Price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblProd1Price.setText("0");
         jPanel1.add(lblProd1Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 190, 130, 20));
@@ -377,7 +376,6 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(lblGrandTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 580, 220, 90));
 
         lblProd2Price.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblProd2Price.setForeground(new java.awt.Color(102, 102, 102));
         lblProd2Price.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblProd2Price.setText("0");
         jPanel1.add(lblProd2Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 300, 130, 20));
@@ -403,7 +401,6 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(lblProd1Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 510, -1));
 
         lblPaymentMethod.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblPaymentMethod.setForeground(new java.awt.Color(51, 51, 51));
         lblPaymentMethod.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblPaymentMethod.setText("XXXXX");
         jPanel1.add(lblPaymentMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 540, 340, 40));
@@ -448,7 +445,6 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(productName17, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 390, 60, -1));
 
         lblSubtotal.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblSubtotal.setForeground(new java.awt.Color(51, 51, 51));
         lblSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblSubtotal.setText("XXXXX");
         jPanel1.add(lblSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 380, 340, 40));
@@ -460,7 +456,6 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(productPrice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 1180, 60));
 
         lblDeliveryFee.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblDeliveryFee.setForeground(new java.awt.Color(51, 51, 51));
         lblDeliveryFee.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblDeliveryFee.setText("XXXXX");
         jPanel1.add(lblDeliveryFee, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 420, 340, 40));
@@ -482,7 +477,6 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(productName18, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 380, 80, 40));
 
         lblAssignedCourier.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblAssignedCourier.setForeground(new java.awt.Color(51, 51, 51));
         lblAssignedCourier.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lblAssignedCourier.setText("Cozy Crate Express");
         jPanel1.add(lblAssignedCourier, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 500, 130, 40));
@@ -494,7 +488,6 @@ public class OrderPage extends javax.swing.JFrame {
         jPanel1.add(productName19, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 420, 110, 40));
 
         shippingMethod.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        shippingMethod.setForeground(new java.awt.Color(51, 51, 51));
         shippingMethod.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         shippingMethod.setText("XXXXX");
         jPanel1.add(shippingMethod, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 460, 340, 40));
@@ -624,8 +617,8 @@ public class OrderPage extends javax.swing.JFrame {
     }//GEN-LAST:event_gotoRegisterImageMouseExited
 
     private void messageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_messageMouseClicked
-       DeliveryNote dNote = new DeliveryNote(this, true, deliveryNote);
-       dNote.setVisible(true);
+        DeliveryNote dNote = new DeliveryNote(this, true, deliveryNote);
+        dNote.setVisible(true);
     }//GEN-LAST:event_messageMouseClicked
 
 

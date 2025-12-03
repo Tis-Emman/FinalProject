@@ -363,6 +363,40 @@ public class DatabaseManager {
             return false;
         }
     }
+    
+    public boolean updatePasswordByEmail(String email, String hashedPassword) {
+    String sql = "UPDATE users SET password = ? WHERE email = ?";
+
+    try (Connection conn = DriverManager.getConnection(URL);
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, hashedPassword);
+        pstmt.setString(2, email);
+
+        return pstmt.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+        return false;
+    }
+}
+    
+    public boolean checkEmailExist(String email) {
+    String sql = "SELECT * FROM users WHERE email = ?";
+
+    try (Connection conn = DriverManager.getConnection(URL);
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, email);
+        ResultSet rs = pstmt.executeQuery();
+
+        return rs.next(); // true if found
+
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+        return false;
+    }
+}
 
     public boolean readEmailPass(String email, String password) {
 

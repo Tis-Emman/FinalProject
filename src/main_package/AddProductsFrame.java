@@ -24,13 +24,20 @@ public class AddProductsFrame extends javax.swing.JFrame {
     /**
      * Creates new form AddProductsFrame
      */
-    public AddProductsFrame(ViewProductsFrame parentFrame) {
+    private int categoryNumbers;
+
+    public AddProductsFrame(ViewProductsFrame parentFrame, int categoryNumbers) {
+        initComponents(); // initialize GUI components first
+
         this.parentTableFrame = parentFrame;
-        initComponents();
+        this.categoryNumbers = categoryNumbers;
+
+        lblCategoryNumber.setText(String.valueOf(categoryNumbers)); // ✅ safe now
+        updateCategoryLabel(categoryNumbers);
+
         setResizable(false);
         setLocation(943, 145);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        categoryLabel.setText("New Products");
 
     }
 
@@ -56,7 +63,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         productQuantityField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        categoryNumber = new javax.swing.JLabel();
+        lblCategoryNumber = new javax.swing.JLabel();
         incrementButton = new javax.swing.JButton();
         decrementButton = new javax.swing.JButton();
         categoryLabel = new javax.swing.JLabel();
@@ -141,10 +148,10 @@ public class AddProductsFrame extends javax.swing.JFrame {
         jLabel6.setText("CATEGORY:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 82, -1));
 
-        categoryNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        categoryNumber.setForeground(new java.awt.Color(110, 66, 41));
-        categoryNumber.setText("1");
-        jPanel1.add(categoryNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 30, -1));
+        lblCategoryNumber.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblCategoryNumber.setForeground(new java.awt.Color(110, 66, 41));
+        lblCategoryNumber.setText("1");
+        jPanel1.add(lblCategoryNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 30, -1));
 
         incrementButton.setText("+");
         incrementButton.setFocusable(false);
@@ -232,7 +239,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
             String productName = productNameField.getText().trim();
             String priceText = productPriceField.getText().trim();
             String quantityText = productQuantityField.getText().trim();
-            String categoryText = categoryNumber.getText().trim();
+            String categoryText = lblCategoryNumber.getText().trim();
 
             // Simple validation
             if (productName.isEmpty() || priceText.isEmpty() || quantityText.isEmpty() || categoryText.isEmpty()) {
@@ -321,14 +328,14 @@ public class AddProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void decrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decrementButtonActionPerformed
-        String categoryNum = categoryNumber.getText();
+        String categoryNum = lblCategoryNumber.getText();
         int totalCategoryNum = Integer.parseInt(categoryNum);
 
         if (totalCategoryNum > 1) {
             totalCategoryNum--;
             String show = String.valueOf(totalCategoryNum);
 
-            categoryNumber.setText(show);
+            lblCategoryNumber.setText(show);
         }
 
         if (totalCategoryNum == 1) {
@@ -356,15 +363,56 @@ public class AddProductsFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_decrementButtonActionPerformed
 
+    private void updateCategoryLabel(int num) {
+        switch (num) {
+            case 1:
+                categoryLabel.setText("New Products");
+                break;
+            case 2:
+                categoryLabel.setText("Bakery");
+                break;
+            case 3:
+                categoryLabel.setText("Butchery");
+                break;
+            case 4:
+                categoryLabel.setText("Seafoods");
+                break;
+            case 5:
+                categoryLabel.setText("Ready Meals");
+                break;
+            case 6:
+                categoryLabel.setText("Vegetables");
+                break;
+            case 7:
+                categoryLabel.setText("Fruits");
+                break;
+            case 8:
+                categoryLabel.setText("Grocery");
+                break;
+            case 9:
+                categoryLabel.setText("Snacks");
+                break;
+            case 10:
+                categoryLabel.setText("Desserts");
+                break;
+            case 11:
+                categoryLabel.setText("Wines");
+                break;
+            default:
+                categoryLabel.setText("New Products");
+                break;
+        }
+    }
+
     private void incrementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_incrementButtonActionPerformed
-        String categoryNum = categoryNumber.getText();
+        String categoryNum = lblCategoryNumber.getText();
         int totalCategoryNum = Integer.parseInt(categoryNum);
 
         if (totalCategoryNum < 11) {
             totalCategoryNum++;
             String show = String.valueOf(totalCategoryNum);
 
-            categoryNumber.setText(show);
+            lblCategoryNumber.setText(show);
         }
 
         switch (totalCategoryNum) {
@@ -410,7 +458,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
         productPriceField.setText("");
         productQuantityField.setText("");
 
-        categoryNumber.setText("1");
+        lblCategoryNumber.setText("1");
         categoryLabel.setText("New Products");
 
         lblImagePreview.setIcon(null);
@@ -419,7 +467,6 @@ public class AddProductsFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel categoryLabel;
-    private javax.swing.JLabel categoryNumber;
     private javax.swing.JButton decrementButton;
     private javax.swing.JFileChooser imgSelector;
     private javax.swing.JButton incrementButton;
@@ -430,6 +477,7 @@ public class AddProductsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCategoryNumber;
     private javax.swing.JLabel lblImagePreview;
     private javax.swing.JTextField productNameField;
     private javax.swing.JTextField productPriceField;

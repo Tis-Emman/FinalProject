@@ -75,7 +75,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
         loginWarningLabel = new javax.swing.JLabel();
         loginPasswordTextField = new javax.swing.JPasswordField();
-        jLabel9 = new javax.swing.JLabel();
+        forgotPasswordLabel = new javax.swing.JLabel();
         iconPlatforms = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -450,10 +450,16 @@ public class TestLoginFrame extends javax.swing.JFrame {
         });
         loginPanel.add(loginPasswordTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 270, 40));
 
-        jLabel9.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(30, 30, 30));
-        jLabel9.setText("Forgot Password?");
-        loginPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, -1, 20));
+        forgotPasswordLabel.setFont(new java.awt.Font("MS UI Gothic", 1, 14)); // NOI18N
+        forgotPasswordLabel.setForeground(new java.awt.Color(30, 30, 30));
+        forgotPasswordLabel.setText("Forgot Password?");
+        forgotPasswordLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        forgotPasswordLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forgotPasswordLabelMouseClicked(evt);
+            }
+        });
+        loginPanel.add(forgotPasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, -1, 20));
 
         iconPlatforms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/login icons.png"))); // NOI18N
         loginPanel.add(iconPlatforms, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 560, -1, -1));
@@ -723,6 +729,11 @@ public class TestLoginFrame extends javax.swing.JFrame {
         signUpButton.doClick();
     }//GEN-LAST:event_passConfirmationFieldActionPerformed
 
+    private void forgotPasswordLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPasswordLabelMouseClicked
+        ForgotPasswordDialog fpd = new ForgotPasswordDialog(this, true);
+        fpd.setVisible(true);
+    }//GEN-LAST:event_forgotPasswordLabelMouseClicked
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -736,6 +747,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
     private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel emailWarningLabel;
     private javax.swing.JLabel eyeIcon;
+    private javax.swing.JLabel forgotPasswordLabel;
     private javax.swing.JTextField fullNameTextField;
     private javax.swing.JLabel gotoDashboardLogo;
     public static javax.swing.JButton gotoLoginButton;
@@ -759,7 +771,6 @@ public class TestLoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
