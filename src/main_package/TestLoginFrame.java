@@ -145,7 +145,13 @@ public class TestLoginFrame extends javax.swing.JFrame {
         jPanel1.add(gotoLoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 250, 50));
 
         gotoDashboardLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo - loginXregister (2).png"))); // NOI18N
-        jPanel1.add(gotoDashboardLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 160, 220));
+        gotoDashboardLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        gotoDashboardLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                gotoDashboardLogoMouseClicked(evt);
+            }
+        });
+        jPanel1.add(gotoDashboardLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 180, 260));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(102, 102, 102));
@@ -695,7 +701,7 @@ public class TestLoginFrame extends javax.swing.JFrame {
         } else if (email.isEmpty() || password.isEmpty()) {
             loginWarningLabel.setText("Please, fill out all the fields");
         } else {
-            loginWarningLabel.setText("User not registered!");
+            loginWarningLabel.setText("Wrong email or password");
         }
 
         if (email.equalsIgnoreCase("admin") && password.equals("admin")) {
@@ -733,6 +739,12 @@ public class TestLoginFrame extends javax.swing.JFrame {
         ForgotPasswordDialog fpd = new ForgotPasswordDialog(this, true);
         fpd.setVisible(true);
     }//GEN-LAST:event_forgotPasswordLabelMouseClicked
+
+    private void gotoDashboardLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gotoDashboardLogoMouseClicked
+        DashboardFrame dbFrame = new DashboardFrame(false, null);
+        dbFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_gotoDashboardLogoMouseClicked
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
